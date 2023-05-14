@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("teamApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 
 public class TeamController {
 
@@ -31,6 +31,28 @@ public class TeamController {
     public ResponseEntity changePhoto(@PathVariable Long code, @RequestBody String photo) {
         return this.service.changePhoto(code, photo);
     }
+
+    @GetMapping(path = "/researchTeam/{nameTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity researchTeams(@PathVariable String nameTeam) {
+        String teams = this.service.researchTeams(nameTeam);
+
+        if (teams == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(teams);
+    }
+
+    @GetMapping(path = "/researchTeam", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity researchTeamsRand() {
+        String teams = this.service.researchTeamsRand();
+
+        if (teams == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(teams);
+     }
 
     @GetMapping(path = "history/request/date")
     public ResponseEntity historyRequestDate(@RequestParam("id_team") int id_team, @RequestParam("date") String date) {
@@ -72,6 +94,7 @@ public class TeamController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getUserPrizes(id_team, id_user)
         );
+    }
     
     @GetMapping(path = "/getTeam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTeam(long id){

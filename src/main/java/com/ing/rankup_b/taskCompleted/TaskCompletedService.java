@@ -20,6 +20,10 @@ public class TaskCompletedService {
         this.repository = repository;
     }
 
+    public String researchTask(int idTaskompletata) {
+        return this.repository.findTask(idTaskompletata);
+    }
+  
     public ResponseEntity taskAccepted(int Codice){
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 

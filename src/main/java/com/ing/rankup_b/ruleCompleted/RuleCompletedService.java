@@ -7,12 +7,20 @@ import java.util.ArrayList;
 
 @Service
 public class RuleCompletedService {
-    
+
     @Autowired
     private RuleCompletedRepository repository;
 
     public RuleCompletedService(RuleCompletedRepository repository) {
         this.repository = repository;
+    }
+
+    public String researchRule(int idRegolaCompletata) {
+        return this.repository.findRule(idRegolaCompletata);
+    }
+
+    public String researchUserHistory(int idTeam, String nomeTask) {
+        return this.repository.findUserHistoryT(idTeam, nomeTask);
     }
 
     public ArrayList<Object> getRuleCompleted(int id_team, int id_user, int id_rule_completed) {
@@ -31,6 +39,5 @@ public class RuleCompletedService {
             });
         }
         return rulesCompleted;
-
     }
 }

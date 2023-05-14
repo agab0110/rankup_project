@@ -2,18 +2,21 @@ package com.ing.rankup_b.team;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.ArrayList;
 
-public interface TeamRepository extends JpaRepository<Team, Long>{
+public interface TeamRepository extends JpaRepository<Team, Long> {
+
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1 AND team.name LIKE ?1%", nativeQuery = true)
+    String findByName(String title);
+
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name:', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1 ORDER BY RAND() LIMIT 20;", nativeQuery = true)
+    String rand();
 
     @Query(value = "SELECT user.username, rule.name, rule_completed.timestamp, rule_completed.status FROM rule_completed JOIN user ON rule_completed.id_user = user.id_user JOIN rule ON rule.id_rule = rule_completed.id_rule WHERE rule.team = ?1 AND rule.name LIKE ?2", nativeQuery = true)
     public ArrayList<String> requestHistoryActivityRuleQuery(int id_team, String activity);
 
     @Query(value = "SELECT user.username, task.name, task_completed.timestamp, task_completed.status FROM task_completed JOIN user ON task_completed.id_user = user.id_user JOIN task ON task.id_task = task_completed.task_id_task WHERE task.team = ?1 AND task.name LIKE ?2", nativeQuery = true)
     public ArrayList<String> requestHistoryActivityTaskQuery(int id_team, String activity);
-
-
 
     @Query(value = "SELECT user.username, rule.name, rule_completed.timestamp, rule_completed.status FROM rule_completed JOIN user ON rule_completed.id_user = user.id_user JOIN rule ON rule.id_rule = rule_completed.id_rule WHERE rule.team = ?1 AND rule_completed.revision_date LIKE ?2", nativeQuery = true)
     public ArrayList<String> requestHistoryDateRuleQuery(int id_team, String date);

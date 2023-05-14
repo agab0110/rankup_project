@@ -35,6 +35,14 @@ public class TeamService {
         }
     }
 
+    public String researchTeams(String nameTeam) {
+        return this.repository.findByName(nameTeam);
+    }
+
+    public String researchTeamsRand() {
+        return this.repository.rand();
+    }
+
     public List<Object> getRequestHistoryActivity(int id_team, String activity) {
         ArrayList<String> result_rules = this.repository.requestHistoryActivityRuleQuery(id_team, activity);
         ArrayList<String> result_tasks = this.repository.requestHistoryActivityTaskQuery(id_team, activity);
