@@ -25,7 +25,7 @@ public class PrizeController {
     }
     
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity createPrize(@Valid @RequestBody Prize prize){
-            return this.service.createPrize(prize);
-        }
+    public ResponseEntity createPrize(@Valid @RequestBody Prize prize){
+        return this.service.createPrize(prize);
+    }
 }
