@@ -1,9 +1,12 @@
 package com.ing.rankup_b.adminManageTeam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/adminManageTeamApi")
@@ -16,4 +19,14 @@ public class AdminManageTeamController {
     public AdminManageTeamController(AdminManageTeamService service) {
         this.service = service;
     }
+
+    @PostMapping(path = "addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addAdmin(@RequestBody Map<String,Object> body) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.addAdmin(
+                        Integer.parseInt(body.get("id_team").toString()), Integer.parseInt(body.get("id_user").toString())
+                )
+        );
+    }
+
 }
