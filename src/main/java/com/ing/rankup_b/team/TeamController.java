@@ -1,8 +1,10 @@
 package com.ing.rankup_b.team;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,46 @@ public class TeamController {
         return this.service.changePhoto(code, photo);
     }
 
+    @GetMapping(path = "history/request/date")
+    public ResponseEntity historyRequestDate(@RequestParam("id_team") int id_team, @RequestParam("date") String date) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getRequestHistoryDate(id_team, date)
+        );
+    }
+
+    @GetMapping(path = "history/request/activity")
+    public ResponseEntity historyRequestActivity(@RequestParam("id_team") int id_team, @RequestParam("activity") String activity) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getRequestHistoryActivity(id_team, activity + '%')
+        );
+    }
+
+    @GetMapping(path = "user/completedActivities")
+    public ResponseEntity userCompletedActivities(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getUserCompletedActivities(id_team, id_user)
+        );
+    }
+
+    @GetMapping(path = "admin/completedActivities")
+    public ResponseEntity adminCompletedActivities(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getUserCompletedActivities(id_team, id_user)
+        );
+    }
+
+    @GetMapping(path = "pendingActivities")
+    public ResponseEntity pendingActivities(@RequestParam("id_team") int id_team) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getPendingActivities(id_team)
+        );
+    }
+
+    @GetMapping(path = "user/prizes")
+    public ResponseEntity userPrizes(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getUserPrizes(id_team, id_user)
+        );
     
     @GetMapping(path = "/getTeam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTeam(long id){
@@ -44,6 +86,6 @@ public class TeamController {
 
     @DeleteMapping(path = "/deleteTeam/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteTeam(@PathVariable Long codice) {
-        return this.service.deleteTeam(codice);
+        return this.service.deleteTeam(codice)
     }
 }

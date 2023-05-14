@@ -1,6 +1,8 @@
 package com.ing.rankup_b.prize;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,9 +25,18 @@ public class PrizeController {
     public PrizeController(PrizeService service) {
         this.service = service;
     }
+
+    @GetMapping(path = "user")
+    public ResponseEntity user(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                //this.service.getUserPrize(id_team, id_user)
+                ""
+        );
+    }
     
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity createPrize(@Valid @RequestBody Prize prize){
             return this.service.createPrize(prize);
         }
+
 }
