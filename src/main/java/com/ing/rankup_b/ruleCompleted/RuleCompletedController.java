@@ -32,4 +32,14 @@ public class RuleCompletedController {
 
         return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
     }
+
+    @GetMapping(path = "/history/{idTeam}/{nomeRegola}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity researchUserHistory(@PathVariable int idTeam, @PathVariable String nomeRegola) {
+        String history = this.service.researchUserHistory(idTeam, nomeRegola);
+
+        if (history == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Regola non trovata");
+
+        return ResponseEntity.status(HttpStatus.OK).body(history);
+    }
 }
