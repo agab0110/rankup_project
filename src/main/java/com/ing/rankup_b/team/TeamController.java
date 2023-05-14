@@ -34,7 +34,7 @@ public class TeamController {
     public ResponseEntity researchTeams(@PathVariable String nameTeam) {
         String teams = this.service.researchTeams(nameTeam);
 
-        if (teams.isEmpty())
+        if (teams == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
@@ -44,7 +44,7 @@ public class TeamController {
     public ResponseEntity researchTeamsRand() {
         String teams = this.service.researchTeamsRand();
 
-        if (teams.isEmpty())
+        if (teams == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
