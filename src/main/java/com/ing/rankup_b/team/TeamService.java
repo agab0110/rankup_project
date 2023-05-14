@@ -25,4 +25,11 @@ public class TeamService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore cambio foto");
         }
     }
+
+    public ResponseEntity getTeam(long id){
+        if(this.repository.findById(id) != null){
+            return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(id));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("team non esistente");
+    }
 }
