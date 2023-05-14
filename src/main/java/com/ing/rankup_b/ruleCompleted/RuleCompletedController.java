@@ -1,6 +1,7 @@
 package com.ing.rankup_b.ruleCompleted;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,16 @@ public class RuleCompletedController {
         this.service = service;
     }
 
+    @GetMapping(path ="/ruleAccepted/{id_team}")
+    public ResponseEntity ruleCompleted (@PathVariable int id_team){
+        return this.service.ruleAccepted(id_team);
+    }
+    
+    @GetMapping(path ="/rulerejected/{id_team}")
+    public ResponseEntity ruleRejected (@PathVariable int id_team){
+        return this.service.Rulerejected(id_team);
+    }
+  
     @GetMapping(path = "/request/{idRegolaCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getRuleDelivered(@PathVariable int idRegolaCompletata) {
         String ruleCompleted = this.service.researchRule(idRegolaCompletata);
