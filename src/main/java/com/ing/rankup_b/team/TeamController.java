@@ -3,8 +3,16 @@ package com.ing.rankup_b.team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("teamApi")
@@ -64,5 +72,20 @@ public class TeamController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getUserPrizes(id_team, id_user)
         );
+    
+    @GetMapping(path = "/getTeam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getTeam(long id){
+        return this.service.getTeam(id);
+    }
+
+    
+    @PatchMapping(path = "/changeName/{codice}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changeName(@PathVariable Long codice, @RequestBody String newName) {
+        return this.service.changeName(codice, newName);
+    }
+
+    @DeleteMapping(path = "/deleteTeam/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteTeam(@PathVariable Long codice) {
+        return this.service.deleteTeam(codice)
     }
 }

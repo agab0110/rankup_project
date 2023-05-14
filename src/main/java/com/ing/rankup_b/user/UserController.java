@@ -31,7 +31,7 @@ public class UserController {
         return this.service.newUser(signUpUser);
     }
 
-    @GetMapping(path = "/getAllUsers")
+    @GetMapping(path = "/getAllUsers", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers() {
         return this.service.getAllUsers();
     }

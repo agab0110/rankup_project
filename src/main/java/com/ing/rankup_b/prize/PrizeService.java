@@ -1,6 +1,8 @@
 package com.ing.rankup_b.prize;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,5 +30,9 @@ public class PrizeService {
         }
 
         return prizes;
+    
+    public ResponseEntity createPrize(Prize prize){
+        this.repository.save(prize);
+        return ResponseEntity.status(HttpStatus.OK).body(prize);
     }
 }
