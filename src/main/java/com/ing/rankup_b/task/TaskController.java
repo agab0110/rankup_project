@@ -22,7 +22,7 @@ public class TaskController {
     }
 
     @GetMapping(path = "/tasks/{id_team}")
-    public ResponseEntity ListRule(@PathVariable int id_team) {
+    public ResponseEntity Listtask(@PathVariable int id_team) {
        return this.service.ListTask(id_team);
         
     }
