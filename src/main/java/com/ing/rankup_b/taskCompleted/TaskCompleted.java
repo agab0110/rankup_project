@@ -3,6 +3,7 @@ package com.ing.rankup_b.taskCompleted;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.user.User;
@@ -45,6 +46,7 @@ public class TaskCompleted {
     @OneToOne(cascade = CascadeType.ALL)
     private Task task;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumns(
         {
@@ -54,6 +56,7 @@ public class TaskCompleted {
     )
     private AdminManageTeam admin;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
