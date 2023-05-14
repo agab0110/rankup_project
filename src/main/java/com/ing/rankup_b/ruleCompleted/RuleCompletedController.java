@@ -33,12 +33,12 @@ public class RuleCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
     }
 
-    @GetMapping(path = "/history/{idTeam}/{nomeRegola}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity researchUserHistory(@PathVariable int idTeam, @PathVariable String nomeRegola) {
-        String history = this.service.researchUserHistory(idTeam, nomeRegola);
+    @GetMapping(path = "/history/{idTeam}/{nomeTask}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity researchUserHistory(@PathVariable int idTeam, @PathVariable String nomeTask) {
+        String history = this.service.researchUserHistory(idTeam, nomeTask);
 
         if (history == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Regola non trovata");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Attività non trovata");
 
         return ResponseEntity.status(HttpStatus.OK).body(history);
     }

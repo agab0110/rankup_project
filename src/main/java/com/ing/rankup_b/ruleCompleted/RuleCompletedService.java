@@ -17,7 +17,7 @@ public class RuleCompletedService {
         return this.repository.findRule(idRegolaCompletata);
     }
 
-    public String researchUserHistory(int idTeam, String nomeRegola) {
-        return this.repository.findUserHistoryR(idTeam, nomeRegola) + this.repository.findUserHistoryT(idTeam, nomeRegola);
+    public String researchUserHistory(int idTeam, String nomeTask) {
+        return this.repository.findUserHistoryT(idTeam, nomeTask);
     }
 }
