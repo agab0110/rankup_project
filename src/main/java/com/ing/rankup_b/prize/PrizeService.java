@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class PrizeService {
 
@@ -17,6 +19,7 @@ public class PrizeService {
     public PrizeService(PrizeRepository repository) {
         this.repository = repository;
     }    
+  
     public ResponseEntity  Listprize(int codice){
         List <Prize> prizes = new ArrayList<>();
 
@@ -30,5 +33,25 @@ public class PrizeService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono premi per questo team");
         }
         return ResponseEntity.status(HttpStatus.OK).body(prizes);
+    }
+
+    public ArrayList<Object> getUserPrize(int id_team, int id_user) {
+        ArrayList<String> result = this.repository.userPrizeQuery(id_team, id_user);
+
+        ArrayList<Object> prizes = new ArrayList<Object>();
+
+        for (String r: result) {
+            prizes.add(new Object() {
+                public String name = r.split(",")[0];
+                public int price = Integer.parseInt(r.split(",")[1]);
+            });
+        }
+
+        return prizes;
+    }
+    
+    public ResponseEntity createPrize(Prize prize){
+        this.repository.save(prize);
+        return ResponseEntity.status(HttpStatus.OK).body(prize)
     }
 }

@@ -17,6 +17,7 @@ public class RuleService {
     public RuleService(RuleRepository repository) {
         this.repository = repository;
     }
+  
     public ResponseEntity ListRule(int codice){
         List<Rule> rules = new ArrayList<>();
         
@@ -29,6 +30,10 @@ public class RuleService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono regole per questo team");
         }
         return ResponseEntity.status(HttpStatus.OK).body(rules);
+    }
 
+    public ResponseEntity createRule(Rule rule){
+        this.repository.save(rule);
+        return ResponseEntity.status(HttpStatus.OK).body(rule);
     }
 }
