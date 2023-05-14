@@ -25,4 +25,12 @@ public class TeamService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore cambio foto");
         }
     }
+
+    public String researchTeams(String nameTeam) {
+        return this.repository.findByName(nameTeam);
+    }
+
+    public String researchTeamsRand() {
+        return this.repository.rand();
+    }
 }

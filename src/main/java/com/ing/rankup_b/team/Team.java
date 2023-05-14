@@ -3,6 +3,7 @@ package com.ing.rankup_b.team;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.notification.Notification;
 import com.ing.rankup_b.prize.Prize;
@@ -50,24 +51,30 @@ public class Team {
     private boolean pointVisibility;    //0 non visibili, 1 visibili
 
     @Column(name = "prizes")
+    @JsonIgnore
     @OneToMany(mappedBy = "beloggingTeam")
     private List<Prize> prizes;
 
     @Column(name = "notifications")
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     private List<Notification> notifications;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     @Column(name = "rules")
     private List<Rule> rules;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     @Column(name = "tasks")
     private List<Task> tasks;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     private Set<UserJoinsTeam> userJoinsTeams;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumns(
         {

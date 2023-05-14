@@ -5,11 +5,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RuleCompletedService {
-    
+
     @Autowired
     private RuleCompletedRepository repository;
 
     public RuleCompletedService(RuleCompletedRepository repository) {
         this.repository = repository;
+    }
+
+    public String researchRule(int idRegolaCompletata) {
+        return this.repository.findRule(idRegolaCompletata);
     }
 }

@@ -12,4 +12,8 @@ public class TaskCompletedService {
     public TaskCompletedService(TaskCompletedRepository repository) {
         this.repository = repository;
     }
+
+    public String researchTask(int idTaskompletata) {
+        return this.repository.findTask(idTaskompletata);
+    }
 }
