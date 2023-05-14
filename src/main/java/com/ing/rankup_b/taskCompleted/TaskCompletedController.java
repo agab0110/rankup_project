@@ -32,4 +32,14 @@ public class TaskCompletedController {
 
         return ResponseEntity.status(HttpStatus.OK).body(taskCompleted);
     }
+  
+    @GetMapping(path ="/taskAccepted/{id_team}")
+    public ResponseEntity taskAccepted(@PathVariable int id_team){
+        return this.service.taskAccepted(id_team);
+    }
+
+    @GetMapping(path ="/taskrejected/{id_team}")
+    public ResponseEntity taskrejected(@PathVariable int id_team){
+        return this.service.taskRefused(id_team);
+    }
 }

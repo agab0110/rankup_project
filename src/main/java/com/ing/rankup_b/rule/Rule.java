@@ -17,6 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -35,7 +36,7 @@ public class Rule {
     private String name;
 
     @Column(name = "points")
-    @NotEmpty(message = "Il punteggio non può essere vuoto")
+    @NotNull(message = "Il punteggio non può essere vuoto")
     private int points;
 
     @Column(name = "description")

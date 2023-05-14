@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("ruleCompletedApi")
@@ -27,8 +29,9 @@ public class RuleCompletedController {
     public ResponseEntity getRuleDelivered(@PathVariable int idRegolaCompletata) {
         String ruleCompleted = this.service.researchRule(idRegolaCompletata);
 
-        if (ruleCompleted == null)
+        if (ruleCompleted == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Regola non trovata");
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
     }
@@ -41,5 +44,12 @@ public class RuleCompletedController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Attività non trovata");
 
         return ResponseEntity.status(HttpStatus.OK).body(history);
+    }
+  
+    @GetMapping(path = "user/ruleCompleted")
+    public ResponseEntity ruleCompleted(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user, @RequestParam("id_rule_completed") int id_rule_completed) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getRuleCompleted(id_team, id_user, id_rule_completed)
+        );
     }
 }
