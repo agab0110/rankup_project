@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @Service
 public class TaskService {
-    
+
     @Autowired
     private TaskRepository repository;
 
@@ -20,10 +20,10 @@ public class TaskService {
         this.repository = repository;
     }
 
-    public ResponseEntity ListTask(int Codice){
-        List <Task> tasks = new ArrayList<>();
+    public ResponseEntity ListTask(int Codice) {
+        List<Task> tasks = new ArrayList<>();
 
-        for (Task task : (List<Task>)this.repository.findAll()) {
+        for (Task task : (List<Task>) this.repository.findAll()) {
             if (task.getTeam().getCodice() == Codice) {
                 tasks.add(task);
             }
@@ -34,9 +34,10 @@ public class TaskService {
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
 
-
-    public ArrayList<String> addTask(String task_name, int points, String description, String end_date, int id_team, int id_admin) {
-        ArrayList<String> result = this.repository.addTaskQuery(task_name, points,  description, end_date, id_team, id_admin);
+    public ArrayList<String> addTask(String task_name, int points, String description, String end_date, int id_team,
+            int id_admin) {
+        ArrayList<String> result = this.repository.addTaskQuery(task_name, points, description, end_date, id_team,
+                id_admin);
         return result;
     }
 
@@ -47,9 +48,17 @@ public class TaskService {
 
     public ArrayList<String> addSpecificTasks(ArrayList<Integer> users, ArrayList<Integer> id_task) {
         ArrayList<String> result = new ArrayList<String>();
-        for (Integer user: users) {
+        for (Integer user : users) {
             result = this.repository.addSpecificTasksQuery(user, id_task.get(0));
         }
         return result;
+    }
+
+    /*
+     * N.60
+     * AN
+     */
+    public String getTask(int idTask) {
+        return this.repository.findTask(idTask);
     }
 }

@@ -16,10 +16,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("taskApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 
 public class TaskController {
-    
+
     @Autowired
     private TaskService service;
 
@@ -29,32 +29,46 @@ public class TaskController {
 
     @GetMapping(path = "/tasks/{id_team}")
     public ResponseEntity Listtask(@PathVariable int id_team) {
-       return this.service.ListTask(id_team);
+        return this.service.ListTask(id_team);
     }
 
     @PostMapping(path = "add/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addTask(@RequestBody Map<String,Object> body) {
+    public ResponseEntity addTask(@RequestBody Map<String, Object> body) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addTask(
-                        body.get("task_name").toString(), Integer.parseInt(body.get("points").toString()), body.get("description").toString(), body.get("end_date").toString(), Integer.parseInt(body.get("id_team").toString()), Integer.parseInt(body.get("id_admin").toString())
-                )
-        );
+                        body.get("task_name").toString(), Integer.parseInt(body.get("points").toString()),
+                        body.get("description").toString(), body.get("end_date").toString(),
+                        Integer.parseInt(body.get("id_team").toString()),
+                        Integer.parseInt(body.get("id_admin").toString())));
     }
 
     @GetMapping(path = "checkUsername")
-    public ResponseEntity checkUsername(@RequestParam("username") String username, @RequestParam("id_team") int id_team) {
+    public ResponseEntity checkUsername(@RequestParam("username") String username,
+            @RequestParam("id_team") int id_team) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getCheckUsername(
-                        username, id_team
-                )
-        );
+                        username, id_team));
     }
 
     @PostMapping(path = "add/specificTasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addSpecificTasks(@RequestBody Map<String, ArrayList<Integer>> body) {
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.addSpecificTasks(body.get("users"), body.get("id_task"))
-        );
+                this.service.addSpecificTasks(body.get("users"), body.get("id_task")));
+    }
+
+    /*
+     * N.60
+     * AN
+     */
+    @GetMapping(path = "/task/{idTask}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getRule(@PathVariable int idTask) {
+        String task = this.service.getTask(idTask);
+        
+        if (task == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task non trovata");
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getTask(idTask));
     }
 }
