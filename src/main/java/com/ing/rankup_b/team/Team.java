@@ -79,7 +79,7 @@ public class Team {
     @JoinColumns(
         {
             @JoinColumn(name = "team"),
-            @JoinColumn(name = "user")
+            @JoinColumn(name = "admin")
         }
     )
     private AdminManageTeam creatorAdmin;
