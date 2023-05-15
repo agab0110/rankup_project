@@ -3,6 +3,7 @@ package com.ing.rankup_b.user;
 import java.util.List;
 import java.util.Set;
 
+import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.notification.Notification;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.task.Task;
@@ -77,4 +78,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<UserGetPrize> userGetPrizes;
+
+    @OneToMany(mappedBy = "user")
+    private Set<AdminManageTeam> adminManageTeams;
 }

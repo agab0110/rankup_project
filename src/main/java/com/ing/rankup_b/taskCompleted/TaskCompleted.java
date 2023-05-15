@@ -46,12 +46,7 @@ public class TaskCompleted {
     private Task task;
 
     @ManyToOne
-    @JoinColumns(
-        {
-            @JoinColumn(name = "team"),
-            @JoinColumn(name = "admin")
-        }
-    )
+    @JoinColumn(name = "id_admin")
     private AdminManageTeam admin;
 
     @ManyToOne
