@@ -109,6 +109,6 @@ public class TeamController {
 
     @DeleteMapping(path = "/deleteTeam/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteTeam(@PathVariable Long codice) {
-        return this.service.deleteTeam(codice)
+        return this.service.deleteTeam(codice);
     }
 }
