@@ -74,13 +74,6 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private Set<UserJoinsTeam> userJoinsTeams;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumns(
-        {
-            @JoinColumn(name = "team"),
-            @JoinColumn(name = "user")
-        }
-    )
-    private AdminManageTeam creatorAdmin;
+    @OneToMany(mappedBy = "team")
+    private Set<AdminManageTeam> adminsManageTeam;
 }

@@ -45,12 +45,7 @@ public class RuleCompleted {
     private Rule rule;
 
     @ManyToOne
-    @JoinColumns(
-        {
-            @JoinColumn(name = "team"),
-            @JoinColumn(name = "admin")
-        }
-    )
+    @JoinColumn(name = "id_admin")
     private AdminManageTeam admin;
 
     @ManyToOne

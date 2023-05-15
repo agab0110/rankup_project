@@ -44,12 +44,7 @@ public class Prize {
     private Team beloggingTeam;
 
     @ManyToOne
-    @JoinColumns(
-        {
-            @JoinColumn(name = "team"),
-            @JoinColumn(name = "admin")
-        }
-    )
+    @JoinColumn(name = "id_admin")
     private AdminManageTeam admin;
 
     @OneToMany(mappedBy = "prize")

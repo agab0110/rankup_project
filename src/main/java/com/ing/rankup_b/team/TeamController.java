@@ -27,7 +27,7 @@ public class TeamController {
         this.service = service;
     }
 
-    @PatchMapping(path = "/changePhoto/{code}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/changePhoto/{code}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity changePhoto(@PathVariable Long code, @RequestBody String photo) {
         return this.service.changePhoto(code, photo);
     }
@@ -52,7 +52,7 @@ public class TeamController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
-     }
+    }
 
     @GetMapping(path = "history/request/date")
     public ResponseEntity historyRequestDate(@RequestParam("id_team") int id_team, @RequestParam("date") String date) {
@@ -96,8 +96,8 @@ public class TeamController {
         );
     }
     
-    @GetMapping(path = "/getTeam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getTeam(long id){
+    @GetMapping(path = "/getTeam/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getTeam(@PathVariable Long id){
         return this.service.getTeam(id);
     }
 
