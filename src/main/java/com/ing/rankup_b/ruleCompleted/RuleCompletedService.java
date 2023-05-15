@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
 
+import jakarta.validation.Valid;
+
 @Service
 public class RuleCompletedService {
 
@@ -18,37 +20,37 @@ public class RuleCompletedService {
         this.repository = repository;
     }
 
-    public ResponseEntity ruleAccepted(int Codice){
+    public ResponseEntity ruleAccepted(int Codice) {
         List<RuleCompleted> acceptedrule = new ArrayList<>();
 
-        for (RuleCompleted rule : (List<RuleCompleted>)this.repository.findAll()) {
+        for (RuleCompleted rule : (List<RuleCompleted>) this.repository.findAll()) {
             if (rule.getRule().getTeam().getCodice() == Codice) {
                 if (rule.getStatus() == Status.Accettato) {
                     acceptedrule.add(rule);
                 }
             }
-            
+
         }
-        
-        if(acceptedrule.isEmpty()){
+
+        if (acceptedrule.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessuna regola completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(acceptedrule);
     }
 
-    public ResponseEntity Rulerejected(int Codice){
+    public ResponseEntity Rulerejected(int Codice) {
         List<RuleCompleted> Rejectedrule = new ArrayList<>();
 
-        for (RuleCompleted rule : (List<RuleCompleted>)this.repository.findAll()) {
+        for (RuleCompleted rule : (List<RuleCompleted>) this.repository.findAll()) {
             if (rule.getRule().getTeam().getCodice() == Codice) {
                 if (rule.getStatus() == Status.Rifiutato) {
                     Rejectedrule.add(rule);
                 }
             }
-            
+
         }
-        
-        if(Rejectedrule.isEmpty()){
+
+        if (Rejectedrule.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessuna regola completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(Rejectedrule);
@@ -67,10 +69,11 @@ public class RuleCompletedService {
 
         ArrayList<Object> rulesCompleted = new ArrayList<Object>();
 
-        for (String r: result) {
+        for (String r : result) {
             rulesCompleted.add(new Object() {
                 public String nome = r.split(",")[0];
-                public int points = Integer.parseInt(r.split(",")[1]) + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
+                public int points = Integer.parseInt(r.split(",")[1])
+                        + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
                 public String description = r.split(",")[3];
                 public String comment = r.split(",")[4];
                 public String username = r.split(",")[5];
@@ -78,5 +81,13 @@ public class RuleCompletedService {
             });
         }
         return rulesCompleted;
+    }
+
+    /*
+     * N.59
+     * AN
+     */
+    public RuleCompleted insert(@Valid RuleCompleted ruleCompleted) {
+        return this.repository.save(ruleCompleted);
     }
 }
