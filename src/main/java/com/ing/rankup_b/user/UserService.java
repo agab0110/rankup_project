@@ -44,7 +44,7 @@ public class UserService {
     /**
      * Funzione per effetuare la login
      * 
-     * @param loginUser contine username e password da controllare
+     * @param loginUser contiene username e password da controllare
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
      */
     public ResponseEntity login(User loginUser) {
@@ -54,5 +54,23 @@ public class UserService {
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username o password errati");
+    }
+
+     /**
+     * Funzione per cambiare nomeUtente
+     * 
+     * @param id_user id dell'utente a cui cambiare il nome
+     * @param newName nuovo nome dell'utente
+     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity changeName(int id_user, String newName) {
+        for (User u : (List<User>)this.repository.findAll()) {
+            if (u.getId() == id_user) {
+                u.setName(newName);
+                this.repository.save(u);
+                return ResponseEntity.status(HttpStatus.OK).body(u);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
     }
 }
