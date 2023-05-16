@@ -55,4 +55,15 @@ public class UserService {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username o password errati");
     }
+
+    public ResponseEntity changeNameUser(Long codice, String newName) {
+        for (User u : (List<User>)this.repository.findAll()) {
+            if (u.getId() == codice) {
+                u.setName(newName);
+                this.repository.save(u);
+                return ResponseEntity.status(HttpStatus.OK).body(u);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User non trovato");
+    }
 }
