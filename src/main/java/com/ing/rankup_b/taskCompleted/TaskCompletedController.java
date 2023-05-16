@@ -7,8 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("taskCompletedApi")
@@ -32,7 +36,7 @@ public class TaskCompletedController {
 
         return ResponseEntity.status(HttpStatus.OK).body(taskCompleted);
     }
-  
+
     @GetMapping(path ="/taskAccepted/{id_team}")
     public ResponseEntity taskAccepted(@PathVariable int id_team){
         return this.service.taskAccepted(id_team);
@@ -41,5 +45,14 @@ public class TaskCompletedController {
     @GetMapping(path ="/taskrejected/{id_team}")
     public ResponseEntity taskrejected(@PathVariable int id_team){
         return this.service.taskRefused(id_team);
+    }
+
+    /*
+     * N.61
+     * AN
+     */
+    @PostMapping(path = "/taskCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public TaskCompleted insert(@Valid @RequestBody TaskCompleted taskCompleted) {
+        return this.service.insert(taskCompleted);
     }
 }

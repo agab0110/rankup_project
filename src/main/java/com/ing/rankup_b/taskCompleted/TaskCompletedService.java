@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.taskCompleted.TaskCompleted.Status;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TaskCompletedService {
     
@@ -57,5 +59,13 @@ public class TaskCompletedService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessun task completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(refusedtask);
+    }
+
+    /*
+     * N.61
+     * AN
+     */
+    public TaskCompleted insert(@Valid TaskCompleted taskCompleted) {
+        return this.repository.save(taskCompleted);
     }
 }
