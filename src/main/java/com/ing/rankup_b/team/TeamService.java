@@ -164,7 +164,7 @@ public class TeamService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("team non esistente");
     }
 
-        /**
+    /**
      * Funzione per cambiare il nome di un team
      * 
      * @param codice il codice del team da modificare
