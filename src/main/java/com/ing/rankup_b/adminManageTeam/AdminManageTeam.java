@@ -2,6 +2,7 @@ package com.ing.rankup_b.adminManageTeam;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.prize.Prize;
 import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
@@ -11,8 +12,10 @@ import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -26,9 +29,10 @@ import lombok.Data;
 public class AdminManageTeam {
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    @Column(name = "key")
-    private AdminManageTeamKey key;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_admin")
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "id_team")
@@ -41,20 +45,22 @@ public class AdminManageTeam {
     private User user;
     
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     private Set<Prize> prizes;
 
-    @OneToMany(mappedBy = "creatorAdmin")
-    private Set<Team> teams;
-
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     private Set<Rule> rules;
 
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     private Set<RuleCompleted> rulesCompleted;
 
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     private Set<Task> tasks;
 
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     private Set<TaskCompleted> tasksCompleted;
 }

@@ -13,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -45,12 +44,7 @@ public class RuleCompleted {
     private Rule rule;
 
     @ManyToOne
-    @JoinColumns(
-        {
-            @JoinColumn(name = "team"),
-            @JoinColumn(name = "admin")
-        }
-    )
+    @JoinColumn(name = "id_admin")
     private AdminManageTeam admin;
 
     @ManyToOne

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.ArrayList;
 
-public interface AdminManageTeamRepository extends JpaRepository<AdminManageTeam, AdminManageTeamKey> {
+public interface AdminManageTeamRepository extends JpaRepository<AdminManageTeam, Integer> {
 
     @Query(value = "INSERT INTO user_joins_team (id_user, id_team, accepted, points) VALUES (?2, ?1, 1, 0)", nativeQuery = true)
     public ArrayList<String> addMemberQuery(int id_team, int id_user);
