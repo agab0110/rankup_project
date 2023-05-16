@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("prizeApi")
+@RequestMapping("/prizeApi")
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class PrizeController {
@@ -33,12 +33,11 @@ public class PrizeController {
        return this.service.Listprize(id_team);
     }
 
-    @GetMapping(path = "user")
+    @GetMapping(path = "/user")
     public ResponseEntity user(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                //this.service.getUserPrize(id_team, id_user)
-                ""
-        );
+                this.service.getUserPrize(id_team, id_user)
+        );// TODO: SEGNALARE
     }
     
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

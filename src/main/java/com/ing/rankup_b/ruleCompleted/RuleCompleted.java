@@ -3,6 +3,9 @@ package com.ing.rankup_b.ruleCompleted;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.user.User;
@@ -41,14 +44,17 @@ public class RuleCompleted {
 
     @ManyToOne
     @JoinColumn(name = "id_rule")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Rule rule;
 
     @ManyToOne
     @JoinColumn(name = "id_admin")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Column(name = "revision_date")

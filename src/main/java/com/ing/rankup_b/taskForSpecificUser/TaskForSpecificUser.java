@@ -1,10 +1,10 @@
-package com.ing.rankup_b.userJoinsTeam;
+package com.ing.rankup_b.taskForSpecificUser;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ing.rankup_b.team.Team;
+import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.user.User;
 
 import jakarta.persistence.Column;
@@ -18,12 +18,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "user_joins_team")
-public class UserJoinsTeam {
-    
+@Table(name = "task_for_specific_user")
+public class TaskForSpecificUser {
     @EmbeddedId
     @Column(name = "key")
-    UserJoinsTeamKey key;
+    TaskForSpecificUserKey key;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
@@ -33,15 +32,9 @@ public class UserJoinsTeam {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "id_team")
-    @MapsId("idTeam")
+    @JoinColumn(name = "id_task")
+    @MapsId("idTask")
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Team team;
-
-    @Column(name = "points")
-    private int points;
-
-    @Column(name = "accepted")
-    private boolean accepted;   //0 non accettato, 1 accettato
+    private Task task;
 }

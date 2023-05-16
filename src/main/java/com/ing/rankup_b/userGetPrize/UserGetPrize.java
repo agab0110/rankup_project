@@ -2,6 +2,9 @@ package com.ing.rankup_b.userGetPrize;
 
 import java.util.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.prize.Prize;
 import com.ing.rankup_b.user.User;
@@ -28,12 +31,14 @@ public class UserGetPrize {
     @JoinColumn(name = "id_user")
     @MapsId("idUser")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_prize")
     @MapsId("idPrize")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Prize prize;
 
     @Column(name = "date")

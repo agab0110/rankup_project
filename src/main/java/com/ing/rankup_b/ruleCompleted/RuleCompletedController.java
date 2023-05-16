@@ -25,14 +25,14 @@ public class RuleCompletedController {
         this.service = service;
     }
 
-    @GetMapping(path ="/ruleAccepted/{id_team}")
-    public ResponseEntity ruleCompleted (@PathVariable int id_team){
-        return this.service.ruleAccepted(id_team);
+    @GetMapping(path ="/ruleAccepted/{idTeam}")
+    public ResponseEntity ruleCompleted (@PathVariable int idTeam){
+        return this.service.getRulesAccepted(idTeam);
     }
     
-    @GetMapping(path ="/rulerejected/{id_team}")
-    public ResponseEntity ruleRejected (@PathVariable int id_team){
-        return this.service.Rulerejected(id_team);
+    @GetMapping(path ="/ruleRejected/{idTeam}")
+    public ResponseEntity ruleRejected (@PathVariable int idTeam){
+        return this.service.getRulesRejected(idTeam);
     }
   
     @GetMapping(path = "/request/{idRegolaCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,10 +56,10 @@ public class RuleCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(history);
     }
   
-    @GetMapping(path = "user/ruleCompleted")
-    public ResponseEntity ruleCompleted(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user, @RequestParam("id_rule_completed") int id_rule_completed) {
+    @GetMapping(path = "/user/ruleCompleted")
+    public ResponseEntity ruleCompleted(@RequestParam("idTeam") int idTeam, @RequestParam("idUser") int idUser, @RequestParam("idRuleCompleted") int idRuleCompleted) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getRuleCompleted(id_team, id_user, id_rule_completed)
+                this.service.getRuleCompleted(idTeam, idUser, idRuleCompleted)
         );
     }
 }
