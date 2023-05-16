@@ -1,7 +1,6 @@
 package com.ing.rankup_b.team;
 
 import com.ing.rankup_b.prize.Prize;
-import com.ing.rankup_b.rule.RuleRepository;
 
 import java.util.List;
 
@@ -19,11 +18,9 @@ public class TeamService {
 
     @Autowired
     private TeamRepository repository;
-    private RuleRepository ruleRepository;
 
-    public TeamService(TeamRepository repository, RuleRepository ruleRepository) {
+    public TeamService(TeamRepository repository) {
         this.repository = repository;
-        this.ruleRepository = ruleRepository;
     }
 
     public ResponseEntity changePhoto(Long codiceTeam, String photo) {
