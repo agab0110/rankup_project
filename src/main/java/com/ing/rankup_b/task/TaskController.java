@@ -40,7 +40,7 @@ public class TaskController {
                 this.service.addTask(
                         body.get("task_name").toString(), Integer.parseInt(body.get("points").toString()), body.get("description").toString(), body.get("end_date").toString(), Integer.parseInt(body.get("id_team").toString()), Integer.parseInt(body.get("id_admin").toString())
                 )
-        );
+        );// TODO: SEGNALARE
     }
 
     @GetMapping(path = "checkUsername")
@@ -58,5 +58,5 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addSpecificTasks(body.get("users"), body.get("id_task"))
         );
-    }
+    }// TODO: SEGNALARE
 }

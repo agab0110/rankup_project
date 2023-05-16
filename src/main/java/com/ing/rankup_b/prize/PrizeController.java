@@ -38,7 +38,7 @@ public class PrizeController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 //this.service.getUserPrize(id_team, id_user)
                 ""
-        );
+        );// TODO: SEGNALARE
     }
     
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
