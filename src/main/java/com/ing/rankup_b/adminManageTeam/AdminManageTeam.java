@@ -11,7 +11,6 @@ import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
