@@ -3,6 +3,7 @@ package com.ing.rankup_b.task;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.taskCompleted.TaskCompleted;
 import com.ing.rankup_b.team.Team;
@@ -56,13 +57,16 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "id_team")
+    @JsonIgnore
     private Team team;
     
     @ManyToOne
     @JoinColumn(name = "id_admin")
+    @JsonIgnore
     private AdminManageTeam admin;
 
     @OneToOne(mappedBy = "task")
+    @JsonIgnore
     private TaskCompleted tasksCompleted;
 
     @ManyToMany
@@ -71,5 +75,6 @@ public class Task {
         joinColumns = {@JoinColumn(name = "id_task", referencedColumnName = "id_task")},
         inverseJoinColumns = {@JoinColumn(name = "user", referencedColumnName = "id_user")}
     )
+    @JsonIgnore
     private List<User> specificUsers;
 }

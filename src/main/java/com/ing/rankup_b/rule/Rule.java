@@ -2,6 +2,7 @@ package com.ing.rankup_b.rule;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.team.Team;
@@ -45,13 +46,16 @@ public class Rule {
 
     @ManyToOne
     @JoinColumn(name = "id_team")
+    @JsonIgnore
     private Team team;
 
     @ManyToOne
     @JoinColumn(name = "id_admin")
+    @JsonIgnore
     private AdminManageTeam admin;
 
     @Column(name = "rulesCompleted")
     @OneToMany(mappedBy = "rule")
+    @JsonIgnore
     private List<RuleCompleted> rulesCompleted;
 }

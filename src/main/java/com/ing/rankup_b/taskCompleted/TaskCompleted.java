@@ -3,6 +3,7 @@ package com.ing.rankup_b.taskCompleted;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.user.User;
@@ -43,17 +44,21 @@ public class TaskCompleted {
     private Timestamp timestamp;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Task task;
 
     @ManyToOne
     @JoinColumn(name = "id_admin")
+    @JsonIgnore
     private AdminManageTeam admin;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
+    @JsonIgnore
     private User user;
 
     @Column(name = "revision_date")
+    @JsonIgnore
     private Date revisionDate;
 
     @Column(name = "bonus_points")

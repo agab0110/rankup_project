@@ -1,5 +1,6 @@
 package com.ing.rankup_b.userJoinsTeam;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
 
@@ -24,11 +25,13 @@ public class UserJoinsTeam {
     @ManyToOne
     @JoinColumn(name = "id_user")
     @MapsId("idUser")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_team")
     @MapsId("idTeam")
+    @JsonIgnore
     private Team team;
 
     @Column(name = "points")

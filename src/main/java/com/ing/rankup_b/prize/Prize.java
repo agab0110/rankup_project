@@ -2,6 +2,7 @@ package com.ing.rankup_b.prize;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.userGetPrize.UserGetPrize;
@@ -41,12 +42,15 @@ public class Prize {
 
     @ManyToOne
     @JoinColumn(name = "id_team")
+    @JsonIgnore
     private Team beloggingTeam;
 
     @ManyToOne
     @JoinColumn(name = "id_admin")
+    @JsonIgnore
     private AdminManageTeam admin;
 
     @OneToMany(mappedBy = "prize")
+    @JsonIgnore
     private Set<UserGetPrize> userGetPrizes;
 }
