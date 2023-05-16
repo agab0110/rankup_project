@@ -59,7 +59,7 @@ public class UserService {
     public ResponseEntity changeNameUser(Long codice, String newName) {
         for (User u : (List<User>)this.repository.findAll()) {
             if (u.getId() == codice) {
-                u.setName(newName);
+                u.setUsername(newName);
                 this.repository.save(u);
                 return ResponseEntity.status(HttpStatus.OK).body(u);
             }

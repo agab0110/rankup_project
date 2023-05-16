@@ -29,9 +29,9 @@ public class TaskController {
         this.service = service;
     }
 
-    @GetMapping(path = "/tasks/{id_team}")
-    public ResponseEntity Listtask(@PathVariable int id_team) {
-       return this.service.ListTask(id_team);
+    @GetMapping(path = "/tasks/{idTeam}")
+    public ResponseEntity listTask(@PathVariable long idTeam) {
+       return this.service.listTask(idTeam);
     }
 
     @PostMapping(path = "add/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
