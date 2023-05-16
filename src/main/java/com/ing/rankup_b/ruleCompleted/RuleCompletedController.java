@@ -30,7 +30,7 @@ public class RuleCompletedController {
         return this.service.getRulesAccepted(idTeam);
     }
     
-    @GetMapping(path ="/rulerejected/{idTeam}")
+    @GetMapping(path ="/ruleRejected/{idTeam}")
     public ResponseEntity ruleRejected (@PathVariable int idTeam){
         return this.service.getRulesRejected(idTeam);
     }
