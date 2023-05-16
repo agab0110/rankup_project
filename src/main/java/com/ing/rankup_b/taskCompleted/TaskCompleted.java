@@ -48,7 +48,7 @@ public class TaskCompleted {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_task")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    //@JsonIgnore
     private Task task;
 
     @ManyToOne
