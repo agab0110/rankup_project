@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
 
-import java.util.ArrayList;
-
 @Service
 public class RuleCompletedService {
 
