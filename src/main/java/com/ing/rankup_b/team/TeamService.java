@@ -34,6 +34,11 @@ public class TeamService {
         }
     }
 
+    /**
+     * Funzione per ricercare un team per nome
+     * @param nameTeam il nome del team da ricercare
+     * @return il team trovato
+     */
     public String researchTeams(String nameTeam) {
         return this.repository.findByName(nameTeam);
     }
