@@ -2,15 +2,22 @@ package com.ing.rankup_b.task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.taskCompleted.TaskCompleted;
+import com.ing.rankup_b.taskForSpecificUser.TaskForSpecificUser;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +25,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
@@ -57,23 +65,20 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "id_team")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
     
     @ManyToOne
     @JoinColumn(name = "id_admin")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
 
     @OneToOne(mappedBy = "task")
     @JsonIgnore
     private TaskCompleted tasksCompleted;
 
-    @ManyToMany
-    @JoinTable(
-        name = "TaskForSpecificUser",
-        joinColumns = {@JoinColumn(name = "id_task", referencedColumnName = "id_task")},
-        inverseJoinColumns = {@JoinColumn(name = "user", referencedColumnName = "id_user")}
-    )
+    @OneToMany(mappedBy = "task")
     @JsonIgnore
-    private List<User> specificUsers;
+    private Set<TaskForSpecificUser> taskForSpecificUsers;
 }

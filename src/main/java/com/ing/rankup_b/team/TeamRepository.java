@@ -41,4 +41,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @Query(value = "SELECT user.username, task.name FROM user JOIN task_completed ON user.id_user = task_completed.id_user JOIN task ON task_completed.task_id_task = task.id_task WHERE task_completed.status = 0 AND task.team = ?1 ", nativeQuery = true)
     public ArrayList<String> pendingActivitiesTaskQuery(int id_team);
+
+    @Query(value = "DELETE FROM team WHERE team.id_team = ?1", nativeQuery = true)
+    public void deleteByCodiceTeam(Long codice);
 }

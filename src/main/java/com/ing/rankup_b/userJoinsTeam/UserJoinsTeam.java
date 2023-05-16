@@ -1,5 +1,8 @@
 package com.ing.rankup_b.userJoinsTeam;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
@@ -26,12 +29,14 @@ public class UserJoinsTeam {
     @JoinColumn(name = "id_user")
     @MapsId("idUser")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_team")
     @MapsId("idTeam")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
     @Column(name = "points")

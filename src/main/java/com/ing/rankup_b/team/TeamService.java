@@ -1,6 +1,7 @@
 package com.ing.rankup_b.team;
 
 import com.ing.rankup_b.prize.Prize;
+import com.ing.rankup_b.rule.RuleRepository;
 
 import java.util.List;
 
@@ -18,9 +19,11 @@ public class TeamService {
 
     @Autowired
     private TeamRepository repository;
+    private RuleRepository ruleRepository;
 
-    public TeamService(TeamRepository repository) {
+    public TeamService(TeamRepository repository, RuleRepository ruleRepository) {
         this.repository = repository;
+        this.ruleRepository = ruleRepository;
     }
 
     public ResponseEntity changePhoto(Long codiceTeam, String photo) {
@@ -184,12 +187,21 @@ public class TeamService {
      * @return (200 OK) se l'eliminazione va a buon fine, (400 BAD_REQUEST) altrimenti
      */
     public ResponseEntity deleteTeam(Long codice) {
-        for (Team t : (List<Team>)this.repository.findAll()) {
+        /*for (Team t : (List<Team>)this.repository.findAll()) {
             if (t.getCodice() == codice) {
+                t.getRules().forEach(r -> 
+                {
+                    if(r.getTeam().getCodice() == codice){
+                        t.getRules().remove(r);
+                        this.ruleRepository.delete(r);
+                    }
+                });
                 this.repository.delete(t);
                 return ResponseEntity.status(HttpStatus.OK).body("Team eliminato");
             }
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");*/
+        this.repository.deleteByCodiceTeam(codice);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
     }
 }
