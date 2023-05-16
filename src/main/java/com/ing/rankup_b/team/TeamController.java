@@ -3,7 +3,7 @@ package com.ing.rankup_b.team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -109,6 +109,6 @@ public class TeamController {
 
     @DeleteMapping(path = "/deleteTeam/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteTeam(@PathVariable Long codice) {
-        return this.service.deleteTeam(codice)
+        return this.service.deleteTeam(codice);
     }
 }

@@ -46,4 +46,3 @@ public class PrizeController {
             return this.service.createPrize(prize);
         }
      }
-}
