@@ -63,7 +63,6 @@ public class TaskCompletedService {
 
     /*
      * N.61
-     * AN
      */
     public TaskCompleted insert(@Valid TaskCompleted taskCompleted) {
         return this.repository.save(taskCompleted);

@@ -85,7 +85,6 @@ public class RuleCompletedService {
 
     /*
      * N.59
-     * AN
      */
     public RuleCompleted insert(@Valid RuleCompleted ruleCompleted) {
         return this.repository.save(ruleCompleted);

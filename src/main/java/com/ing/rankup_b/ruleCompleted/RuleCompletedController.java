@@ -71,7 +71,7 @@ public class RuleCompletedController {
      * N.59
      */
     @PostMapping(path = "/ruleCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String insert(@RequestBody Map<String, String> body) {
-        return this.service.insert(body.get("attached").toString(), body.get("status").toString(), body.get("id_rule").toString(), body.get("id_user").toString());
+    public RuleCompleted insert(@RequestBody RuleCompleted ruleCompleted) {
+        return this.service.insert(ruleCompleted);
     }
 }

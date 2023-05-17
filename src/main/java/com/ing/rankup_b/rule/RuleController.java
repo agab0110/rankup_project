@@ -39,7 +39,6 @@ public class RuleController {
 
     /*
      * N.58
-     * AN
      */
     @GetMapping(path = "/rule/{idRule}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getRule(@PathVariable int idRule) {

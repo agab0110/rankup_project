@@ -19,7 +19,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
     
     /*
      * N.60
-     * AN
      */
     @Query(value = "SELECT JSON_OBJECT('taskName',task.name,'points',task.points,'description',task.description) FROM task WHERE task.id_task = ?1", nativeQuery = true)
     String findTask(int idTask);

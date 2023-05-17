@@ -39,7 +39,6 @@ public class RuleService {
 
     /*
      * N.58
-     * AN
      */
     public String getRule(int idRule) {
         return this.repository.findRule(idRule);

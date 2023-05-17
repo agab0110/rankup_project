@@ -54,7 +54,6 @@ public class TaskService {
 
     /*
      * N.60
-     * AN
      */
     public String getTask(int idTask) {
         return this.repository.findTask(idTask);
