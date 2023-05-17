@@ -23,7 +23,7 @@ public class UserGetPrizeService {
      * Funzione per prendere i premi acquistati da un utente in un determinato team
      * @param idTeam il codice del team in cui si acquista il premio
      * @param idUser l'id dell'utente che ha acquistato il premio
-     * @return (400 BAD_REQUEST) nel caso in cui la lista dei premi trovata sia vuota, (200 OK) altrimenti
+     * @return (400 BAD_REQUEST) nel caso in cui la lista dei premi trovata sia vuota, <br>(200 OK) con la lista di premi altrimenti
      */
     public ResponseEntity getUserPrize(long idTeam, int idUser) {
         List<Prize> prizes = new ArrayList<>();
