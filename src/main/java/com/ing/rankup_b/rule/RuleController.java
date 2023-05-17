@@ -26,12 +26,8 @@ public class RuleController {
         this.service = service;
     }
   
-    @GetMapping(path = "/adminRules/{idTeam}")
+    @GetMapping(path = "/rules/{idTeam}")
     public ResponseEntity listRule(@PathVariable int idTeam) {
-        return this.service.listRule(idTeam);
-    }
-    @GetMapping(path = "/UserRules/{idTeam}")
-    public ResponseEntity getListRule(@PathVariable int idTeam) {
         return this.service.listRule(idTeam);
     }
 
