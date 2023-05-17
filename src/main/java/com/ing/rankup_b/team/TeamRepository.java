@@ -31,11 +31,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query(value = "SELECT task.name, task.points, task_completed.bonus_points FROM task_completed JOIN task ON task_completed.task_id_task = task.id_task JOIN user ON user.id_user = task_completed.id_user JOIN team ON team.id_team = task.team WHERE task_completed.status = 1 AND task.team = ?1 AND task_completed.id_user = ?2", nativeQuery = true)
     public ArrayList<String> userCompletedActivitiesTaskQuery(int id_team, int id_user);
 
-
-    @Query(value = "SELECT prize.id_prize, prize.name, prize.price FROM prize JOIN user_get_prize ON prize.id_prize = user_get_prize.id_prize WHERE prize.id_team = ?1 AND user_get_prize.id_user = ?2", nativeQuery = true)
-    public ArrayList<String> userPrizesQuery(int id_team, int id_user);
-
-
     @Query(value = "SELECT user.username, rule.name FROM user JOIN rule_completed ON user.id_user = rule_completed.id_user JOIN rule ON rule_completed.id_rule = rule.id_rule WHERE rule_completed.status = 0 AND rule.team = ?1 ", nativeQuery = true)
     public ArrayList<String> pendingActivitiesRuleQuery(int id_team);
 
