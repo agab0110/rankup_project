@@ -1,6 +1,7 @@
 package com.ing.rankup_b.task;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.OnDelete;
@@ -68,9 +69,10 @@ public class Task {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
 
-    @OneToOne(mappedBy = "task")
+    @Column(name = "tasksCompleted")
+    @OneToMany(mappedBy = "task")
     @JsonIgnore
-    private TaskCompleted tasksCompleted;
+    private List<TaskCompleted> tasksCompleted;
 
     @OneToMany(mappedBy = "task")
     @JsonIgnore
