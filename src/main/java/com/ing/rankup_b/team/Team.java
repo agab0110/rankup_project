@@ -71,6 +71,7 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private Set<UserJoinsTeam> userJoinsTeams;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "team")
     @JsonIgnore
     private Set<AdminManageTeam> adminsManageTeam;
