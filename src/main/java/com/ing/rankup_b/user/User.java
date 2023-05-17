@@ -1,13 +1,13 @@
 package com.ing.rankup_b.user;
 
-import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.notification.Notification;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
-import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.taskCompleted.TaskCompleted;
+import com.ing.rankup_b.taskForSpecificUser.TaskForSpecificUser;
 import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam;
 
@@ -16,7 +16,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -59,26 +58,32 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Column(name = "taskCompleted")
+    @JsonIgnore
     private Set<TaskCompleted> taskCompleted;
 
     @OneToMany(mappedBy = "user")
     @Column(name = "ruleCompleted")
+    @JsonIgnore
     private Set<RuleCompleted> ruleCompleted;
 
     @OneToMany(mappedBy = "user")
     @Column(name = "notidfications")
+    @JsonIgnore
     private Set<Notification> notifications;
 
-    @ManyToMany(mappedBy = "specificUsers")
-    @Column(name = "assigned_tasks")
-    private List<Task> assignedTasks;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<TaskForSpecificUser> tasksForSpecificUser;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<UserJoinsTeam> userJoinsTeams;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<UserGetPrize> userGetPrizes;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<AdminManageTeam> adminManageTeams;
 }

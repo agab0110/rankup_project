@@ -9,14 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ing.rankup_b.rule.Rule;
-
-import jakarta.validation.Valid;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("ruleCompletedApi")
@@ -31,14 +25,14 @@ public class RuleCompletedController {
         this.service = service;
     }
 
-    @GetMapping(path = "/ruleAccepted/{id_team}")
-    public ResponseEntity ruleCompleted(@PathVariable int id_team) {
-        return this.service.ruleAccepted(id_team);
+    @GetMapping(path ="/ruleAccepted/{idTeam}")
+    public ResponseEntity ruleCompleted (@PathVariable int idTeam){
+        return this.service.getRulesAccepted(idTeam);
     }
-
-    @GetMapping(path = "/rulerejected/{id_team}")
-    public ResponseEntity ruleRejected(@PathVariable int id_team) {
-        return this.service.Rulerejected(id_team);
+    
+    @GetMapping(path ="/ruleRejected/{idTeam}")
+    public ResponseEntity ruleRejected (@PathVariable int idTeam){
+        return this.service.getRulesRejected(idTeam);
     }
 
     @GetMapping(path = "/request/{idRegolaCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,20 +55,11 @@ public class RuleCompletedController {
 
         return ResponseEntity.status(HttpStatus.OK).body(history);
     }
-
+  
     @GetMapping(path = "user/ruleCompleted")
-    public ResponseEntity ruleCompleted(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user,
-            @RequestParam("id_rule_completed") int id_rule_completed) {
+    public ResponseEntity ruleCompleted(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user, @RequestParam("id_rule_completed") int id_rule_completed) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getRuleCompleted(id_team, id_user, id_rule_completed));
-    }
-
-    /*
-     * N.59
-     * AN
-     */
-    @PostMapping(path = "/ruleCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RuleCompleted insert(@Valid @RequestBody RuleCompleted ruleCompleted) {
-        return this.service.insert(ruleCompleted);
+                this.service.getRuleCompleted(idTeam, idUser, idRuleCompleted)
+        );
     }
 }

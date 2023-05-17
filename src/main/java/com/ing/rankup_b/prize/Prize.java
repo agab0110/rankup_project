@@ -2,6 +2,9 @@ package com.ing.rankup_b.prize;
 
 import java.util.Set;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.userGetPrize.UserGetPrize;
@@ -12,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -40,13 +42,18 @@ public class Prize {
     private int price;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_team")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Team beloggingTeam;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_admin")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
 
     @OneToMany(mappedBy = "prize")
+    @JsonIgnore
     private Set<UserGetPrize> userGetPrizes;
 }

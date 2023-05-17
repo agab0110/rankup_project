@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -36,10 +38,9 @@ public class TaskController {
     public ResponseEntity addTask(@RequestBody Map<String, Object> body) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addTask(
-                        body.get("task_name").toString(), Integer.parseInt(body.get("points").toString()),
-                        body.get("description").toString(), body.get("end_date").toString(),
-                        Integer.parseInt(body.get("id_team").toString()),
-                        Integer.parseInt(body.get("id_admin").toString())));
+                        body.get("task_name").toString(), Integer.parseInt(body.get("points").toString()), body.get("description").toString(), body.get("end_date").toString(), Integer.parseInt(body.get("id_team").toString()), Integer.parseInt(body.get("id_admin").toString())
+                )
+        );// TODO: SEGNALARE
     }
 
     @GetMapping(path = "checkUsername")
@@ -54,21 +55,7 @@ public class TaskController {
     public ResponseEntity addSpecificTasks(@RequestBody Map<String, ArrayList<Integer>> body) {
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.addSpecificTasks(body.get("users"), body.get("id_task")));
-    }
-
-    /*
-     * N.60
-     * AN
-     */
-    @GetMapping(path = "/task/{idTask}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getRule(@PathVariable int idTask) {
-        String task = this.service.getTask(idTask);
-        
-        if (task == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task non trovata");
-        }
-        
-        return ResponseEntity.status(HttpStatus.OK).body(this.service.getTask(idTask));
-    }
+                this.service.addSpecificTasks(body.get("users"), body.get("id_task"))
+        );
+    }// TODO: SEGNALARE
 }
