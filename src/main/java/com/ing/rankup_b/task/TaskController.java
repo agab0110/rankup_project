@@ -58,4 +58,18 @@ public class TaskController {
                 this.service.addSpecificTasks(body.get("users"), body.get("id_task"))
         );
     }// TODO: SEGNALARE
+
+    /*
+     * N.60
+     */
+    @GetMapping(path = "/task/{idTask}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getRule(@PathVariable int idTask) {
+        String task = this.service.getTask(idTask);
+        
+        if (task == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task non trovata");
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getTask(idTask));
+    }
 }
