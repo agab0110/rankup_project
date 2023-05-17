@@ -73,6 +73,5 @@ public class Team {
 
     @JsonIgnore
     @OneToMany(mappedBy = "team")
-    @JsonIgnore
     private Set<AdminManageTeam> adminsManageTeam;
 }
