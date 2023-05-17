@@ -45,14 +45,12 @@ public class Prize {
     @JsonIgnore
     @JoinColumn(name = "id_team")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Team beloggingTeam;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private AdminManageTeam admin;
 
     @OneToMany(mappedBy = "prize")
