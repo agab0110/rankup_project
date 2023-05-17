@@ -42,4 +42,9 @@ public class TaskCompletedController {
     public ResponseEntity taskRejected(@PathVariable int id_team){
         return this.service.taskRefused(id_team);
     }
+
+    @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")
+    public ResponseEntity getTaskForSpecificUser(long idTeam, int idUser) {
+        return this.service.getTaskForASpecificUser(idTeam, idUser);
+    }
 }
