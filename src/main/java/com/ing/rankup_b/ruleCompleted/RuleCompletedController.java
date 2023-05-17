@@ -59,4 +59,9 @@ public class RuleCompletedController {
     public ResponseEntity ruleCompletedDetails(@PathVariable int idRuleCompleted) {
         return this.service.getRuleCompletedDetails(idRuleCompleted);
     }
+
+    @GetMapping(path = "/getRuleForSpecificUser/{idTeam}/{idUser}")
+    public ResponseEntity getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
+        return this.service.getRuleForASpecificUser(idTeam, idUser);
+    }
 }
