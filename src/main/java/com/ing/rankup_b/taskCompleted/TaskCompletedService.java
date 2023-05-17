@@ -60,6 +60,12 @@ public class TaskCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(refusedtask);
     }
 
+    /**
+     * Funzione per ricercare tutte le task completate da un utente in un determinato team
+     * @param idTeam il team in cui si deve effettuare la ricerca
+     * @param idUser l'utente per cui si deve effettuare la ricerca
+     * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista di task altrimenti
+     */
     public ResponseEntity getTaskForASpecificUser(long idTeam, int idUser) {
         List<Task> tasks = new ArrayList<>();
 
