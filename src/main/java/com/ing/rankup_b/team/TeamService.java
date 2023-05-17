@@ -71,21 +71,6 @@ public class TeamService {
 
     }
 
-    public ArrayList<Prize> getUserPrizes(int id_team, int id_user) {
-        ArrayList<String> result = this.repository.userPrizesQuery(id_team, id_user);
-
-        ArrayList<Prize> prizes = new ArrayList<Prize>();
-
-        for (String r: result) {
-            Prize prize = new Prize();
-            prize.setId(Integer.parseInt(r.split(",")[0]));
-            prize.setName(r.split(",")[1]);
-            prize.setPrice(Integer.parseInt(r.split(",")[2]));
-            prizes.add(prize);
-        }
-        return prizes;
-    }
-
 
     public ArrayList<Object> getUserCompletedActivities(int id_team, int id_user) {
         ArrayList<String> result_rules = this.repository.userCompletedActivitiesRuleQuery(id_team, id_user);

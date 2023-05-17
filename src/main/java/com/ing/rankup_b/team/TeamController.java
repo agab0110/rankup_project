@@ -88,13 +88,6 @@ public class TeamController {
                 this.service.getPendingActivities(id_team)
         );
     }
-
-    @GetMapping(path = "user/prizes")
-    public ResponseEntity userPrizes(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getUserPrizes(id_team, id_user)
-        );
-    }
     
     @GetMapping(path = "/getTeam/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTeam(@PathVariable Long id){
