@@ -1,5 +1,8 @@
 package com.ing.rankup_b.ruleCompleted;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,7 @@ public class RuleCompletedService {
      * N.59
      */
     public RuleCompleted insert(@Valid RuleCompleted ruleCompleted) {
+        ruleCompleted.setTimestamp(Timestamp.from(Instant.now()));
         return this.repository.save(ruleCompleted);
     }
 }
