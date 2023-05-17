@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
 
-import java.util.ArrayList;
-
 @Service
 public class RuleCompletedService {
 
@@ -23,40 +21,40 @@ public class RuleCompletedService {
         this.repository = repository;
     }
 
-    public ResponseEntity ruleAccepted(int Codice){
-        List<RuleCompleted> acceptedrule = new ArrayList<>();
+    public ResponseEntity getRulesAccepted(int teamCode){
+        List<RuleCompleted> acceptedRules = new ArrayList<>();
 
         for (RuleCompleted rule : (List<RuleCompleted>)this.repository.findAll()) {
-            if (rule.getRule().getTeam().getCodice() == Codice) {
+            if (rule.getRule().getTeam().getCodice() == teamCode) {
                 if (rule.getStatus() == Status.Accettato) {
-                    acceptedrule.add(rule);
+                    acceptedRules.add(rule);
                 }
             }
             
         }
         
-        if(acceptedrule.isEmpty()){
+        if(acceptedRules.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessuna regola completato");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(acceptedrule);
+        return ResponseEntity.status(HttpStatus.OK).body(acceptedRules);
     }
 
-    public ResponseEntity Rulerejected(int Codice){
-        List<RuleCompleted> Rejectedrule = new ArrayList<>();
+    public ResponseEntity getRulesRejected(int teamCode){
+        List<RuleCompleted> rejectedRules = new ArrayList<>();
 
         for (RuleCompleted rule : (List<RuleCompleted>)this.repository.findAll()) {
-            if (rule.getRule().getTeam().getCodice() == Codice) {
+            if (rule.getRule().getTeam().getCodice() == teamCode) {
                 if (rule.getStatus() == Status.Rifiutato) {
-                    Rejectedrule.add(rule);
+                    rejectedRules.add(rule);
                 }
             }
             
         }
         
-        if(Rejectedrule.isEmpty()){
+        if(rejectedRules.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessuna regola completato");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(Rejectedrule);
+        return ResponseEntity.status(HttpStatus.OK).body(rejectedRules);
     }
 
     public String researchRule(int idRegolaCompletata) {
