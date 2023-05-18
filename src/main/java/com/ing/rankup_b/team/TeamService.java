@@ -1,7 +1,5 @@
 package com.ing.rankup_b.team;
 
-import com.ing.rankup_b.prize.Prize;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,12 @@ public class TeamService {
         this.repository = repository;
     }
 
+    /**
+     * Funzione per cambiare la foto del team
+     * @param codiceTeam il team di cui cambiare la foto
+     * @param photo la nuova foto
+     * @return (200 OK) se va tutto a buon fine, (400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity changePhoto(Long codiceTeam, String photo) {
         if (photo != null) {
             Team team = this.repository.findById(codiceTeam).get();
@@ -45,30 +49,6 @@ public class TeamService {
 
     public String researchTeamsRand() {
         return this.repository.rand();
-    }
-
-    public List<Object> getRequestHistoryActivity(int id_team, String activity) {
-        ArrayList<String> result_rules = this.repository.requestHistoryActivityRuleQuery(id_team, activity);
-        ArrayList<String> result_tasks = this.repository.requestHistoryActivityTaskQuery(id_team, activity);
-
-        ArrayList<String> result = new ArrayList<String>(result_rules);
-        result.addAll(result_tasks);
-
-        return this.orderActivities(result);
-
-    }
-
-
-    public List<Object> getRequestHistoryDate(int id_team, String date) {
-        ArrayList<String> result_rules = this.repository.requestHistoryDateRuleQuery(id_team, date);
-        ArrayList<String> result_tasks = this.repository.requestHistoryDateTaskQuery(id_team, date);
-
-        ArrayList<String> result = new ArrayList<String>(result_rules);
-        result.addAll(result_tasks);
-
-        return this.orderActivities(result);
-
-
     }
 
 
