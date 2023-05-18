@@ -197,4 +197,11 @@ public class TeamService {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
     }
+
+    /*
+     * N.26
+     */
+    public Team insert(Team team) {
+        return this.repository.save(team);
+    }
 }

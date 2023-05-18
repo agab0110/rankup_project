@@ -1,6 +1,7 @@
 package com.ing.rankup_b.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,5 +47,19 @@ public class UserController {
     @PatchMapping(path = "/changeName/{id_user}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity changeName(@PathVariable int id_user, @RequestBody String newName) {
         return this.service.changeName(id_user, newName);
+    }
+
+    /*
+     * N.51
+     */
+    @GetMapping(path = "/getUser/{id_user}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUser(@PathVariable int id_user) {
+        String user = this.service.getUser(id_user);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User non trovato");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }
