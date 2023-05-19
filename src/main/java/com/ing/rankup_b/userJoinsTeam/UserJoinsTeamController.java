@@ -61,6 +61,11 @@ public class UserJoinsTeamController {
         );
     }
     
+    @GetMapping(path = "/partecipantsPoints/{idTeam}")
+    public ResponseEntity getPartecipantsPoints(@PathVariable long idTeam) {
+        return this.service.findPartecipantsPoints(idTeam);
+    }
+
     @GetMapping(path = "/partecipants/{idTeam}")
     public ResponseEntity getPartecipants(@PathVariable long idTeam) {
         return this.service.findPartecipants(idTeam);

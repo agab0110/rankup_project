@@ -99,12 +99,29 @@ public class UserJoinsTeamService {
 
     }
 
-    public ResponseEntity findPartecipants(long idTeam) {
+    public ResponseEntity findPartecipantsPoints(long idTeam) {
         List<UserJoinsTeam> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {
                 if (u.getStatus() == Status.Accettato) {
                     partecipants.add(u);
+                }
+            }
+        }
+
+        if(partecipants.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(partecipants);
+        }
+    }
+
+    public ResponseEntity findPartecipants(long idTeam) {
+        List<User> partecipants = new ArrayList<>();
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getTeam().getCodice() == idTeam) {
+                if (u.getStatus() == Status.Accettato) {
+                    partecipants.add(u.getUser());
                 }
             }
         }
