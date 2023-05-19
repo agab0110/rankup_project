@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("userJoinsTeamApi")
+@RequestMapping("/userJoinsTeamApi")
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class UserJoinsTeamController {
@@ -34,7 +34,7 @@ public class UserJoinsTeamController {
         return this.service.deleteUserRequest(codeTeam, userId);
     }
 
-    @PostMapping(path = "addMember", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/addMember", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addMember(@RequestBody Map<String,Object> body) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addMember(
@@ -43,7 +43,7 @@ public class UserJoinsTeamController {
         );// TODO: SEGNALARE
     }
 
-    @GetMapping(path = "list/userSearch")
+    @GetMapping(path = "/list/userSearch")
     public ResponseEntity listUserSearch(@RequestParam("username") String username) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getListUserSearch(
@@ -52,7 +52,7 @@ public class UserJoinsTeamController {
         );
     }
 
-    @GetMapping(path = "list/pendingRequests")
+    @GetMapping(path = "/list/pendingRequests")
     public ResponseEntity listPendingRequests(@RequestParam("id_team") int id_team) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getListPendingRequests(
@@ -60,4 +60,10 @@ public class UserJoinsTeamController {
                 )
         );
     }
+    
+    @GetMapping(path = "/partecipants/{idTeam}")
+    public ResponseEntity getPartecipants(@PathVariable long idTeam) {
+        return this.service.findPartecipants(idTeam);
+    }
+
 }
