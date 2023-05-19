@@ -99,6 +99,11 @@ public class UserJoinsTeamService {
 
     }
 
+    /**
+     * Funzione per prendere la lista dei partecipanti ad un team con il punteggio
+     * @param idTeam il team per i partecipanti
+     * @return (200 OK) con la lista dei partecipanti se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity findPartecipantsPoints(long idTeam) {
         List<UserJoinsTeam> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
@@ -116,6 +121,11 @@ public class UserJoinsTeamService {
         }
     }
 
+    /**
+     * Funzione per prendere la lista dei partecipanti ad un team senza punteggio
+     * @param idTeam il team per i partecipanti
+     * @return (200 OK) con la lista dei partecipanti se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity findPartecipants(long idTeam) {
         List<User> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
