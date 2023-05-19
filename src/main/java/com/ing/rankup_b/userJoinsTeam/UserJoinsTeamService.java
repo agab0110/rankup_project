@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.user.User;
+import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -102,7 +103,9 @@ public class UserJoinsTeamService {
         List<User> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {
-                partecipants.add(u.getUser());
+                if (u.getStatus() == Status.Accettato) {
+                    partecipants.add(u.getUser());
+                }
             }
         }
 
