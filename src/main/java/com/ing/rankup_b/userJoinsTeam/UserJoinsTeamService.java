@@ -1,5 +1,6 @@
 package com.ing.rankup_b.userJoinsTeam;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -100,15 +101,14 @@ public class UserJoinsTeamService {
     }
 
     public ResponseEntity findPartecipants(long idTeam) {
-        List<UserJoinsTeam> partecipants = new ArrayList<>();
+        List<User> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {
                 if (u.getStatus() == Status.Accettato) {
-                    partecipants.add(u);
+                    partecipants.add(u.getUser());
                 }
             }
         }
-
         if(partecipants.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
         } else {
