@@ -23,6 +23,12 @@ public class UserJoinsTeamService {
         this.repository = repository;
     }
 
+    /**
+     * Funzione per eliminare una richiesta d'accesso nel team
+     * @param teamCode il team a cui è stato richiesto l'accesso
+     * @param userId l'utente che ha fatto la richiesta
+     * @return (200 OK) se viene eliminata correttamente la richiesta, (400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity deleteUserRequest(Long teamCode, int userId) {
         for (UserJoinsTeam userJoinsTeam : this.repository.findAll()) {
             if (userJoinsTeam.getTeam().getCodice() == teamCode) {
