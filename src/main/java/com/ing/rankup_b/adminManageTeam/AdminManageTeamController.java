@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -24,13 +25,9 @@ public class AdminManageTeamController {
         this.service = service;
     }
 
-    @PostMapping(path = "addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addAdmin(@RequestBody Map<String,Object> body) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.addAdmin(
-                        Integer.parseInt(body.get("id_team").toString()), Integer.parseInt(body.get("id_user").toString())
-                )// TODO: SEGNALARE
-        );
+    @PostMapping(path = "/addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addAdmin(@RequestBody AdminManageTeam manageTeam ) {
+        return service.addAdmin(manageTeam);
     }
 
 }
