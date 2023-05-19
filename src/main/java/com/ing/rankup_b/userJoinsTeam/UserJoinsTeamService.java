@@ -100,11 +100,11 @@ public class UserJoinsTeamService {
     }
 
     public ResponseEntity findPartecipants(long idTeam) {
-        List<User> partecipants = new ArrayList<>();
+        List<UserJoinsTeam> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {
                 if (u.getStatus() == Status.Accettato) {
-                    partecipants.add(u.getUser());
+                    partecipants.add(u);
                 }
             }
         }
