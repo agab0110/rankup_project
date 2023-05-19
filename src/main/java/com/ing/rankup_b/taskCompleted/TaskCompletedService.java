@@ -1,5 +1,7 @@
 package com.ing.rankup_b.taskCompleted;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,14 @@ public class TaskCompletedService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessun task completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(refusedtask);
+    }
+
+    /*
+     * N.33
+     */
+    public String confirmation(int id_task_completed, int status, String comment) {
+        Timestamp revision_date = Timestamp.from(Instant.now());
+        return this.repository.update(revision_date, status, comment, id_task_completed);
     }
 
     /*

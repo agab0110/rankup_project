@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,8 +49,16 @@ public class TaskCompletedController {
     }
 
     /*
+     * N.33
+     */
+    @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
+    public ResponseEntity confirmation(@PathVariable int id_task_completed, @PathVariable int status, @RequestBody String comment) {
+        this.service.confirmation(id_task_completed, status, comment);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    /*
      * N.61
-     * AN
      */
     @PostMapping(path = "/taskCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskCompleted insert(@Valid @RequestBody TaskCompleted taskCompleted) {
