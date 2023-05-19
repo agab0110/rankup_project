@@ -24,7 +24,7 @@ public class AdminManageTeamController {
         this.service = service;
     }
 
-    @PostMapping(path = "addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addAdmin(@RequestBody Map<String,Object> body) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addAdmin(
