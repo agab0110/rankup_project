@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping("taskApi")
-@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
+@RequestMapping("/taskApi")
+@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class TaskController {
 
@@ -29,13 +29,13 @@ public class TaskController {
         this.service = service;
     }
 
-    @GetMapping(path = "/tasks/{id_team}")
-    public ResponseEntity Listtask(@PathVariable int id_team) {
-        return this.service.ListTask(id_team);
+    @GetMapping(path = "/tasks/{idTeam}")
+    public ResponseEntity listTask(@PathVariable long idTeam) {
+       return this.service.listTask(idTeam);
     }
 
-    @PostMapping(path = "add/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addTask(@RequestBody Map<String, Object> body) {
+    @PostMapping(path = "/add/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addTask(@RequestBody Map<String,Object> body) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addTask(
                         body.get("task_name").toString(), Integer.parseInt(body.get("points").toString()), body.get("description").toString(), body.get("end_date").toString(), Integer.parseInt(body.get("id_team").toString()), Integer.parseInt(body.get("id_admin").toString())
@@ -43,15 +43,14 @@ public class TaskController {
         );// TODO: SEGNALARE
     }
 
-    @GetMapping(path = "checkUsername")
-    public ResponseEntity checkUsername(@RequestParam("username") String username,
-            @RequestParam("id_team") int id_team) {
+    @GetMapping(path = "/checkUsername")
+    public ResponseEntity checkUsername(@RequestParam("username") String username, @RequestParam("id_team") int id_team) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getCheckUsername(
                         username, id_team));
     }
 
-    @PostMapping(path = "add/specificTasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/add/specificTasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addSpecificTasks(@RequestBody Map<String, ArrayList<Integer>> body) {
 
         return ResponseEntity.status(HttpStatus.OK).body(

@@ -18,7 +18,7 @@ import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("taskCompletedApi")
+@RequestMapping("/taskCompletedApi")
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class TaskCompletedController {
@@ -65,5 +65,10 @@ public class TaskCompletedController {
     public ResponseEntity confirmation(@PathVariable int idTaskCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
         this.service.confirmation(idTaskCompleted, status, ruleCompleted);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")
+    public ResponseEntity getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
+        return this.service.getTaskForASpecificUser(idTeam, idUser);
     }
 }

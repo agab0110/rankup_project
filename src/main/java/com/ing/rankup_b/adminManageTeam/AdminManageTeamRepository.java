@@ -11,7 +11,7 @@ public interface AdminManageTeamRepository extends JpaRepository<AdminManageTeam
     public ArrayList<String> addMemberQuery(int id_team, int id_user);
 
     @Query(value = "INSERT INTO admin_manage_team (id_team, id_user) VALUES (?1, ?2)", nativeQuery = true)
-    public ArrayList<String> addAdminQuery(int id_team, int id_user);
+    public ArrayList<String> addAdminQuery(Long id_team, int id_user);
 
 
 

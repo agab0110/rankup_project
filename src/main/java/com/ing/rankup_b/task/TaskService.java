@@ -18,11 +18,11 @@ public class TaskService {
         this.repository = repository;
     }
 
-    public ResponseEntity ListTask(int Codice) {
+    public ResponseEntity listTask(Long codice){
         List<Task> tasks = new ArrayList<>();
 
-        for (Task task : (List<Task>) this.repository.findAll()) {
-            if (task.getTeam().getCodice() == Codice) {
+        for (Task task : this.repository.findAll()) {
+            if (task.getTeam().getCodice() == codice) {
                 tasks.add(task);
             }
         }

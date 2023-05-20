@@ -17,12 +17,12 @@ public class RuleService {
     public RuleService(RuleRepository repository) {
         this.repository = repository;
     }
-
-    public ResponseEntity ListRule(int codice) {
+  
+    public ResponseEntity listRule(int teamcode){
         List<Rule> rules = new ArrayList<>();
-
-        for (Rule rule : (List<Rule>) this.repository.findAll()) {
-            if (rule.getTeam().getCodice() == codice) {
+        
+        for (Rule rule : (List<Rule>)this.repository.findAll()) {
+            if (rule.getTeam().getCodice() == teamcode) {
                 rules.add(rule);
             }
         }

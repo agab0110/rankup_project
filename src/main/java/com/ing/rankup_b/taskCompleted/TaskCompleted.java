@@ -63,7 +63,6 @@ public class TaskCompleted {
     private User user;
 
     @Column(name = "revision_date")
-    @JsonIgnore
     private Date revisionDate;
 
     @Column(name = "bonus_points")
