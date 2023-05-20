@@ -93,15 +93,6 @@ public class RuleCompletedService {
             }
         }
 
-        for (String r : result) {
-            rulesCompleted.add(new Object() {
-                public String nome = r.split(",")[0];
-                public int points = Integer.parseInt(r.split(",")[1])
-                        + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
-                public String description = r.split(",")[3];
-                public String comment = r.split(",")[4];
-                public String username = r.split(",")[5];
-
         if (rules.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun task trovato per questo utente");
         } else {
