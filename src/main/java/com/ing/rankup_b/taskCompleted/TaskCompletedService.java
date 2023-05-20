@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.taskCompleted.TaskCompleted.Status;
 
 @Service
@@ -57,5 +58,27 @@ public class TaskCompletedService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessun task completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(refusedtask);
+    }
+
+    /**
+     * Funzione per ricercare tutte le task completate da un utente in un determinato team
+     * @param idTeam il team in cui si deve effettuare la ricerca
+     * @param idUser l'utente per cui si deve effettuare la ricerca
+     * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista di task altrimenti
+     */
+    public ResponseEntity getTaskForASpecificUser(long idTeam, int idUser) {
+        List<Task> tasks = new ArrayList<>();
+
+        for (TaskCompleted t : this.repository.findAll()) {
+            if (t.getTask().getTeam().getCodice() == idTeam && t.getUser().getId() == idUser && t.getStatus() == Status.Accettato) {
+                tasks.add(t.getTask());
+            }
+        }
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun task trovato per questo utente");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(tasks);
+        }
     }
 }

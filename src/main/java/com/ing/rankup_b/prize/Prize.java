@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.team.Team;
@@ -43,15 +42,15 @@ public class Prize {
     private int price;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_team")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Team beloggingTeam;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private AdminManageTeam admin;
 
     @OneToMany(mappedBy = "prize")

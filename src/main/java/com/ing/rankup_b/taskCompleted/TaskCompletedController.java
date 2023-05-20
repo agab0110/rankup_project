@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("taskCompletedApi")
+@RequestMapping("/taskCompletedApi")
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class TaskCompletedController {
@@ -41,5 +41,10 @@ public class TaskCompletedController {
     @GetMapping(path ="/taskRejected/{id_team}")
     public ResponseEntity taskRejected(@PathVariable int id_team){
         return this.service.taskRefused(id_team);
+    }
+
+    @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")
+    public ResponseEntity getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
+        return this.service.getTaskForASpecificUser(idTeam, idUser);
     }
 }

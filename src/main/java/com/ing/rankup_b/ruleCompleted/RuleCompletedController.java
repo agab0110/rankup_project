@@ -7,13 +7,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("ruleCompletedApi")
+@RequestMapping("/ruleCompletedApi")
 @CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 
 public class RuleCompletedController {
@@ -56,10 +57,18 @@ public class RuleCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(history);
     }
   
-    @GetMapping(path = "/user/ruleCompleted")
-    public ResponseEntity ruleCompleted(@RequestParam("idTeam") int idTeam, @RequestParam("idUser") int idUser, @RequestParam("idRuleCompleted") int idRuleCompleted) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getRuleCompleted(idTeam, idUser, idRuleCompleted)
-        );
+    @GetMapping(path = "/user/ruleCompletedDetails/{idRuleCompleted}")
+    public ResponseEntity ruleCompletedDetails(@PathVariable int idRuleCompleted) {
+        return this.service.getRuleCompletedDetails(idRuleCompleted);
     }
+
+    @GetMapping(path = "/getRuleForSpecificUser/{idTeam}/{idUser}")
+    public ResponseEntity getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
+        return this.service.getRuleForASpecificUser(idTeam, idUser);
+    }
+
+    @PatchMapping(path = "/acceptance/{idRuleCompleted}")
+    public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment, @RequestParam int bonusPoints, @RequestParam int status) {
+        return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);
+    } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio: rule completed service
 }

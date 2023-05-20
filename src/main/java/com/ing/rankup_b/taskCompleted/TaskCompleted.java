@@ -45,10 +45,9 @@ public class TaskCompleted {
     @GeneratedValue(strategy = GenerationType.AUTO) //da verificare
     private Timestamp timestamp;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_task")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    //@JsonIgnore
     private Task task;
 
     @ManyToOne

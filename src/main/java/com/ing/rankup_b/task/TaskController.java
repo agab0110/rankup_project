@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping("taskApi")
+@RequestMapping("/taskApi")
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class TaskController {
@@ -34,7 +34,7 @@ public class TaskController {
        return this.service.listTask(idTeam);
     }
 
-    @PostMapping(path = "add/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/add/task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addTask(@RequestBody Map<String,Object> body) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.addTask(
@@ -43,7 +43,7 @@ public class TaskController {
         );// TODO: SEGNALARE
     }
 
-    @GetMapping(path = "checkUsername")
+    @GetMapping(path = "/checkUsername")
     public ResponseEntity checkUsername(@RequestParam("username") String username, @RequestParam("id_team") int id_team) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getCheckUsername(
@@ -52,7 +52,7 @@ public class TaskController {
         );
     }
 
-    @PostMapping(path = "add/specificTasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/add/specificTasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addSpecificTasks(@RequestBody Map<String, ArrayList<Integer>> body) {
 
         return ResponseEntity.status(HttpStatus.OK).body(
