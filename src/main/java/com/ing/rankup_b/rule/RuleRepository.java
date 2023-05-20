@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface RuleRepository extends JpaRepository<Rule, Integer> {
 
-    /*
-     * N.58
-     */
     @Query(value = "SELECT JSON_OBJECT('ruleName',rule.name,'points',rule.points,'description',rule.description) FROM rule WHERE rule.id_rule = ?1", nativeQuery = true)
     String findRule(int idRegolaCompletata);
 }

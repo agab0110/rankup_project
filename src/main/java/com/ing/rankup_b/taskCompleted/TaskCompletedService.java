@@ -77,11 +77,4 @@ public class TaskCompletedService {
         Timestamp revision_date = Timestamp.from(Instant.now());
         return this.repository.update(revision_date, status, comment, id_task_completed);
     }
-
-    /*
-     * N.61
-     */
-    public TaskCompleted insert(@Valid TaskCompleted taskCompleted) {
-        return this.repository.save(taskCompleted);
-    }
 }

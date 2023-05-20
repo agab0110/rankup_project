@@ -49,7 +49,7 @@ public class TaskCompletedController {
     }
 
     /*
-     * N.25
+     * N.25 
      */
     @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getPending(@PathVariable int id_team) {
@@ -63,13 +63,5 @@ public class TaskCompletedController {
     public ResponseEntity confirmation(@PathVariable int id_task_completed, @PathVariable int status, @RequestBody String comment) {
         this.service.confirmation(id_task_completed, status, comment);
         return ResponseEntity.status(HttpStatus.OK).body(null);
-    }
-
-    /*
-     * N.61
-     */
-    @PostMapping(path = "/taskCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public TaskCompleted insert(@Valid @RequestBody TaskCompleted taskCompleted) {
-        return this.service.insert(taskCompleted);
     }
 }
