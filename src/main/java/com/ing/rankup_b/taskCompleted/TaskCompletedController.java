@@ -49,6 +49,14 @@ public class TaskCompletedController {
     }
 
     /*
+     * N.25
+     */
+    @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getPending(@PathVariable int id_team) {
+        return this.service.getPending(id_team);
+    }
+
+    /*
      * N.33
      */
     @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")

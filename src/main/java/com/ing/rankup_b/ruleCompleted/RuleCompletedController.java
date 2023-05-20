@@ -65,6 +65,14 @@ public class RuleCompletedController {
     }
 
     /*
+     * N.25
+     */
+    @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getPending(@PathVariable int id_team) {
+        return this.service.getPending(id_team);
+    }
+
+    /*
      * N.59
      */
     @PostMapping(path = "/ruleCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)

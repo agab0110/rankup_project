@@ -64,6 +64,13 @@ public class TaskCompletedService {
     }
 
     /*
+     * N.25
+     */
+    public String getPending(int id_team) {
+        return this.repository.pending(id_team);
+    }
+
+    /*
      * N.33
      */
     public String confirmation(int id_task_completed, int status, String comment) {

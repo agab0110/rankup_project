@@ -87,6 +87,13 @@ public class RuleCompletedService {
     }
 
     /*
+     * N.25
+     */
+    public String getPending(int id_team) {
+        return this.repository.pending(id_team);
+    }
+
+    /*
      * N.59
      */
     public RuleCompleted insert(@Valid RuleCompleted ruleCompleted) {
