@@ -58,13 +58,6 @@ public class RuleCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(history);
     }
 
-    @GetMapping(path = "/user/ruleCompleted")
-    public ResponseEntity ruleCompleted(@RequestParam("idTeam") int idTeam, @RequestParam("idUser") int idUser,
-            @RequestParam("idRuleCompleted") int idRuleCompleted) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getRuleCompleted(idTeam, idUser, idRuleCompleted));
-    }
-
     /*
      * N.25
      */
@@ -79,6 +72,7 @@ public class RuleCompletedController {
     @PostMapping(path = "/ruleCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RuleCompleted insert(@RequestBody RuleCompleted ruleCompleted) {
         return this.service.insert(ruleCompleted);
+    }
   
     @GetMapping(path = "/user/ruleCompletedDetails/{idRuleCompleted}")
     public ResponseEntity ruleCompletedDetails(@PathVariable int idRuleCompleted) {

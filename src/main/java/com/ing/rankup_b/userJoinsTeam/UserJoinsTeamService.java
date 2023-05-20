@@ -116,7 +116,7 @@ public class UserJoinsTeamService {
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {
                 if (u.getStatus() == Status.Accettato) {
-                    partecipants.add(u.getUser());
+                    partecipants.add(u);
                 }
             }
         }

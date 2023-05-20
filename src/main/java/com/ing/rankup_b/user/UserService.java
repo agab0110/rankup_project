@@ -65,10 +65,10 @@ public class UserService {
      * @param newUsername nuovo nome dell'utente
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity changeUsername(int idUser, String newUsername) {
+    public ResponseEntity changeUsername(long idUser, String newUsername) {
         for (User u : this.repository.findAll()) {
             if (u.getId() == idUser) {
-                u.setUsername(newName);
+                u.setUsername(newUsername);
               this.repository.save(u);
                 return ResponseEntity.status(HttpStatus.OK).body(u);
             }
