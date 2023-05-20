@@ -35,6 +35,7 @@ public class UserService {
 
     /**
      * Funzione per prendere tutti gli utenti salvati
+     * 
      * @return la lista degli utenti
      */
     public List<User> getAllUsers() {
@@ -45,7 +46,8 @@ public class UserService {
      * Funzione per effetuare la login
      * 
      * @param loginUser contiene username e password da controllare
-     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
+     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST)
+     *         altrimenti
      */
     public ResponseEntity login(User loginUser) {
         for (User user : this.repository.findAll()) {
@@ -56,7 +58,7 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username o password errati");
     }
 
-      /**
+     /**
      * Funzione per cambiare lo username dell'utente
      * 
      * @param idUser id dell'utente a cui cambiare lo username
@@ -79,8 +81,10 @@ public class UserService {
      * 
      * @param idUser id dell'utente a cui cambiare il nome
      * @param newName nuovo nome dell'utente
-     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
+     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST)
+     *         altrimenti
      */
+
     public ResponseEntity changeName(int idUser, String newName) {
         for (User u : this.repository.findAll()) {
             if (u.getId() == idUser) {
@@ -90,5 +94,13 @@ public class UserService {
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+    }
+
+    
+    /*
+     * N.51
+     */
+    public String getUser(int id_user) {
+        return this.repository.findUser(id_user);
     }
 }

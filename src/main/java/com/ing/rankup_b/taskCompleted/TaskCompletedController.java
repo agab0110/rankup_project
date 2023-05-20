@@ -6,9 +6,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ing.rankup_b.ruleCompleted.RuleCompleted;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/taskCompletedApi")
@@ -32,7 +39,7 @@ public class TaskCompletedController {
 
         return ResponseEntity.status(HttpStatus.OK).body(taskCompleted);
     }
-  
+
     @GetMapping(path ="/taskAccepted/{id_team}")
     public ResponseEntity taskAccepted(@PathVariable int id_team){
         return this.service.taskAccepted(id_team);
@@ -41,6 +48,23 @@ public class TaskCompletedController {
     @GetMapping(path ="/taskRejected/{id_team}")
     public ResponseEntity taskRejected(@PathVariable int id_team){
         return this.service.taskRefused(id_team);
+    }
+
+    /*
+     * N.25 
+     */
+    @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getPending(@PathVariable int id_team) {
+        return this.service.getPending(id_team);
+    }
+
+    /*
+     * N.33
+     */
+    @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
+    public ResponseEntity confirmation(@PathVariable int idTaskCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
+        this.service.confirmation(idTaskCompleted, status, ruleCompleted);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")

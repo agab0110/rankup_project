@@ -15,4 +15,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
 
     @Query(value = "INSERT INTO task_for_specific_user (id_task, user) VALUES (?2, ?1)", nativeQuery = true)
     public ArrayList<String> addSpecificTasksQuery(Integer user, int id_task);
+
+    @Query(value = "SELECT JSON_OBJECT('taskName',task.name,'points',task.points,'description',task.description) FROM task WHERE task.id_task = ?1", nativeQuery = true)
+    String findTask(int idTask);
 }

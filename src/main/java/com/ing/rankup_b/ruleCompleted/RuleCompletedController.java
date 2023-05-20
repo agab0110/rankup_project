@@ -1,7 +1,6 @@
 package com.ing.rankup_b.ruleCompleted;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,21 +27,21 @@ public class RuleCompletedController {
         this.service = service;
     }
 
-    @GetMapping(path ="/ruleAccepted/{idTeam}")
-    public ResponseEntity ruleCompleted (@PathVariable int idTeam){
+    @GetMapping(path = "/ruleAccepted/{idTeam}")
+    public ResponseEntity ruleCompleted(@PathVariable int idTeam) {
         return this.service.getRulesAccepted(idTeam);
     }
-    
-    @GetMapping(path ="/ruleRejected/{idTeam}")
-    public ResponseEntity ruleRejected (@PathVariable int idTeam){
+
+    @GetMapping(path = "/ruleRejected/{idTeam}")
+    public ResponseEntity ruleRejected(@PathVariable int idTeam) {
         return this.service.getRulesRejected(idTeam);
     }
-  
+
     @GetMapping(path = "/request/{idRegolaCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getRuleDelivered(@PathVariable int idRegolaCompletata) {
         String ruleCompleted = this.service.researchRule(idRegolaCompletata);
 
-        if (ruleCompleted == null){
+        if (ruleCompleted == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Regola non trovata");
         }
 
@@ -56,6 +57,28 @@ public class RuleCompletedController {
 
         return ResponseEntity.status(HttpStatus.OK).body(history);
     }
+
+    @GetMapping(path = "/user/ruleCompleted")
+    public ResponseEntity ruleCompleted(@RequestParam("idTeam") int idTeam, @RequestParam("idUser") int idUser,
+            @RequestParam("idRuleCompleted") int idRuleCompleted) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.getRuleCompleted(idTeam, idUser, idRuleCompleted));
+    }
+
+    /*
+     * N.25
+     */
+    @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getPending(@PathVariable int id_team) {
+        return this.service.getPending(id_team);
+    }
+
+    /*
+     * N.59
+     */
+    @PostMapping(path = "/ruleCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RuleCompleted insert(@RequestBody RuleCompleted ruleCompleted) {
+        return this.service.insert(ruleCompleted);
   
     @GetMapping(path = "/user/ruleCompletedDetails/{idRuleCompleted}")
     public ResponseEntity ruleCompletedDetails(@PathVariable int idRuleCompleted) {

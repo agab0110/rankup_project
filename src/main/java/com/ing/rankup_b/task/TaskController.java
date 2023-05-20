@@ -21,7 +21,7 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
 public class TaskController {
-    
+
     @Autowired
     private TaskService service;
 
@@ -47,9 +47,7 @@ public class TaskController {
     public ResponseEntity checkUsername(@RequestParam("username") String username, @RequestParam("id_team") int id_team) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getCheckUsername(
-                        username, id_team
-                )
-        );
+                        username, id_team));
     }
 
     @PostMapping(path = "/add/specificTasks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,4 +57,18 @@ public class TaskController {
                 this.service.addSpecificTasks(body.get("users"), body.get("id_task"))
         );
     }// TODO: SEGNALARE
+
+    /*
+     * N.60
+     */
+    @GetMapping(path = "/task/{idTask}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getRule(@PathVariable int idTask) {
+        String task = this.service.getTask(idTask);
+        
+        if (task == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task non trovata");
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getTask(idTask));
+    }
 }

@@ -1,16 +1,19 @@
 package com.ing.rankup_b.ruleCompleted;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
+
+import jakarta.validation.Valid;
 
 @Service
 public class RuleCompletedService {
@@ -31,7 +34,7 @@ public class RuleCompletedService {
                     acceptedRules.add(rule);
                 }
             }
-            
+
         }
         
         if(acceptedRules.isEmpty()){
@@ -49,7 +52,7 @@ public class RuleCompletedService {
                     rejectedRules.add(rule);
                 }
             }
-            
+
         }
         
         if(rejectedRules.isEmpty()){
@@ -90,6 +93,15 @@ public class RuleCompletedService {
             }
         }
 
+        for (String r : result) {
+            rulesCompleted.add(new Object() {
+                public String nome = r.split(",")[0];
+                public int points = Integer.parseInt(r.split(",")[1])
+                        + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
+                public String description = r.split(",")[3];
+                public String comment = r.split(",")[4];
+                public String username = r.split(",")[5];
+
         if (rules.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun task trovato per questo utente");
         } else {
@@ -115,5 +127,20 @@ public class RuleCompletedService {
         this.repository.save(ruleCompleted);
 
         return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
+    }
+
+    /*
+     * N.25
+     */
+    public String getPending(int id_team) {
+        return this.repository.pending(id_team);
+    }
+
+    /*
+     * N.59
+     */
+    public RuleCompleted insert(@Valid RuleCompleted ruleCompleted) {
+        ruleCompleted.setTimestamp(Timestamp.from(Instant.now()));
+        return this.repository.save(ruleCompleted);
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RuleService {
-    
+
     @Autowired
     private RuleRepository repository;
 
@@ -32,8 +32,15 @@ public class RuleService {
         return ResponseEntity.status(HttpStatus.OK).body(rules);
     }
 
-    public ResponseEntity createRule(Rule rule){
+    public ResponseEntity createRule(Rule rule) {
         this.repository.save(rule);
         return ResponseEntity.status(HttpStatus.OK).body(rule);
+    }
+
+    /*
+     * N.58
+     */
+    public String getRule(int idRule) {
+        return this.repository.findRule(idRule);
     }
 }

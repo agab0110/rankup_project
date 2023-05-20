@@ -1,5 +1,7 @@
 package com.ing.rankup_b.taskCompleted;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.taskCompleted.TaskCompleted.Status;
 
@@ -60,6 +62,22 @@ public class TaskCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(refusedtask);
     }
 
+    /*
+     * N.25
+     */
+    public String getPending(int id_team) {
+        return this.repository.pending(id_team);
+    }
+
+    /*
+     * N.33
+     */
+    public String confirmation(int idTaskCompleted, int status, RuleCompleted ruleCompleted) {
+        Timestamp revisionDate = Timestamp.from(Instant.now());
+
+        return this.repository.update(revisionDate, status, ruleCompleted.getComment(), idTaskCompleted);
+    }
+  
     /**
      * Funzione per ricercare tutte le task completate da un utente in un determinato team
      * @param idTeam il team in cui si deve effettuare la ricerca
