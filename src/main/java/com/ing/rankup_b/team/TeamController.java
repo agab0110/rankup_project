@@ -54,20 +54,6 @@ public class TeamController {
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
 
-    @GetMapping(path = "history/request/date")
-    public ResponseEntity historyRequestDate(@RequestParam("id_team") int id_team, @RequestParam("date") String date) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getRequestHistoryDate(id_team, date)
-        );
-    }
-
-    @GetMapping(path = "history/request/activity")
-    public ResponseEntity historyRequestActivity(@RequestParam("id_team") int id_team, @RequestParam("activity") String activity) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getRequestHistoryActivity(id_team, activity + '%')
-        );
-    }
-
     @GetMapping(path = "user/completedActivities")
     public ResponseEntity userCompletedActivities(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -86,13 +72,6 @@ public class TeamController {
     public ResponseEntity pendingActivities(@RequestParam("id_team") int id_team) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getPendingActivities(id_team)
-        );
-    }
-
-    @GetMapping(path = "user/prizes")
-    public ResponseEntity userPrizes(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getUserPrizes(id_team, id_user)
         );
     }
     

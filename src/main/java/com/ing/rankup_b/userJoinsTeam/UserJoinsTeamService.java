@@ -1,9 +1,13 @@
 package com.ing.rankup_b.userJoinsTeam;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.ing.rankup_b.user.User;
+import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,12 +36,12 @@ public class UserJoinsTeamService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erorre imprevisto");
     }
 
-    public List<String> addMember(int id_team, int id_user) {
+    public List<String> addMember(int id_team, int id_user) {   //GIACENTO
         ArrayList<String> result = this.repository.addMemberQuery(id_team, id_user);
         return result;
     }
 
-    public List<Object> getListUserSearch(String username) {
+    public List<Object> getListUserSearch(String username) {    //GIACENTO
 
         if (username.isBlank()) {
             return new ArrayList<Object>();
@@ -65,7 +69,7 @@ public class UserJoinsTeamService {
 
     }
 
-    public ArrayList<Object> getListPendingRequests(int id_team) {
+    public ArrayList<Object> getListPendingRequests(int id_team) {  //GIACENTO
         ArrayList<String> result = this.repository.listPendingRequestsQuery(id_team);
 
         ArrayList<Object> requests = new ArrayList<Object>();
@@ -94,5 +98,21 @@ public class UserJoinsTeamService {
 
         return requests;
 
+    }
+
+    public ResponseEntity findPartecipants(long idTeam) {
+        List<User> partecipants = new ArrayList<>();
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getTeam().getCodice() == idTeam) {
+                if (u.getStatus() == Status.Accettato) {
+                    partecipants.add(u.getUser());
+                }
+            }
+        }
+        if(partecipants.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(partecipants);
+        }
     }
 }

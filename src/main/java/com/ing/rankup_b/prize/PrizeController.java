@@ -32,13 +32,6 @@ public class PrizeController {
     public ResponseEntity Listprize(@PathVariable int id_team) {
        return this.service.Listprize(id_team);
     }
-
-    @GetMapping(path = "/user")
-    public ResponseEntity user(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getUserPrize(id_team, id_user)
-        );// TODO: SEGNALARE
-    }
     
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createPrize(@Valid @RequestBody Prize prize){

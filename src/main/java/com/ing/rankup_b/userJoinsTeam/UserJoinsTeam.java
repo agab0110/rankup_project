@@ -20,6 +20,10 @@ import lombok.Data;
 @Data
 @Table(name = "user_joins_team")
 public class UserJoinsTeam {
+
+    enum Status {
+        Sospeso, Accettato, Rifiutato
+    }
     
     @EmbeddedId
     @Column(name = "key")
@@ -43,5 +47,5 @@ public class UserJoinsTeam {
     private int points;
 
     @Column(name = "accepted")
-    private boolean accepted;   //0 non accettato, 1 accettato
+    private Status status;   //0 sospeso, 1 accettato, 2 non accettato
 }

@@ -2,9 +2,12 @@ package com.ing.rankup_b.userGetPrize;
 
 import com.ing.rankup_b.prize.Prize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserGetPrizeService {
@@ -16,19 +19,25 @@ public class UserGetPrizeService {
         this.repository = repository;
     }
 
-    public ArrayList<Prize> getUserPrize(int id_team, int id_user) {
-        ArrayList<String> result = this.repository.userPrize(id_team, id_user);
-        ArrayList<Prize> prizes = new ArrayList<Prize>();
+    /**
+     * Funzione per prendere i premi acquistati da un utente in un determinato team
+     * @param idTeam il codice del team in cui si acquista il premio
+     * @param idUser l'id dell'utente che ha acquistato il premio
+     * @return (400 BAD_REQUEST) nel caso in cui la lista dei premi trovata sia vuota, <br>(200 OK) con la lista di premi altrimenti
+     */
+    public ResponseEntity getUserPrize(long idTeam, int idUser) {
+        List<Prize> prizes = new ArrayList<>();
 
-        for (String r: result) {
-            Prize prize = new Prize();
-
-            prize.setId(Integer.parseInt(r.split(",")[0]));
-            prize.setName(r.split(",")[1]);
-            prize.setPrice(Integer.parseInt(r.split(",")[2]));
-
-            prizes.add(prize);
+        for (UserGetPrize userGetPrize : this.repository.findAll()) {
+            if (userGetPrize.getPrize().getBeloggingTeam().getCodice() == idTeam && userGetPrize.getUser().getId() == idUser) {
+                prizes.add(userGetPrize.getPrize());
+            }
         }
-        return prizes;
+
+        if (prizes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Premi non trovati");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(prizes);
+        }
     }
 }

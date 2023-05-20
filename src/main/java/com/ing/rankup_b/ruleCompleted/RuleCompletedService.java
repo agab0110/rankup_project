@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
 
 @Service
@@ -65,21 +65,34 @@ public class RuleCompletedService {
         return this.repository.findUserHistoryT(idTeam, nomeTask);
     }
 
-    public ArrayList<Object> getRuleCompleted(int id_team, int id_user, int id_rule_completed) {
-        ArrayList<String> result = this.repository.ruleCompletedQuery(id_team, id_user, id_rule_completed);
+    /**
+     * Funzione per prendere i dettagli di una regola completata
+     * @param idRuleCompleted l'id della regola completata
+     * @return (200 OK) con la regola completata nel body
+     */
+    public ResponseEntity getRuleCompletedDetails(int idRuleCompleted) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(idRuleCompleted));
+    }
 
-        ArrayList<Object> rulesCompleted = new ArrayList<Object>();
+        /**
+     * Funzione per ricercare tutte le regole completate da un utente in un determinato team
+     * @param idTeam il team in cui si deve effettuare la ricerca
+     * @param idUser l'utente per cui si deve effettuare la ricerca
+     * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista delle regole altrimenti
+     */
+    public ResponseEntity getRuleForASpecificUser(long idTeam, int idUser) {
+        List<Rule> rules = new ArrayList<>();
 
-        for (String r: result) {
-            rulesCompleted.add(new Object() {
-                public String nome = r.split(",")[0];
-                public int points = Integer.parseInt(r.split(",")[1]) + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
-                public String description = r.split(",")[3];
-                public String comment = r.split(",")[4];
-                public String username = r.split(",")[5];
-
-            });
+        for (RuleCompleted r : this.repository.findAll()) {
+            if (r.getRule().getTeam().getCodice() == idTeam && r.getUser().getId() == idUser && r.getStatus() == Status.Accettato) {
+                rules.add(r.getRule());
+            }
         }
-        return rulesCompleted;
+
+        if (rules.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun task trovato per questo utente");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(rules);
+        }
     }
 }
