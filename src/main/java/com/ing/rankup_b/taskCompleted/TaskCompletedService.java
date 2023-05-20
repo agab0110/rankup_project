@@ -28,7 +28,7 @@ public class TaskCompletedService {
     public ResponseEntity taskAccepted(int Codice){
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 
-        for (TaskCompleted task : (List<TaskCompleted>)this.repository.findAll()) {
+        for (TaskCompleted task : this.repository.findAll()) {
             if (task.getTask().getTeam().getCodice() == Codice) {
                 if (task.getStatus() == Status.Accettato) {
                     acceptedtask.add(task);
@@ -46,7 +46,7 @@ public class TaskCompletedService {
     public ResponseEntity taskRefused(int Codice){
         List<TaskCompleted> refusedtask = new ArrayList<>();
 
-        for (TaskCompleted task : (List<TaskCompleted>)this.repository.findAll()) {
+        for (TaskCompleted task : this.repository.findAll()) {
             if (task.getTask().getTeam().getCodice() == Codice) {
                 if (task.getStatus() == Status.Rifiutato) {
                     refusedtask.add(task);
