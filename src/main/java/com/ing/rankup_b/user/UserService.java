@@ -56,9 +56,9 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username o password errati");
     }
 
-    public ResponseEntity changeUsername(Long codice, String newName) {
+    public ResponseEntity changeUsername(Long idUser, String newName) {
         for (User u : (List<User>)this.repository.findAll()) {
-            if (u.getId() == codice) {
+            if (u.getId() == idUser) {
                 u.setUsername(newName);
                 this.repository.save(u);
                 return ResponseEntity.status(HttpStatus.OK).body(u);

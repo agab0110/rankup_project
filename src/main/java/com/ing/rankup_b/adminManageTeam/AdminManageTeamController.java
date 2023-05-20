@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import java.util.Map;
 
 @RestController
@@ -26,8 +28,8 @@ public class AdminManageTeamController {
     }
 
     @PostMapping(path = "/addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addAdmin(@RequestBody AdminManageTeam manageTeam ) {
-        return service.addAdmin(manageTeam);
+    public ResponseEntity addAdmin(@RequestParam("idTeam") long idTeam, @RequestParam("idUser") int idUser) {
+        return service.addAdmin(idTeam,idUser);
     }
 
 }

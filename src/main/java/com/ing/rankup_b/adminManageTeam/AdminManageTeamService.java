@@ -15,14 +15,16 @@ public class AdminManageTeamService {
     
     @Autowired
     private AdminManageTeamRepository repository;
+    
+
 
     public AdminManageTeamService(AdminManageTeamRepository repository) {
         this.repository = repository;
     }
 
-    public ResponseEntity addAdmin(AdminManageTeam manageTeam) {
-        this.repository.save(manageTeam);
-        return ResponseEntity.status(HttpStatus.OK).body("admin aggiunto con sucesso");
+    public ResponseEntity addAdmin(long idTeam, int idUser) {
+        this.repository.addAdminQuery(idTeam, idUser);
+        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
         
     }
 
