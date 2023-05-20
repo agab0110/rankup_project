@@ -10,9 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.taskCompleted.TaskCompleted.Status;
-
-import jakarta.validation.Valid;
 
 @Service
 public class TaskCompletedService {
@@ -73,8 +72,9 @@ public class TaskCompletedService {
     /*
      * N.33
      */
-    public String confirmation(int id_task_completed, int status, String comment) {
-        Timestamp revision_date = Timestamp.from(Instant.now());
-        return this.repository.update(revision_date, status, comment, id_task_completed);
+    public String confirmation(int idTaskCompleted, int status, RuleCompleted ruleCompleted) {
+        Timestamp revisionDate = Timestamp.from(Instant.now());
+
+        return this.repository.update(revisionDate, status, ruleCompleted.getComment(), idTaskCompleted);
     }
 }

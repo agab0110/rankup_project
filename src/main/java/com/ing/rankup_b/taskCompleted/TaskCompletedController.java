@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ing.rankup_b.ruleCompleted.RuleCompleted;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -60,8 +62,8 @@ public class TaskCompletedController {
      * N.33
      */
     @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
-    public ResponseEntity confirmation(@PathVariable int id_task_completed, @PathVariable int status, @RequestBody String comment) {
-        this.service.confirmation(id_task_completed, status, comment);
+    public ResponseEntity confirmation(@PathVariable int idTaskCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
+        this.service.confirmation(idTaskCompleted, status, ruleCompleted);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
