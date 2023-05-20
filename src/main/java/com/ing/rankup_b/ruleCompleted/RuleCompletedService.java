@@ -1,6 +1,7 @@
 package com.ing.rankup_b.ruleCompleted;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ public class RuleCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(idRuleCompleted));
     }
 
-        /**
+    /**
      * Funzione per ricercare tutte le regole completate da un utente in un determinato team
      * @param idTeam il team in cui si deve effettuare la ricerca
      * @param idUser l'utente per cui si deve effettuare la ricerca
@@ -94,5 +95,25 @@ public class RuleCompletedService {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(rules);
         }
+    }
+
+    public ResponseEntity ruleCompletedAcceptance(int idRuleCompleted, String comment, int bonusPoints, int status) {
+        RuleCompleted ruleCompleted = this.repository.findById(idRuleCompleted).get();
+        ruleCompleted.setBonus(bonusPoints);
+        ruleCompleted.setComment(comment);
+
+        Date revisionDate = new Date();
+
+        ruleCompleted.setRevisionDate(revisionDate);
+
+        if (status == 1) {
+            ruleCompleted.setStatus(Status.Accettato);
+        } else {
+            ruleCompleted.setStatus(Status.Rifiutato);
+        }
+        
+        this.repository.save(ruleCompleted);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
     }
 }

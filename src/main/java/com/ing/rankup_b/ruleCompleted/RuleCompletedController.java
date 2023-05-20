@@ -7,8 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -64,4 +66,9 @@ public class RuleCompletedController {
     public ResponseEntity getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getRuleForASpecificUser(idTeam, idUser);
     }
+
+    @PatchMapping(path = "/acceptance/{idRuleCompleted}")
+    public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment, @RequestParam int bonusPoints, @RequestParam int status) {
+        return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);
+    } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio: rule completed service
 }

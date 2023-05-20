@@ -24,6 +24,12 @@ public class UserJoinsTeamService {
         this.repository = repository;
     }
 
+    /**
+     * Funzione per eliminare una richiesta d'accesso nel team
+     * @param teamCode il team a cui è stato richiesto l'accesso
+     * @param userId l'utente che ha fatto la richiesta
+     * @return (200 OK) se viene eliminata correttamente la richiesta, (400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity deleteUserRequest(Long teamCode, int userId) {
         for (UserJoinsTeam userJoinsTeam : this.repository.findAll()) {
             if (userJoinsTeam.getTeam().getCodice() == teamCode) {
@@ -100,6 +106,32 @@ public class UserJoinsTeamService {
 
     }
 
+    /**
+     * Funzione per prendere la lista dei partecipanti ad un team con il punteggio
+     * @param idTeam il team per i partecipanti
+     * @return (200 OK) con la lista dei partecipanti se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity findPartecipantsPoints(long idTeam) {
+        List<UserJoinsTeam> partecipants = new ArrayList<>();
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getTeam().getCodice() == idTeam) {
+                if (u.getStatus() == Status.Accettato) {
+                    partecipants.add(u.getUser());
+                }
+            }
+        }
+        if(partecipants.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(partecipants);
+        }
+    }
+
+    /**
+     * Funzione per prendere la lista dei partecipanti ad un team senza punteggio
+     * @param idTeam il team per i partecipanti
+     * @return (200 OK) con la lista dei partecipanti se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity findPartecipants(long idTeam) {
         List<User> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
@@ -109,6 +141,7 @@ public class UserJoinsTeamService {
                 }
             }
         }
+
         if(partecipants.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
         } else {
