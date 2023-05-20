@@ -26,9 +26,9 @@ public class RuleController {
         this.service = service;
     }
   
-    @GetMapping(path = "/rules/{id_team}")
-    public ResponseEntity ListRule(@PathVariable int id_team) {
-        return this.service.ListRule(id_team);
+    @GetMapping(path = "/rules/{idTeam}")
+    public ResponseEntity listRule(@PathVariable int idTeam) {
+        return this.service.listRule(idTeam);
     }
 
     @PostMapping(path = "/createRule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

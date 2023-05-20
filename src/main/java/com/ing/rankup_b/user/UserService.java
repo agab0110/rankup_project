@@ -24,7 +24,7 @@ public class UserService {
      * @return (400 BAD_REQUEST) se l'username è duplicato, (200 OK) altrimenti
      */
     public ResponseEntity newUser(User signUpUser) {
-        for (User user : (List<User>)this.repository.findAll()) {
+        for (User user : this.repository.findAll()) {
             if (user.getUsername().equals(signUpUser.getUsername())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
             }
@@ -38,7 +38,7 @@ public class UserService {
      * @return la lista degli utenti
      */
     public List<User> getAllUsers() {
-        return (List<User>) this.repository.findAll();
+        return this.repository.findAll();
     }
 
     /**
@@ -48,7 +48,7 @@ public class UserService {
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
      */
     public ResponseEntity login(User loginUser) {
-        for (User user : (List<User>)this.repository.findAll()) {
+        for (User user : this.repository.findAll()) {
             if (user.getUsername().equals(loginUser.getUsername()) && user.getPassword().equals(loginUser.getPassword())) {
                 return ResponseEntity.status(HttpStatus.OK).body(user);
             }
@@ -56,16 +56,34 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username o password errati");
     }
 
-     /**
-     * Funzione per cambiare nomeUtente
+      /**
+     * Funzione per cambiare lo username dell'utente
      * 
-     * @param id_user id dell'utente a cui cambiare il nome
+     * @param idUser id dell'utente a cui cambiare lo username
+     * @param newUsername nuovo nome dell'utente
+     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity changeUsername(int idUser, String newUsername) {
+        for (User u : this.repository.findAll()) {
+            if (u.getId() == idUser) {
+                u.setUsername(newName);
+              this.repository.save(u);
+                return ResponseEntity.status(HttpStatus.OK).body(u);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+    }
+  
+     /**
+     * Funzione per cambiare il nome dell'utente
+     * 
+     * @param idUser id dell'utente a cui cambiare il nome
      * @param newName nuovo nome dell'utente
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity changeName(int id_user, String newName) {
-        for (User u : (List<User>)this.repository.findAll()) {
-            if (u.getId() == id_user) {
+    public ResponseEntity changeName(int idUser, String newName) {
+        for (User u : this.repository.findAll()) {
+            if (u.getId() == idUser) {
                 u.setName(newName);
                 this.repository.save(u);
                 return ResponseEntity.status(HttpStatus.OK).body(u);
