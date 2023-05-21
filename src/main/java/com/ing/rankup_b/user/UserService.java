@@ -38,8 +38,8 @@ public class UserService {
      * 
      * @return la lista degli utenti
      */
-    public List<User> getAllUsers() {
-        return this.repository.findAll();
+    public ResponseEntity getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.findAll());
     }
 
     /**
@@ -65,7 +65,7 @@ public class UserService {
      * @param newUsername nuovo nome dell'utente
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity changeUsername(long idUser, String newUsername) {
+    public ResponseEntity changeUsername(int idUser, String newUsername) {
         for (User u : this.repository.findAll()) {
             if (u.getId() == idUser) {
                 u.setUsername(newUsername);
@@ -100,7 +100,7 @@ public class UserService {
     /*
      * N.51
      */
-    public String getUser(int id_user) {
-        return this.repository.findUser(id_user);
+    public String getUser(int idUser) {
+        return this.repository.findUser(idUser);
     }
 }

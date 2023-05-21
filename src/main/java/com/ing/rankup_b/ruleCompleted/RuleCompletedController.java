@@ -32,11 +32,17 @@ public class RuleCompletedController {
         return this.service.getRulesAccepted(idTeam);
     }
 
+    /**
+     * N.18
+     */
     @GetMapping(path = "/ruleRejected/{idTeam}")
     public ResponseEntity ruleRejected(@PathVariable int idTeam) {
         return this.service.getRulesRejected(idTeam);
     }
 
+    /**
+     * N.30
+     */
     @GetMapping(path = "/request/{idRegolaCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getRuleDelivered(@PathVariable int idRegolaCompletata) {
         String ruleCompleted = this.service.researchRule(idRegolaCompletata);
@@ -74,16 +80,25 @@ public class RuleCompletedController {
         return this.service.insert(ruleCompleted);
     }
   
+    /**
+     * N.38
+     */
     @GetMapping(path = "/user/ruleCompletedDetails/{idRuleCompleted}")
     public ResponseEntity ruleCompletedDetails(@PathVariable int idRuleCompleted) {
         return this.service.getRuleCompletedDetails(idRuleCompleted);
     }
 
+    /**
+     * N.35
+     */
     @GetMapping(path = "/getRuleForSpecificUser/{idTeam}/{idUser}")
     public ResponseEntity getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getRuleForASpecificUser(idTeam, idUser);
     }
 
+    /**
+     * N.32
+     */
     @PatchMapping(path = "/acceptance/{idRuleCompleted}")
     public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment, @RequestParam int bonusPoints, @RequestParam int status) {
         return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);

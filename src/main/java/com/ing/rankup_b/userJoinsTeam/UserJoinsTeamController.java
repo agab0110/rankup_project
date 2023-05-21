@@ -29,6 +29,9 @@ public class UserJoinsTeamController {
         this.service = service;
     }
 
+    /**
+     * N.15
+     */
     @DeleteMapping(path = "/deleteRequest/{codeTeam}/{userId}")
     public ResponseEntity deleteRequest(@PathVariable Long codeTeam, @PathVariable int userId) {
         return this.service.deleteUserRequest(codeTeam, userId);
@@ -43,6 +46,9 @@ public class UserJoinsTeamController {
         );// TODO: SEGNALARE
     }
 
+    /**
+     * N.11
+     */
     @GetMapping(path = "/list/userSearch")
     public ResponseEntity listUserSearch(@RequestParam("username") String username) {
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -61,11 +67,19 @@ public class UserJoinsTeamController {
         );
     }
     
+    /**
+     * N.18
+     * N.44
+     */
     @GetMapping(path = "/partecipantsPoints/{idTeam}")
     public ResponseEntity getPartecipantsPoints(@PathVariable long idTeam) {
         return this.service.findPartecipantsPoints(idTeam);
     }
 
+    /**
+     * N.19
+     * N.43
+     */
     @GetMapping(path = "/partecipants/{idTeam}")
     public ResponseEntity getPartecipants(@PathVariable long idTeam) {
         return this.service.findPartecipants(idTeam);

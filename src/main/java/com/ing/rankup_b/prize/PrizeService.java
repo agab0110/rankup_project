@@ -18,10 +18,10 @@ public class PrizeService {
         this.repository = repository;
     }    
   
-    public ResponseEntity  Listprize(int codice){
+    public ResponseEntity listPrize(int codice){
         List <Prize> prizes = new ArrayList<>();
 
-        for (Prize prize : (List<Prize>)this.repository.findAll()) {
+        for (Prize prize : this.repository.findAll()) {
             if (prize.getBeloggingTeam().getCodice() == codice) {
                 prizes.add(prize);
             }
