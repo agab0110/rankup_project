@@ -38,8 +38,8 @@ public class UserService {
      * 
      * @return la lista degli utenti
      */
-    public List<User> getAllUsers() {
-        return this.repository.findAll();
+    public ResponseEntity getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.findAll());
     }
 
     /**
