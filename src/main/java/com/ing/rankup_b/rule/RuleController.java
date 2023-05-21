@@ -27,11 +27,18 @@ public class RuleController {
         this.service = service;
     }
   
+    /**
+     * N.27
+     * N.55
+     */
     @GetMapping(path = "/rules/{idTeam}")
     public ResponseEntity listRule(@PathVariable int idTeam) {
         return this.service.listRule(idTeam);
     }
 
+    /**
+     * N.1
+     */
     @PostMapping(path = "/createRule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createRule(@Valid @RequestBody Rule rule) {
         return this.service.createRule(rule);

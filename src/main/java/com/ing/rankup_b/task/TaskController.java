@@ -29,6 +29,10 @@ public class TaskController {
         this.service = service;
     }
 
+    /**
+     * N.28
+     * N.56
+     */
     @GetMapping(path = "/tasks/{idTeam}")
     public ResponseEntity listTask(@PathVariable long idTeam) {
        return this.service.listTask(idTeam);

@@ -30,6 +30,9 @@ public class TaskCompletedController {
         this.service = service;
     }
 
+    /**
+     * 31
+     */
     @GetMapping (path = "/request/{idTaskCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTaskDelivered(@PathVariable int idTaskCompletata) {
         String taskCompleted = this.service.researchTask(idTaskCompletata);
@@ -40,17 +43,23 @@ public class TaskCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(taskCompleted);
     }
 
+    /**
+     * N.18
+     */
     @GetMapping(path ="/taskAccepted/{id_team}")
     public ResponseEntity taskAccepted(@PathVariable int id_team){
         return this.service.taskAccepted(id_team);
     }
 
+    /**
+     * N.18
+     */
     @GetMapping(path ="/taskRejected/{id_team}")
     public ResponseEntity taskRejected(@PathVariable int id_team){
         return this.service.taskRefused(id_team);
     }
 
-    /*
+    /**
      * N.25 
      */
     @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +67,7 @@ public class TaskCompletedController {
         return this.service.getPending(id_team);
     }
 
-    /*
+    /**
      * N.33
      */
     @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
@@ -67,6 +76,9 @@ public class TaskCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
+    /**
+     * N.36
+     */
     @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")
     public ResponseEntity getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getTaskForASpecificUser(idTeam, idUser);
