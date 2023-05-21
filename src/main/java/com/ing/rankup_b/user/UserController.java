@@ -44,7 +44,7 @@ public class UserController {
         return this.service.login(loginUser);
 
     }
-    @PatchMapping(path = "/changeUsername/{codice}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(path = "/changeUsername/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity changeUsername(@PathVariable long idUser, @RequestBody String newUsername) {
         return this.service.changeUsername(idUser, newUsername);
     }
