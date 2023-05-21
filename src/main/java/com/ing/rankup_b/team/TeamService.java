@@ -47,10 +47,6 @@ public class TeamService {
         return this.repository.findByName(nameTeam);
     }
 
-    public String researchTeamsRand() {
-        return this.repository.rand();
-    }
-
 
     public ArrayList<Object> getUserCompletedActivities(int id_team, int id_user) {
         ArrayList<String> result_rules = this.repository.userCompletedActivitiesRuleQuery(id_team, id_user);

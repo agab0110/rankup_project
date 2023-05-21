@@ -27,6 +27,9 @@ public class RuleCompletedController {
         this.service = service;
     }
 
+    /**
+     * 19
+     */
     @GetMapping(path = "/ruleAccepted/{idTeam}")
     public ResponseEntity ruleCompleted(@PathVariable int idTeam) {
         return this.service.getRulesAccepted(idTeam);
@@ -54,6 +57,10 @@ public class RuleCompletedController {
         return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
     }
 
+    /**
+     * N.22
+     * DA ELIMINARE
+     */
     @GetMapping(path = "/history/{idTeam}/{nomeTask}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity researchUserHistory(@PathVariable int idTeam, @PathVariable String nomeTask) {
         String history = this.service.researchUserHistory(idTeam, nomeTask);

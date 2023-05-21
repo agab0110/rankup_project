@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,38 +47,6 @@ public class TeamController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
-    }
-
-    @GetMapping(path = "/researchTeam", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity researchTeamsRand() {
-        String teams = this.service.researchTeamsRand();
-
-        if (teams == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(teams);
-    }
-
-    @GetMapping(path = "/user/completedActivities")
-    public ResponseEntity userCompletedActivities(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getUserCompletedActivities(id_team, id_user)
-        );
-    }
-
-    @GetMapping(path = "/admin/completedActivities")
-    public ResponseEntity adminCompletedActivities(@RequestParam("id_team") int id_team, @RequestParam("id_user") int id_user) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getUserCompletedActivities(id_team, id_user)
-        );
-    }
-
-    @GetMapping(path = "/pendingActivities")
-    public ResponseEntity pendingActivities(@RequestParam("id_team") int id_team) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                this.service.getPendingActivities(id_team)
-        );
     }
     
     /**
