@@ -28,7 +28,7 @@ public class UserJoinsTeamController {
      * N.15
      */
     @DeleteMapping(path = "/deleteRequest/{codeTeam}/{userId}")
-    public ResponseEntity deleteRequest(@PathVariable Long codeTeam, @PathVariable int userId) {
+    public ResponseEntity<?> deleteRequest(@PathVariable Long codeTeam, @PathVariable int userId) {
         return this.service.deleteUserRequest(codeTeam, userId);
     }
 
@@ -36,7 +36,7 @@ public class UserJoinsTeamController {
      * N.11
      */
     @GetMapping(path = "/list/userSearch")
-    public ResponseEntity listUserSearch(@RequestParam("username") String username) {
+    public ResponseEntity<?> listUserSearch(@RequestParam("username") String username) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.getListUserSearch(
                         username
@@ -49,7 +49,7 @@ public class UserJoinsTeamController {
      * N.44
      */
     @GetMapping(path = "/partecipantsPoints/{idTeam}")
-    public ResponseEntity getPartecipantsPoints(@PathVariable long idTeam) {
+    public ResponseEntity<?> getPartecipantsPoints(@PathVariable long idTeam) {
         return this.service.findPartecipantsPoints(idTeam);
     }
 
@@ -58,7 +58,7 @@ public class UserJoinsTeamController {
      * N.43
      */
     @GetMapping(path = "/partecipants/{idTeam}")
-    public ResponseEntity getPartecipants(@PathVariable long idTeam) {
+    public ResponseEntity<?> getPartecipants(@PathVariable long idTeam) {
         return this.service.findPartecipants(idTeam);
     }
 

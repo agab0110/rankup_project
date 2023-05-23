@@ -1,6 +1,5 @@
 package com.ing.rankup_b.userJoinsTeam;
 
-import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ing.rankup_b.user.User;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class UserJoinsTeamService {
      * @param userId l'utente che ha fatto la richiesta
      * @return (200 OK) se viene eliminata correttamente la richiesta, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity deleteUserRequest(Long teamCode, int userId) {
+    public ResponseEntity<?> deleteUserRequest(Long teamCode, int userId) {
         for (UserJoinsTeam userJoinsTeam : this.repository.findAll()) {
             if (userJoinsTeam.getTeam().getCodice() == teamCode) {
                 if (userJoinsTeam.getUser().getId() == userId) {
@@ -75,7 +72,7 @@ public class UserJoinsTeamService {
      * @param idTeam il team per i partecipanti
      * @return (200 OK) con la lista dei partecipanti se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity findPartecipantsPoints(long idTeam) {
+    public ResponseEntity<?> findPartecipantsPoints(long idTeam) {
         List<UserJoinsTeam> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {
@@ -96,7 +93,7 @@ public class UserJoinsTeamService {
      * @param idTeam il team per i partecipanti
      * @return (200 OK) con la lista dei partecipanti se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity findPartecipants(long idTeam) {
+    public ResponseEntity<?> findPartecipants(long idTeam) {
         List<User> partecipants = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getTeam().getCodice() == idTeam) {

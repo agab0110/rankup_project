@@ -24,7 +24,7 @@ public class RuleCompletedService {
         this.repository = repository;
     }
 
-    public ResponseEntity getRulesAccepted(int teamCode){
+    public ResponseEntity<?> getRulesAccepted(int teamCode){
         List<RuleCompleted> acceptedRules = new ArrayList<>();
 
         for (RuleCompleted rule : (List<RuleCompleted>)this.repository.findAll()) {
@@ -42,7 +42,7 @@ public class RuleCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(acceptedRules);
     }
 
-    public ResponseEntity getRulesRejected(int teamCode){
+    public ResponseEntity<?> getRulesRejected(int teamCode){
         List<RuleCompleted> rejectedRules = new ArrayList<>();
 
         for (RuleCompleted rule : (List<RuleCompleted>)this.repository.findAll()) {
@@ -73,7 +73,7 @@ public class RuleCompletedService {
      * @param idRuleCompleted l'id della regola completata
      * @return (200 OK) con la regola completata nel body
      */
-    public ResponseEntity getRuleCompletedDetails(int idRuleCompleted) {
+    public ResponseEntity<?> getRuleCompletedDetails(int idRuleCompleted) {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(idRuleCompleted));
     }
 

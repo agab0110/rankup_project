@@ -28,7 +28,7 @@ public class TaskController {
      * N.56
      */
     @GetMapping(path = "/tasks/{idTeam}")
-    public ResponseEntity listTask(@PathVariable long idTeam) {
+    public ResponseEntity<?> listTask(@PathVariable long idTeam) {
        return this.service.listTask(idTeam);
     }
 
@@ -36,7 +36,7 @@ public class TaskController {
      * N.60
      */
     @GetMapping(path = "/task/{idTask}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getRule(@PathVariable int idTask) {
+    public ResponseEntity<?> getRule(@PathVariable int idTask) {
         String task = this.service.getTask(idTask);
         
         if (task == null) {

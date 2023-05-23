@@ -31,7 +31,7 @@ public class TaskCompletedController {
      * 31
      */
     @GetMapping (path = "/request/{idTaskCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getTaskDelivered(@PathVariable int idTaskCompletata) {
+    public ResponseEntity<?> getTaskDelivered(@PathVariable int idTaskCompletata) {
         String taskCompleted = this.service.researchTask(idTaskCompletata);
 
         if (taskCompleted == null)
@@ -44,7 +44,7 @@ public class TaskCompletedController {
      * N.18
      */
     @GetMapping(path ="/taskAccepted/{id_team}")
-    public ResponseEntity taskAccepted(@PathVariable int id_team){
+    public ResponseEntity<?> taskAccepted(@PathVariable int id_team){
         return this.service.taskAccepted(id_team);
     }
 
@@ -52,7 +52,7 @@ public class TaskCompletedController {
      * N.18
      */
     @GetMapping(path ="/taskRejected/{id_team}")
-    public ResponseEntity taskRejected(@PathVariable int id_team){
+    public ResponseEntity<?> taskRejected(@PathVariable int id_team){
         return this.service.taskRefused(id_team);
     }
 
@@ -68,7 +68,7 @@ public class TaskCompletedController {
      * N.33
      */
     @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
-    public ResponseEntity confirmation(@PathVariable int idTaskCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
+    public ResponseEntity<?> confirmation(@PathVariable int idTaskCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
         this.service.confirmation(idTaskCompleted, status, ruleCompleted);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
@@ -77,7 +77,7 @@ public class TaskCompletedController {
      * N.36
      */
     @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")
-    public ResponseEntity getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
+    public ResponseEntity<?> getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getTaskForASpecificUser(idTeam, idUser);
     }
 }

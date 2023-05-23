@@ -5,8 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserService {
 
@@ -23,7 +21,7 @@ public class UserService {
      * @param user l'utente da inserire
      * @return (400 BAD_REQUEST) se l'username è duplicato, (200 OK) altrimenti
      */
-    public ResponseEntity newUser(User signUpUser) {
+    public ResponseEntity<?> newUser(User signUpUser) {
         for (User user : this.repository.findAll()) {
             if (user.getUsername().equals(signUpUser.getUsername())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
@@ -38,7 +36,7 @@ public class UserService {
      * 
      * @return la lista degli utenti
      */
-    public ResponseEntity getAllUsers() {
+    public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.findAll());
     }
 
@@ -49,7 +47,7 @@ public class UserService {
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST)
      *         altrimenti
      */
-    public ResponseEntity login(User loginUser) {
+    public ResponseEntity<?> login(User loginUser) {
         for (User user : this.repository.findAll()) {
             if (user.getUsername().equals(loginUser.getUsername()) && user.getPassword().equals(loginUser.getPassword())) {
                 return ResponseEntity.status(HttpStatus.OK).body(user);
@@ -65,7 +63,7 @@ public class UserService {
      * @param newUsername nuovo nome dell'utente
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity changeUsername(int idUser, String newUsername) {
+    public ResponseEntity<?> changeUsername(int idUser, String newUsername) {
         for (User u : this.repository.findAll()) {
             if (u.getId() == idUser) {
                 u.setUsername(newUsername);
@@ -85,7 +83,7 @@ public class UserService {
      *         altrimenti
      */
 
-    public ResponseEntity changeName(int idUser, String newName) {
+    public ResponseEntity<?> changeName(int idUser, String newName) {
         for (User u : this.repository.findAll()) {
             if (u.getId() == idUser) {
                 u.setName(newName);

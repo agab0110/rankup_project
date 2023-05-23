@@ -18,7 +18,7 @@ public class TaskService {
         this.repository = repository;
     }
 
-    public ResponseEntity listTask(Long codice){
+    public ResponseEntity<?> listTask(Long codice){
         List<Task> tasks = new ArrayList<>();
 
         for (Task task : this.repository.findAll()) {

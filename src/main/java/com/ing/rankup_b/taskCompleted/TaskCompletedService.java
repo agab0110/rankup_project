@@ -27,7 +27,7 @@ public class TaskCompletedService {
         return this.repository.findTask(idTaskompletata);
     }
   
-    public ResponseEntity taskAccepted(int Codice){
+    public ResponseEntity<?> taskAccepted(int Codice){
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
@@ -45,7 +45,7 @@ public class TaskCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(acceptedtask);
     }
 
-    public ResponseEntity taskRefused(int Codice){
+    public ResponseEntity<?> taskRefused(int Codice){
         List<TaskCompleted> refusedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
@@ -84,7 +84,7 @@ public class TaskCompletedService {
      * @param idUser l'utente per cui si deve effettuare la ricerca
      * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista di task altrimenti
      */
-    public ResponseEntity getTaskForASpecificUser(long idTeam, int idUser) {
+    public ResponseEntity<?> getTaskForASpecificUser(long idTeam, int idUser) {
         List<Task> tasks = new ArrayList<>();
 
         for (TaskCompleted t : this.repository.findAll()) {
