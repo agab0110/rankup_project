@@ -97,6 +97,7 @@ public class RuleCompletedController {
 
     /**
      * N.35
+     * N.24
      */
     @GetMapping(path = "/getRuleForSpecificUser/{idTeam}/{idUser}")
     public ResponseEntity<?> getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {

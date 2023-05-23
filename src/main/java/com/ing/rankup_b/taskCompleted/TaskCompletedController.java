@@ -75,6 +75,7 @@ public class TaskCompletedController {
 
     /**
      * N.36
+     * N.24
      */
     @GetMapping(path = "/getTaskForSpecificUser/{idTeam}/{idUser}")
     public ResponseEntity<?> getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
