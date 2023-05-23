@@ -112,4 +112,36 @@ public class UserJoinsTeamService {
             return ResponseEntity.status(HttpStatus.OK).body(partecipants);
         }
     }
+    
+    /**
+     * funzione per aggiungere elementi al team come utenti(per ora non va)
+     * @param uJoinsTeam e il body che passo per agiungere i membri al team come utente
+     * @return 200 ok o 400 bad request
+     */
+    public ResponseEntity addUser(UserJoinsTeam uJoinsTeam) {
+        this.repository.save(uJoinsTeam);
+        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
+        
+    }
+
+    /**
+     * funzione per prendere le richieste di un utente che vuole entrare nel team
+     * @param idTeam e il parametro per dire in quale team vuole entrare
+     * @return 200 ok o 400 bad request
+     */
+    public ResponseEntity getrequests(long idTeam){
+        List<UserJoinsTeam> requests = new ArrayList<>();
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getTeam().getCodice() == idTeam) {
+                if (u.getStatus() == Status.Sospeso) {
+                    requests.add(u);
+                }
+            }
+        }
+        if(requests.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessuna richiesta trovata");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(requests);
+        }
+    }
 }
