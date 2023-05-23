@@ -169,7 +169,7 @@ public class TeamService {
     /*
      * N.7
      */
-    public ResponseEntity changePrivacyTeam(int idTeams, boolean privacy) {
+    public ResponseEntity changePrivacyTeam(long idTeams, boolean privacy) {
         for(Team t : (List<Team>)this.repository.findAll()) {
             if(t.getCodice() == idTeams) {
                 t.setPrivacy(privacy);
@@ -183,7 +183,7 @@ public class TeamService {
     /*
      * N.6
      */
-    public ResponseEntity changePrivacyUser(int idTeams, boolean privacy) {
+    public ResponseEntity changePrivacyUser(long idTeams, boolean privacy) {
         for(Team t : (List<Team>)this.repository.findAll()) {
             if(t.getCodice() == idTeams) {
                 t.setPointVisibility(privacy);
