@@ -2,7 +2,6 @@ package com.ing.rankup_b.ruleCompleted;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,7 +83,7 @@ public class RuleCompletedService {
      * @param idUser l'utente per cui si deve effettuare la ricerca
      * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista delle regole altrimenti
      */
-    public ResponseEntity getRuleForASpecificUser(long idTeam, int idUser) {
+    public ResponseEntity<?> getRuleForASpecificUser(long idTeam, int idUser) {
         List<Rule> rules = new ArrayList<>();
 
         for (RuleCompleted r : this.repository.findAll()) {
@@ -100,7 +99,7 @@ public class RuleCompletedService {
         }
     }
 
-    public ResponseEntity ruleCompletedAcceptance(int idRuleCompleted, String comment, int bonusPoints, int status) {
+    public ResponseEntity<?> ruleCompletedAcceptance(int idRuleCompleted, String comment, int bonusPoints, int status) {
         RuleCompleted ruleCompleted = this.repository.findById(idRuleCompleted).get();
         ruleCompleted.setBonus(bonusPoints);
         ruleCompleted.setComment(comment);
