@@ -86,7 +86,7 @@ public class RuleCompletedController {
     public RuleCompleted insert(@RequestBody RuleCompleted ruleCompleted) {
         return this.service.insert(ruleCompleted);
     }
-  
+
     /**
      * N.38
      */
@@ -107,7 +107,9 @@ public class RuleCompletedController {
      * N.32
      */
     @PatchMapping(path = "/acceptance/{idRuleCompleted}")
-    public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment, @RequestParam int bonusPoints, @RequestParam int status) {
+    public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment,
+            @RequestParam int bonusPoints, @RequestParam int status) {
         return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);
-    } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio: rule completed service
+    } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio:
+      // rule completed service
 }

@@ -13,9 +13,11 @@ import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.taskCompleted.TaskCompleted.Status;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TaskCompletedService {
-    
+
     @Autowired
     private TaskCompletedRepository repository;
 
@@ -26,8 +28,8 @@ public class TaskCompletedService {
     public String researchTask(int idTaskompletata) {
         return this.repository.findTask(idTaskompletata);
     }
-  
-    public ResponseEntity taskAccepted(int Codice){
+
+    public ResponseEntity taskAccepted(int Codice) {
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
@@ -36,16 +38,16 @@ public class TaskCompletedService {
                     acceptedtask.add(task);
                 }
             }
-            
+
         }
-        
-        if(acceptedtask.isEmpty()){
+
+        if (acceptedtask.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessun task completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(acceptedtask);
     }
 
-    public ResponseEntity taskRefused(int Codice){
+    public ResponseEntity taskRefused(int Codice) {
         List<TaskCompleted> refusedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
@@ -54,9 +56,9 @@ public class TaskCompletedService {
                     refusedtask.add(task);
                 }
             }
-            
+
         }
-        if(refusedtask.isEmpty()){
+        if (refusedtask.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nessun task completato");
         }
         return ResponseEntity.status(HttpStatus.OK).body(refusedtask);
@@ -77,18 +79,22 @@ public class TaskCompletedService {
 
         return this.repository.update(revisionDate, status, ruleCompleted.getComment(), idTaskCompleted);
     }
-  
+
     /**
-     * Funzione per ricercare tutte le task completate da un utente in un determinato team
+     * Funzione per ricercare tutte le task completate da un utente in un
+     * determinato team
+     * 
      * @param idTeam il team in cui si deve effettuare la ricerca
      * @param idUser l'utente per cui si deve effettuare la ricerca
-     * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista di task altrimenti
+     * @return (400 BAD_REQUEST) se non viene trovato nulla <br>
+     *         (200 OK) con la lista di task altrimenti
      */
     public ResponseEntity getTaskForASpecificUser(long idTeam, int idUser) {
         List<Task> tasks = new ArrayList<>();
 
         for (TaskCompleted t : this.repository.findAll()) {
-            if (t.getTask().getTeam().getCodice() == idTeam && t.getUser().getId() == idUser && t.getStatus() == Status.Accettato) {
+            if (t.getTask().getTeam().getCodice() == idTeam && t.getUser().getId() == idUser
+                    && t.getStatus() == Status.Accettato) {
                 tasks.add(t.getTask());
             }
         }
@@ -98,5 +104,13 @@ public class TaskCompletedService {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(tasks);
         }
+    }
+
+    /*
+     * N.61
+     */
+    public TaskCompleted insert(@Valid TaskCompleted taskCompleted) {
+        taskCompleted.setTimestamp(Timestamp.from(Instant.now()));
+        return this.repository.save(taskCompleted);
     }
 }
