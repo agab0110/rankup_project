@@ -27,14 +27,12 @@ public class TaskForSpecificUser {
     @ManyToOne
     @JoinColumn(name = "id_user")
     @MapsId("idUser")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_task")
     @MapsId("idTask")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Task task;
 }

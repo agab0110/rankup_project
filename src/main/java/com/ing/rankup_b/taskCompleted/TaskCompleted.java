@@ -53,7 +53,6 @@ public class TaskCompleted {
     @ManyToOne
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private AdminManageTeam admin;
 
     @ManyToOne

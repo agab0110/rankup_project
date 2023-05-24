@@ -39,15 +39,13 @@ public class UserJoinsTeam {
 
     @ManyToOne
     @JoinColumn(name = "id_user")
-    //@MapsId("idUser")
-    @JsonIgnore
+    @MapsId("idUser")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_team")
-    //@MapsId("idTeam")
-    //@JsonIgnore
+    @MapsId("idTeam")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 

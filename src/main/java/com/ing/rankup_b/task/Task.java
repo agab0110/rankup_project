@@ -58,13 +58,11 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "id_team")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
     
     @ManyToOne
     @JoinColumn(name = "id_admin")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
 
