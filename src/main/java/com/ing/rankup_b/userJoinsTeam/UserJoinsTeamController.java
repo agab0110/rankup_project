@@ -64,13 +64,4 @@ public class UserJoinsTeamController {
     public ResponseEntity<?> getPartecipants(@PathVariable long idTeam) {
         return this.service.findPartecipants(idTeam);
     }
-
-    /**
-     * N.63
-     */
-    @PostMapping(path = "/addUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addUser(@RequestBody UserJoinsTeam userJoinsTeam) {
-        return this.service.addUser(userJoinsTeam);
-    }
-
 }
