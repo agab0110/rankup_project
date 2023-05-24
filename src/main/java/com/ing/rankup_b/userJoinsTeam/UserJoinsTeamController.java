@@ -87,8 +87,9 @@ public class UserJoinsTeamController {
     /**
      * N.16
      */
-    @PatchMapping(path = "/manageRequest/{idTeam}/{idUser}")
-    public ResponseEntity<?> manageRequest(@PathVariable long idTeam, @PathVariable int idUser, @RequestParam("status") int status) {
-        return this.service.manageRequest(idTeam, idUser, status);
+    @PatchMapping(path = "/manageRequest/{idTeam}/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> manageRequest(@PathVariable long idTeam, @PathVariable int idUser, @RequestBody String status) {
+        int s = Integer.parseInt(status);
+        return this.service.manageRequest(idTeam, idUser, s);
     }
 }
