@@ -10,6 +10,9 @@ import com.ing.rankup_b.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -25,9 +28,14 @@ public class UserJoinsTeam {
         Sospeso, Accettato, Rifiutato
     }
     
-    @EmbeddedId
+    /*@EmbeddedId
     @Column(name = "key")
-    UserJoinsTeamKey key;
+    UserJoinsTeamKey key;*/
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
