@@ -32,14 +32,12 @@ public class UserJoinsTeam {
     @ManyToOne
     @JoinColumn(name = "id_user")
     @MapsId("idUser")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_team")
     @MapsId("idTeam")
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
