@@ -109,4 +109,8 @@ public class UserJoinsTeamService {
             return ResponseEntity.status(HttpStatus.OK).body(partecipants);
         }
     }
+
+    public ResponseEntity<?> addUser(UserJoinsTeam userJoinsTeam) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.save(userJoinsTeam));
+    }
 }
