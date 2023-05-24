@@ -46,7 +46,6 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "id_team")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Team team;
 
     @ManyToOne

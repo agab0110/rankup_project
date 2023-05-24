@@ -2,8 +2,12 @@ package com.ing.rankup_b.notification;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("notificationApi")
@@ -17,4 +21,9 @@ public class NotificationController {
     public NotificationController(NotificationService service) {
         this.service = service;
     }    
+
+    @GetMapping(path = "/getUserNotification/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUserNotification(@PathVariable int idUser) {
+        return this.service.getUserNotification(idUser);
+    }
 }
