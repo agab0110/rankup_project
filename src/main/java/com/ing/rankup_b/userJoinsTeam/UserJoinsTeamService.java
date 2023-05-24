@@ -145,7 +145,7 @@ public class UserJoinsTeamService {
         }
     }
 
-    public ResponseEntity addUser(long idTeam, int idUser) {
+    public ResponseEntity<?> addUser(long idTeam, int idUser) {
         int points = 0;
         int accepted = 1;
         this.repository.addUserQuery(points,accepted,idTeam,idUser);

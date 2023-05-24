@@ -66,6 +66,7 @@ public class TaskService {
         Date date = new Date();
         task.setStartDate(date);
         this.repository.save(task);
+        
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 }
