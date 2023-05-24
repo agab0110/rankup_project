@@ -109,4 +109,20 @@ public class UserJoinsTeamService {
             return ResponseEntity.status(HttpStatus.OK).body(partecipants);
         }
     }
+
+    public ResponseEntity<?> manageRequest(long idTeam, int idUser, int status) {
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser && u.getStatus() == Status.Sospeso) {
+                if (status == 1) {
+                    u.setStatus(Status.Accettato);
+                    return ResponseEntity.status(HttpStatus.OK).body(this.repository.save(u));
+                } else {
+                    u.setStatus(Status.Rifiutato);
+                    return ResponseEntity.status(HttpStatus.OK).body(this.repository.save(u));
+                }
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore");
+    }
 }
