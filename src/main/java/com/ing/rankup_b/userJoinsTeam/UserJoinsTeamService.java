@@ -22,21 +22,13 @@ public class UserJoinsTeamService {
     }
 
     /**
-     * Funzione per eliminare una richiesta d'accesso nel team
-     * @param teamCode il team a cui è stato richiesto l'accesso
-     * @param userId l'utente che ha fatto la richiesta
-     * @return (200 OK) se viene eliminata correttamente la richiesta, (400 BAD_REQUEST) altrimenti
+     * Funzione per l'eliminazione di una richiesta d'accesso in un team
+     * @param id l'id della richiesta
+     * @return (200 OK) con la conferma dell'eliminazione, errore altrimenti
      */
-    public ResponseEntity<?> deleteUserRequest(Long teamCode, int userId) {
-        for (UserJoinsTeam userJoinsTeam : this.repository.findAll()) {
-            if (userJoinsTeam.getTeam().getCodice() == teamCode) {
-                if (userJoinsTeam.getUser().getId() == userId) {
-                    this.repository.delete(userJoinsTeam);
-                    return ResponseEntity.status(HttpStatus.OK).body("Richiesta eliminata");
-                }
-            }
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erorre imprevisto");
+    public ResponseEntity<?> deleteUserRequest(int id) {
+        this.repository.delete(this.repository.findById(id).get());
+        return ResponseEntity.status(HttpStatus.OK).body("Eliminazione avvenuta con successo");
     }
 
     public List<Object> getListUserSearch(String username) {    //GIACENTO
@@ -142,6 +134,13 @@ public class UserJoinsTeamService {
         }
     }
 
+    /**
+     * Funzione per accettare una richiesta di accesso ad un team
+     * @param idTeam il team per cui si è fatta richiesta
+     * @param idUser l'utente che ha fatto richiesta
+     * @param status l'accettazione della richiesta
+     * @return
+     */
     public ResponseEntity<?> manageRequest(long idTeam, int idUser, int status) {
         for (UserJoinsTeam u : this.repository.findAll()) {
             if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser && u.getStatus() == Status.Sospeso) {
