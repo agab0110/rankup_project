@@ -1,6 +1,7 @@
 package com.ing.rankup_b.task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +63,8 @@ public class TaskService {
      * N.17
      */
     public ResponseEntity createTask(Task task) {
-        task.getEndDate();
-        task.getStartDate();
-        
+        Date date = new Date();
+        task.setStartDate(date);
         this.repository.save(task);
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }

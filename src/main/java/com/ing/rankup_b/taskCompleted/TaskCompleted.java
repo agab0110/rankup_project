@@ -59,7 +59,6 @@ public class TaskCompleted {
     @ManyToOne
     @JoinColumn(name = "id_user")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private User user;
 
     @Column(name = "revision_date")

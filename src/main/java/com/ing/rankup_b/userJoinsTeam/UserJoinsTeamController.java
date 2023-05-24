@@ -74,5 +74,9 @@ public class UserJoinsTeamController {
     public ResponseEntity getRequests(@PathVariable long idTeam) {
         return this.service.getrequests(idTeam);
     }
+    @PostMapping(path = "/addUser")
+    public ResponseEntity addUser(@RequestParam(value = "idTeam", required = true) long idTeam, @RequestParam(value = "idUser", required = true) int idUser) {
+        return service.addUser(idTeam,idUser);
+    }
 
 }

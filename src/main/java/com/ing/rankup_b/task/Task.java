@@ -24,6 +24,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -42,7 +43,7 @@ public class Task {
     private String name;
 
     @Column(name = "points")
-    @NotEmpty(message = "Il punteggio non può essere vuoto")
+    @NotNull(message = "Il punteggio non può essere vuoto")
     private int points;
 
     @Column(name = "description")
@@ -50,11 +51,9 @@ public class Task {
     private String description;
 
     @Column(name = "end_date")
-    @NotEmpty(message = "La data di fine non può essere vuota")
     private Date endDate;
 
     @Column(name = "start_date")
-    @NotEmpty(message = "La data di inizio non può essere vuota")
     private Date startDate;
 
     @ManyToOne
