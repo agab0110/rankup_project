@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.qos.logback.core.status.Status;
-import jakarta.persistence.criteria.Path;
 import jakarta.validation.Valid;
 
 @RestController
@@ -68,15 +66,7 @@ public class UserJoinsTeamController {
     public ResponseEntity getPartecipants(@PathVariable long idTeam) {
         return this.service.findPartecipants(idTeam);
     }
-    
-    /*
-     * N.12
-     * 
-     */
-    @PostMapping(path = "/addUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addUser(@Valid @RequestBody UserJoinsTeam uJoinsTeam) {
-        return service.addUser(uJoinsTeam);
-    }
+
     /*
      * N.14
      */

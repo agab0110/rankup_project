@@ -58,4 +58,14 @@ public class TaskService {
     public String getTask(int idTask) {
         return this.repository.findTask(idTask);
     }
+    /*
+     * N.17
+     */
+    public ResponseEntity createTask(Task task) {
+        task.getEndDate();
+        task.getStartDate();
+        
+        this.repository.save(task);
+        return ResponseEntity.status(HttpStatus.OK).body(task);
+    }
 }
