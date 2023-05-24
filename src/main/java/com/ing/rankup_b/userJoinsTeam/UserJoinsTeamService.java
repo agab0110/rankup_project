@@ -6,7 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.prize.Prize;
+import com.ing.rankup_b.prize.PrizeRepository;
 import com.ing.rankup_b.user.User;
+import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
 import java.text.ParseException;
@@ -111,5 +114,21 @@ public class UserJoinsTeamService {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(partecipants);
         }
+    }
+
+    public ResponseEntity userSubtractPoints(long idTeam, int idUser , int idPrize) {
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getKey().getIdUser() == idUser && u.getKey().getIdTeam() == idTeam){
+                for(Prize p : u.getTeam().getPrizes()) {
+                    if (u.getPoints() >= p.getPrice() && p.getId() == idPrize) {
+                        u.setPoints(u.getPoints()- p.getPrice());
+                    }
+                }
+                if(u.getPoints() > 0) {
+                    return ResponseEntity.status(HttpStatus.OK).body(u);
+                }
+            }  
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Punti non sufficienti");
     }
 }
