@@ -33,9 +33,9 @@ public class UserJoinsTeamController {
     /**
      * N.15
      */
-    @DeleteMapping(path = "/deleteRequest/{codeTeam}/{userId}")
-    public ResponseEntity<?> deleteRequest(@PathVariable Long codeTeam, @PathVariable int userId) {
-        return this.service.deleteUserRequest(codeTeam, userId);
+    @DeleteMapping(path = "/deleteRequest/{id}")
+    public ResponseEntity<?> deleteRequest(@PathVariable int id) {
+        return this.service.deleteUserRequest(id);
     }
 
     /**
