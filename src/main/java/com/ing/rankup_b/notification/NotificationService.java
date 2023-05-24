@@ -13,5 +13,17 @@ public class NotificationService {
         this.repository = repository;
     }
 
-    
+    /*
+     * N.62
+     */
+    public String getUserNotification(int idUser) {
+        return this.repository.getUserNotification(idUser);
+    }
+
+    /*
+     * N.62
+     */
+    public String getAdminNotification(int idUser) {
+        return this.repository.getAdminNotification(idUser);
+    }
 }

@@ -29,7 +29,7 @@ public class TaskController {
      */
     @GetMapping(path = "/tasks/{idTeam}")
     public ResponseEntity listTask(@PathVariable long idTeam) {
-       return this.service.listTask(idTeam);
+        return this.service.listTask(idTeam);
     }
 
     /*
