@@ -118,7 +118,7 @@ public class UserJoinsTeamService {
 
     public ResponseEntity userSubtractPoints(long idTeam, int idUser , int idPrize) {
         for (UserJoinsTeam u : this.repository.findAll()) {
-            if(u.getKey().getIdUser() == idUser && u.getKey().getIdTeam() == idTeam){
+            if(u.getUser().getId() == idUser && u.getTeam().getCodice() == idTeam){
                 for(Prize p : u.getTeam().getPrizes()) {
                     if (u.getPoints() >= p.getPrice() && p.getId() == idPrize) {
                         u.setPoints(u.getPoints()- p.getPrice());
