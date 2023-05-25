@@ -27,7 +27,7 @@ public class NotificationService {
     /**
      * Funzione per creare una nuova notifica per un determinato team
      * @param idTeam il team per cui viene creata la notifica
-     * @param notification il body della notifica
+     * @param notification il body della notifica composto solo da title e description
      * @return (200 OK) con la notifica salvata nel body 
      */
     public ResponseEntity<?> newNotification(long idTeam, Notification notification) {
