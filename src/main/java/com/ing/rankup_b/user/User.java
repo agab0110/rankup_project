@@ -4,12 +4,12 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
-import com.ing.rankup_b.notification.Notification;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.taskCompleted.TaskCompleted;
 import com.ing.rankup_b.taskForSpecificUser.TaskForSpecificUser;
 import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam;
+import com.ing.rankup_b.userReciveNotification.UserReciveNotification;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -67,9 +67,8 @@ public class User {
     private Set<RuleCompleted> ruleCompleted;
 
     @OneToMany(mappedBy = "user")
-    @Column(name = "notidfications")
     @JsonIgnore
-    private Set<Notification> notifications;
+    private Set<UserReciveNotification> notifications;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
