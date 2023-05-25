@@ -28,9 +28,19 @@ public class AdminReciveNotificationService {
         this.adminManageTeamRepository = adminManageTeamRepository;
     }
 
+    /**
+     * Funzione per collegare una notifica ad un admin
+     * @param idAdmin l'admin a cui collegare la notifica
+     * @param idNotification la notifica da collegare
+     * @return 
+     */
     public ResponseEntity<?> newNotification(int idAdmin, int idNotification) {
         AdminManageTeam admin = this.adminManageTeamRepository.findById(idAdmin).get();
         Notification notification = this.notificationRepository.findById(idNotification).get();
+
+        if (admin == null || notification == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("admin o notifica non trovato");
+        }
 
         AdminReciveNotification adminReciveNotification = new AdminReciveNotification();
         adminReciveNotification.setAdmin(admin);
