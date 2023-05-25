@@ -20,11 +20,4 @@ public class NotificationController {
     public NotificationController(NotificationService service) {
         this.service = service;
     }
-    /*
-     * N.64
-     */
-    @GetMapping(path = "/getNotification/{idUser}")
-    public ResponseEntity<?> listNotification(@PathVariable int idUser) {
-        return this.service.getNotification(idUser);
-    }
 }

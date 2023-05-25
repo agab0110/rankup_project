@@ -18,23 +18,6 @@ public class NotificationService {
         this.repository = repository;
     }
 
-    /**
-     * serve per prendere tutte le notifiche del singolo utente
-     * @param idUser e il parametro per prendere le notifiche del singolo utente
-     * @return 200 ok o 400 bad request
-     */
-    public ResponseEntity<?> getNotification(int idUser) {
-        List<Notification> notifications = new ArrayList<>();
-       for (Notification n : this.repository.findAll()) {
-              if (n.getUser().getId()== idUser) {
-                    notifications.add(n);
-              }
-       }
-
-         if (notifications.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono notifiche per questo team");
-         }
-            return ResponseEntity.status(HttpStatus.OK).body(notifications);
-    }
+   
     
 }
