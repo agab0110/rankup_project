@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -20,10 +21,10 @@ public class NotificationController {
 
     public NotificationController(NotificationService service) {
         this.service = service;
-    }    
-
-    @GetMapping(path = "/getUserNotification/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getUserNotification(@PathVariable int idUser) {
-        return this.service.getUserNotification(idUser);
+    }
+    
+    @GetMapping(path = "/userNotification/{idNotification}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUserNotification(@PathVariable int idNotification) {
+        return this.service.getUserNotification(idNotification);
     }
 }

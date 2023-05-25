@@ -19,18 +19,16 @@ public class NotificationService {
     public NotificationService(NotificationRepository repository) {
         this.repository = repository;
     }
+    
+    public ResponseEntity getUserNotification(int idNotification) {
+        Notification notification = new Notification();
 
-    public ResponseEntity getUserNotification(int idUser){
-        List<Notification> userNotification = new ArrayList<>();
         for(Notification n : this.repository.findAll()){
-            if(n.getUser().getId() == idUser){
-                userNotification.add(n);
+            if(n.getId() == idNotification){
+                notification = n;
+                return ResponseEntity.status(HttpStatus.OK).body(notification);
             }
         }
-        if(!userNotification.isEmpty()){
-            return ResponseEntity.status(HttpStatus.OK).body(userNotification);
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessuna notifica presente");
-        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Notifica non trovata");
     }
 }
