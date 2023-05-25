@@ -108,7 +108,6 @@ public class UserJoinsTeamService {
                 }
             }
         }
-
         if(partecipants.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
         } else {
@@ -116,6 +115,12 @@ public class UserJoinsTeamService {
         }
     }
 
+    /**
+     * Funzione per modificare il punteggio di un utente quando riscuote un premio
+     * @param idTeam
+     * @param idUser
+     * @param idPrize
+     */
     public ResponseEntity userSubtractPoints(long idTeam, int idUser , int idPrize) {
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getUser().getId() == idUser && u.getTeam().getCodice() == idTeam){
