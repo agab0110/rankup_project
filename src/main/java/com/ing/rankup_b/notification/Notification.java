@@ -1,12 +1,15 @@
 package com.ing.rankup_b.notification;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ing.rankup_b.adminReciveNotification.AdminReciveNotification;
 import com.ing.rankup_b.team.Team;
-import com.ing.rankup_b.user.User;
+import com.ing.rankup_b.userReciveNotification.UserReciveNotification;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -47,8 +51,11 @@ public class Notification {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    @OneToMany(mappedBy = "notification")
+    @JsonIgnore
+    private Set<UserReciveNotification> user;
+
+    @OneToMany(mappedBy = "notification")
+    @JsonIgnore
+    private Set<AdminReciveNotification> admin;
 }
