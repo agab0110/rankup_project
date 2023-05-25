@@ -49,13 +49,11 @@ public class Rule {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_team")
-    @JsonIgnore
     private Team team;
 
     @ManyToOne
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private AdminManageTeam admin;
 
     @Column(name = "rulesCompleted")
