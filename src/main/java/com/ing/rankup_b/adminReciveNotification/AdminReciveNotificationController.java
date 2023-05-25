@@ -20,6 +20,9 @@ public class AdminReciveNotificationController {
         this.service = service;
     }
 
+    /**
+     * N.63
+     */
     @PostMapping(path = "newNotification/{idAdmin}/{idNotification}")
     public ResponseEntity<?> newNotification(@PathVariable int idAdmin, @PathVariable int idNotification) {
         return this.service.newNotification(idAdmin, idNotification);
