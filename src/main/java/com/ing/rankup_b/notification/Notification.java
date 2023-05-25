@@ -51,11 +51,11 @@ public class Notification {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "notification")
     @JsonIgnore
     private Set<UserReciveNotification> user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "notification")
     @JsonIgnore
     private Set<AdminReciveNotification> admin;
 }
