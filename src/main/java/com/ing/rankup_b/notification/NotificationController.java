@@ -23,8 +23,8 @@ public class NotificationController {
         this.service = service;
     }    
 
-    @PostMapping(path = "/newNotification/{idTeam}/{idUser}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> newNotification(@PathVariable long idTeam, @PathVariable int idUser, @RequestBody Notification notification) {
-        return this.service.newNotification(idTeam, idUser, notification);
+    @PostMapping(path = "/newNotification/{idTeam}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> newNotification(@PathVariable long idTeam, @RequestBody Notification notification) {
+        return this.service.newNotification(idTeam, notification);
     }
 }
