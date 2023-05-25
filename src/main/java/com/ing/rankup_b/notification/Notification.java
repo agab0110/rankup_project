@@ -5,6 +5,7 @@ import java.util.Date;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
 
@@ -51,4 +52,9 @@ public class Notification {
     @JoinColumn(name = "id_user")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_admin")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private AdminManageTeam admin;
 }
