@@ -42,13 +42,11 @@ public class Prize {
     private int price;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "id_team")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team beloggingTeam;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;

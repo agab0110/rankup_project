@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ing.rankup_b.adminReciveNotification.AdminReciveNotification;
 import com.ing.rankup_b.prize.Prize;
 import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
@@ -68,4 +69,8 @@ public class AdminManageTeam {
     @OneToMany(mappedBy = "admin")
     @JsonIgnore
     private Set<TaskCompleted> tasksCompleted;
+    
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private Set<AdminReciveNotification> notifications;
 }
