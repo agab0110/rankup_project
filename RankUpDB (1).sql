@@ -57,24 +57,6 @@ INSERT INTO `admin_manage_team` (`id_admin`, `id_team`, `id_user`) VALUES
 (4, 4, 4),
 (5, 5, 5);
 
---
--- Dump dei dati per la tabella `admin_recive_notification`
---
-
-INSERT INTO `admin_recive_notification` (`id`, `id_admin`, `id_notification`) VALUES
-(1, 1, 2),
-(2, 1, 3);
-
---
--- Dump dei dati per la tabella `notification`
---
-
-INSERT INTO `notification` (`id_notification`, `date`, `description`, `title`, `id_team`, `id_user`) VALUES
-(1, '2023-05-15', 'Prova notifica', 'Inserita nuova regola nel Team Università', 1, 2),
-(2, '2023-05-15', 'Prova notifica', 'Inserito nuovo task nel Team Palestra', 5, 3),
-(3, '2023-05-15', 'Prova notifica', 'Inserita nuova regola nel Team Università', 2, 1),
-(4, '2023-05-23', 'Prova notifica', 'Inserita nuovo Task nel Team Figli', 3, 2),
-(5, '2023-05-23', 'Prova notifica', 'Inserita nuovo Task nel Team Figli', 3, 2);
 
 --
 -- Dump dei dati per la tabella `prize`
@@ -175,22 +157,16 @@ INSERT INTO `user_get_prize` (`id_prize`, `id_user`, `date`) VALUES
 -- Dump dei dati per la tabella `user_joins_team`
 --
 
-INSERT INTO `user_joins_team` (`id_team`, `id_user`, `points`, `accepted`, `id`) VALUES
-(1, 2, 100, 1, 0),
-(1, 4, 160, 1, 0),
-(2, 1, 200, 1, 0),
-(2, 3, 90, 1, 0),
-(3, 2, 40, 1, 0),
-(4, 5, 160, 1, 0),
-(5, 3, 10, 1, 0);
+INSERT INTO `user_joins_team` (`id_team`, `id_user`, `points`, `accepted`) VALUES
+(1, 2, 100, 1),
+(1, 4, 160, 1),
+(2, 1, 200, 1),
+(2, 3, 90, 1),
+(3, 2, 40, 1),
+(4, 5, 160, 1),
+(5, 3, 10, 1);
 
---
--- Dump dei dati per la tabella `user_recive_notification`
---
 
-INSERT INTO `user_recive_notification` (`id`, `id_notification`, `id_user`) VALUES
-(1, 1, 2),
-(2, 3, 7);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
