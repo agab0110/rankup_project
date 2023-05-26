@@ -74,10 +74,10 @@ public class TaskCompletedService {
     /*
      * N.33
      */
-    public String confirmation(int idTaskCompleted, int status, RuleCompleted ruleCompleted) {
+    public String confirmation(int idTaskCompleted, int status, TaskCompleted taskCompleted) {
         Timestamp revisionDate = Timestamp.from(Instant.now());
 
-        return this.repository.update(revisionDate, status, ruleCompleted.getComment(), idTaskCompleted);
+        return this.repository.update(revisionDate, status, taskCompleted.getComment(), idTaskCompleted);
     }
 
     /**

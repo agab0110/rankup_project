@@ -70,10 +70,10 @@ public class TaskCompletedController {
     /**
      * N.33
      */
-    @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
+    @PatchMapping(path = "/confirmation/{idTaskCompleted}/{status}")
     public ResponseEntity confirmation(@PathVariable int idTaskCompleted, @PathVariable int status,
-            @RequestBody RuleCompleted ruleCompleted) {
-        this.service.confirmation(idTaskCompleted, status, ruleCompleted);
+            @RequestBody TaskCompleted taskCompleted) {
+        this.service.confirmation(idTaskCompleted, status, taskCompleted);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
