@@ -99,4 +99,11 @@ public class TaskCompletedService {
             return ResponseEntity.status(HttpStatus.OK).body(tasks);
         }
     }
+
+    /*
+     * N.39
+     */
+    public ResponseEntity getTaskCompletedDetails(int idTaskCompleted) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(idTaskCompleted));
+    }
 }

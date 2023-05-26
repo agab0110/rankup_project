@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -80,5 +82,22 @@ public class TeamController {
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Team newTeam(@RequestBody Team team) {
         return this.service.insert(team);
+    }
+
+    /*
+     * N.6
+     */
+
+    @PatchMapping(path = "/changePrivacyUser/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changePrivacyUser(@PathVariable Long code, @RequestParam("privacy") boolean privacy) {
+        return this.service.changePrivacyUser(code, privacy);
+    }
+
+    /*
+     * N.7
+     */
+    @PatchMapping(path = "/changePrivacyTeam/{codeTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changePrivacyTeam(@PathVariable Long codeTeam, @RequestParam("privacy") boolean privacy) {
+        return this.service.changePrivacyTeam(codeTeam, privacy);
     }
 }

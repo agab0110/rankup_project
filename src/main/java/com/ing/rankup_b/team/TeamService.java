@@ -165,4 +165,32 @@ public class TeamService {
     public Team insert(Team team) {
         return this.repository.save(team);
     }
+
+    /*
+     * N.7
+     */
+    public ResponseEntity changePrivacyTeam(long idTeams, boolean privacy) {
+        for(Team t : (List<Team>)this.repository.findAll()) {
+            if(t.getCodice() == idTeams) {
+                t.setPrivacy(privacy);
+                this.repository.save(t);
+                return ResponseEntity.status(HttpStatus.OK).body(t);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
+    }
+
+    /*
+     * N.6
+     */
+    public ResponseEntity changePrivacyUser(long idTeams, boolean privacy) {
+        for(Team t : (List<Team>)this.repository.findAll()) {
+            if(t.getCodice() == idTeams) {
+                t.setPointVisibility(privacy);
+                this.repository.save(t);
+                return ResponseEntity.status(HttpStatus.OK).body(t);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
+    }
 }

@@ -80,4 +80,12 @@ public class TaskCompletedController {
     public ResponseEntity getTaskForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getTaskForASpecificUser(idTeam, idUser);
     }
+
+    /*
+     * N.39
+     */
+    @GetMapping(path = "/taskCompletedDetails/{idTaskCompleted}")
+    public ResponseEntity taskCompletedDetails(@PathVariable int idTaskCompleted) {
+        return this.service.getTaskCompletedDetails(idTaskCompleted);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
@@ -157,5 +158,28 @@ public class UserJoinsTeamService {
         this.repository.addUserQuery(points,accepted,idTeam,idUser);
         return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
         
+    }
+
+    /**
+     * Funzione per prendere la lista di team in cui è un utente
+     * 
+     * @param idUser l'utente per cui si vuole la lista dei team
+     * @return (200 OK) con la lista dei team se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity findTeams(int idUser) {
+        List<Team> teams = new ArrayList<>();
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getUser().getId() == idUser) {
+                if (u.getStatus() == Status.Accettato) {
+                    teams.add(u.getTeam());
+                }
+            }
+        }
+
+        if(teams.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun team trovato");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(teams);
+        }
     }
 }
