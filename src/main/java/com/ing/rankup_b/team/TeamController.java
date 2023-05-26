@@ -36,31 +36,31 @@ public class TeamController {
     }
 
     /**
-     * N.34
+     * N.34 P1
      */
     @GetMapping(path = "/researchTeam/{nameTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity researchTeams(@PathVariable String nameTeam) {
         String teams = this.service.researchTeams(nameTeam);
 
-        if (teams == null){
+        if (teams == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
-    
+
     /**
      * N.2
      * N.54
      */
     @GetMapping(path = "/getTeam/{idTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getTeam(@PathVariable Long idTeam){
+    public ResponseEntity getTeam(@PathVariable Long idTeam) {
         return this.service.getTeam(idTeam);
     }
 
     /**
      * N.3
-     */    
+     */
     @PatchMapping(path = "/changeName/{codice}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity changeName(@PathVariable Long codice, @RequestBody String newName) {
         return this.service.changeName(codice, newName);
@@ -80,5 +80,15 @@ public class TeamController {
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Team newTeam(@RequestBody Team team) {
         return this.service.insert(team);
+    }
+
+    /**
+     * N.34 P2
+     */
+    @GetMapping(path = "/getAllTeams", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllTeams() {
+        String teams = this.service.getAllTeams();
+
+        return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
 }

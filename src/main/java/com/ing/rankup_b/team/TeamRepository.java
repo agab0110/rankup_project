@@ -9,6 +9,9 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1 AND team.name LIKE ?1%", nativeQuery = true)
     String findByName(String title);
 
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1", nativeQuery = true)
+    String findTeams();
+
     @Query(value = "SELECT rule.name, rule.points, rule_completed.bonus_points FROM rule_completed JOIN rule ON rule_completed.id_rule = rule.id_rule JOIN user ON user.id_user = rule_completed.id_user JOIN team ON team.id_team = rule.team WHERE rule_completed.status = 1 AND rule.team = ?1 AND rule_completed.id_user = ?2", nativeQuery = true)
     public ArrayList<String> userCompletedActivitiesRuleQuery(int id_team, int id_user);
 
