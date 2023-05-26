@@ -134,7 +134,7 @@ public class UserJoinsTeamService {
                 }
             }  
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Punti non sufficienti");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Punti non sufficienti o utente non partecipa al Team");
     }
     
     /**
