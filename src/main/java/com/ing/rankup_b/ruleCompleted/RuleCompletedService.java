@@ -99,24 +99,33 @@ public class RuleCompletedService {
         }
     }
 
-    public ResponseEntity<?> ruleCompletedAcceptance(int idRuleCompleted, String comment, int bonusPoints, int status) {
-        RuleCompleted ruleCompleted = this.repository.findById(idRuleCompleted).get();
-        ruleCompleted.setBonus(bonusPoints);
-        ruleCompleted.setComment(comment);
+    /**
+     * Funzione per accettare o rifiutare una regola completata
+     * @param idRuleCompleted l'id della regola completata 
+     * @param status accettazione o rifiuto
+     * @param ruleCompleted il body della regola
+     * @return la regola completata accettata o rifiutata
+     */
+    public ResponseEntity<?> ruleCompletedAcceptance(int idRuleCompleted, int status, RuleCompleted ruleCompleted) {
+        if (ruleCompleted == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Regola vuota");
+        }
 
-        Date revisionDate = new Date();
-
-        ruleCompleted.setRevisionDate(revisionDate);
+        RuleCompleted r = this.repository.findById(idRuleCompleted).get();
+        r.setComment(ruleCompleted.getComment());
+        r.setBonus(ruleCompleted.getBonus());
 
         if (status == 1) {
-            ruleCompleted.setStatus(Status.Accettato);
+            r.setStatus(Status.Accettato);
         } else {
-            ruleCompleted.setStatus(Status.Rifiutato);
+            r.setStatus(Status.Rifiutato);
         }
-        
-        this.repository.save(ruleCompleted);
+        Date revisionDate = new Date();
 
-        return ResponseEntity.status(HttpStatus.OK).body(ruleCompleted);
+        r.setRevisionDate(revisionDate);
+        this.repository.save(r);
+
+        return ResponseEntity.status(HttpStatus.OK).body(r);
     }
 
     /*
