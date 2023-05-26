@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ruleCompletedApi")
+@RequestMapping("ruleCompletedApi")
 @CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 
 public class RuleCompletedController {
@@ -107,8 +106,8 @@ public class RuleCompletedController {
     /**
      * N.32
      */
-    @PatchMapping(path = "/acceptance/{idRuleCompleted}")
-    public ResponseEntity<?> acceptance(@PathVariable int idRuleCompleted, @RequestParam("comment") String comment, @RequestParam("bonusPoints") int bonusPoints, @RequestParam("status") int status) {
-        return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);
-    } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio: rule completed service
+    @PatchMapping(path = "/acceptance/{idRuleCompleted}/{status}")
+    public ResponseEntity<?> acceptance(@PathVariable int idRuleCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
+        return this.service.ruleCompletedAcceptance(idRuleCompleted, status, ruleCompleted);
+    }
 }
