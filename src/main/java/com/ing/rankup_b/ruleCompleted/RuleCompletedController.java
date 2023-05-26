@@ -110,4 +110,12 @@ public class RuleCompletedController {
     public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment, @RequestParam int bonusPoints, @RequestParam int status) {
         return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);
     } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio: rule completed service
+
+    /**
+     *  N.70
+     */
+    @GetMapping(path = "/admin/ruleCompletedDetails/{idRuleCompleted}")
+    public ResponseEntity ruleCompletedDetail(@PathVariable int idRuleCompleted) {
+        return this.service.getRuleCompletedDetails(idRuleCompleted);
+    }
 }
