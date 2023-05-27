@@ -1,9 +1,14 @@
 package com.ing.rankup_b.adminReciveNotification;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("adminReciveNotificationApi/")
@@ -15,5 +20,10 @@ public class AdminReciveNotificationController {
 
     public AdminReciveNotificationController(AdminReciveNotificationService service) {
         this.service = service;
+    }
+
+    @GetMapping(path = "/getAdminNotification/{idAdmin}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAdminNotification(@PathVariable int idAdmin) {
+        return this.service.getAdminNotification(idAdmin);
     }
 }

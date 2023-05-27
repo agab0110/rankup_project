@@ -6,8 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.prize.Prize;
+import com.ing.rankup_b.prize.PrizeRepository;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.user.User;
+import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
 import java.text.ParseException;
@@ -106,12 +109,73 @@ public class UserJoinsTeamService {
                 }
             }
         }
-
         if(partecipants.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun utente trovato");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(partecipants);
         }
+    }
+
+    /**
+     * Funzione per modificare il punteggio di un utente quando riscuote un premio
+     * @param idTeam
+     * @param idUser
+     * @param idPrize
+     */
+    public ResponseEntity userSubtractPoints(long idTeam, int idUser , int idPrize) {
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getUser().getId() == idUser && u.getTeam().getCodice() == idTeam){
+                for(Prize p : u.getTeam().getPrizes()) {
+                    if (u.getPoints() >= p.getPrice() && p.getId() == idPrize) {
+                        u.setPoints(u.getPoints()- p.getPrice());
+                    }
+                }
+                if(u.getPoints() > 0) {
+                    return ResponseEntity.status(HttpStatus.OK).body(u);
+                }
+            }  
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Punti non sufficienti o utente non partecipa al Team");
+    }
+    
+    /**
+     * funzione per aggiungere elementi al team come utenti(per ora non va)
+     * @param uJoinsTeam e il body che passo per agiungere i membri al team come utente
+     * @return 200 ok o 400 bad request
+     */
+    public ResponseEntity addUser(UserJoinsTeam uJoinsTeam) {
+        this.repository.save(uJoinsTeam);
+        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
+        
+    }
+
+    /**
+     * funzione per prendere le richieste di un utente che vuole entrare nel team
+     * @param idTeam e il parametro per dire in quale team vuole entrare
+     * @return 200 ok o 400 bad request
+     */
+    public ResponseEntity getrequests(long idTeam){
+        List<UserJoinsTeam> requests = new ArrayList<>();
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if(u.getTeam().getCodice() == idTeam) {
+                if (u.getStatus() == Status.Sospeso) {
+                    requests.add(u);
+                }
+            }
+        }
+        if(requests.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessuna richiesta trovata");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(requests);
+        }
+    }
+
+    public ResponseEntity<?> addUser(long idTeam, int idUser) {
+        int points = 0;
+        int accepted = 1;
+        this.repository.addUserQuery(points,accepted,idTeam,idUser);
+        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
+        
     }
 
     /**

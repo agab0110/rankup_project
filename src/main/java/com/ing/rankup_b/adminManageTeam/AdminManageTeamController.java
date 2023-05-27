@@ -26,8 +26,8 @@ public class AdminManageTeamController {
     /**
      * N.13
      */
-    @PostMapping(path = "/addAdmin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addAdmin(@RequestParam("idTeam") long idTeam, @RequestParam("idUser") int idUser) {
+    @PostMapping(path = "/addAdmin")
+    public ResponseEntity addAdmin(@RequestParam(value = "idTeam", required = true) long idTeam, @RequestParam(value = "idUser", required = true) int idUser) {
         return service.addAdmin(idTeam,idUser);
     }
 
