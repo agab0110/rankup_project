@@ -171,6 +171,12 @@ public class UserJoinsTeamService {
         }
     }
 
+    /**
+     * funzione per prendere un utente e inserirlo come player nel team
+     * @param idTeam serve per dire il team in cui va inserito l'utente
+     * @param idUser serve per dire quale utente va inserito nel team
+     * @return ritorna 200 ok o 400 bad request
+     */
     public ResponseEntity<?> addUser(long idTeam, int idUser) {
         int points = 0;
         int accepted = 1;
