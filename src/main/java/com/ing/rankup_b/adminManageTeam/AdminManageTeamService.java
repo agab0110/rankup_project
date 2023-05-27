@@ -49,4 +49,21 @@ public class AdminManageTeamService {
         }
     }
 
+    public ResponseEntity getAdmin(long idTeam, int idUser) {
+        List<AdminManageTeam> admins = this.repository.findAll();
+        AdminManageTeam admin = null;
+
+        for (AdminManageTeam a : admins) {
+            if(a.getTeam().getCodice() == idTeam && a.getUser().getId() == idUser) {
+                admin = a;
+                break;
+            }
+        }
+
+        if(admin == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non è un admin");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(admin);
+        }
+    }
 }
