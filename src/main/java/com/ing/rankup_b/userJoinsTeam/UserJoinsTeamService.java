@@ -136,4 +136,33 @@ public class UserJoinsTeamService {
             return ResponseEntity.status(HttpStatus.OK).body(teams);
         }
     }
+
+    public List<Object> userJoinsTeamSearch(String username) {    //GIACENTO
+
+        if (username.isBlank()) {
+            return new ArrayList<Object>();
+        }
+
+        ArrayList<String> result = this.repository.userJoinsTeamSearch(username + '%');
+        ArrayList<Object> users = new ArrayList<Object>();
+
+        int i = 0;
+
+        for (String r: result) {
+            if (i == 20)
+                break;
+
+            users.add(new Object() {
+                public String id_user = r.split(",")[0];
+                public String username = r.split(",")[1];
+                public String photo = r.split(",")[2];
+                public String points = r.split(",")[3];
+            });
+
+            i ++;
+        }
+
+        return users;
+
+    }
 }

@@ -70,4 +70,16 @@ public class UserJoinsTeamController {
     public ResponseEntity getTeams(@PathVariable int idUser) {
         return this.service.findTeams(idUser);
     }
+
+    /**
+     * N.
+     */
+    @GetMapping(path = "/list/userjoinsteamsearch")
+    public ResponseEntity userJoinsTeamSearch(@RequestParam("username") String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.userJoinsTeamSearch(
+                        username
+                )
+        );
+    }
 }
