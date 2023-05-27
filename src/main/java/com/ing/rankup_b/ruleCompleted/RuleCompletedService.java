@@ -85,16 +85,16 @@ public class RuleCompletedService {
      * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista delle regole altrimenti
      */
     public ResponseEntity getRuleForASpecificUser(long idTeam, int idUser) {
-        List<Rule> rules = new ArrayList<>();
+        List<RuleCompleted> rules = new ArrayList<>();
 
         for (RuleCompleted r : this.repository.findAll()) {
             if (r.getRule().getTeam().getCodice() == idTeam && r.getUser().getId() == idUser && r.getStatus() == Status.Accettato) {
-                rules.add(r.getRule());
+                rules.add(r);
             }
         }
 
         if (rules.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessun task trovato per questo utente");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nessuna regola trovata per questo utente");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(rules);
         }

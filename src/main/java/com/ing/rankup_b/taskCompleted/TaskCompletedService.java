@@ -85,11 +85,11 @@ public class TaskCompletedService {
      * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista di task altrimenti
      */
     public ResponseEntity getTaskForASpecificUser(long idTeam, int idUser) {
-        List<Task> tasks = new ArrayList<>();
+        List<TaskCompleted> tasks = new ArrayList<>();
 
         for (TaskCompleted t : this.repository.findAll()) {
             if (t.getTask().getTeam().getCodice() == idTeam && t.getUser().getId() == idUser && t.getStatus() == Status.Accettato) {
-                tasks.add(t.getTask());
+                tasks.add(t);
             }
         }
 
