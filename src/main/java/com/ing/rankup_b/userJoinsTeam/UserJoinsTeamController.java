@@ -1,5 +1,6 @@
 package com.ing.rankup_b.userJoinsTeam;
 
+import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,4 +63,11 @@ public class UserJoinsTeamController {
         return this.service.findPartecipants(idTeam);
     }
 
+    /**
+     * N.41
+     */
+    @GetMapping(path = "/teams/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getTeams(@PathVariable int idUser) {
+        return this.service.findTeams(idUser);
+    }
 }
