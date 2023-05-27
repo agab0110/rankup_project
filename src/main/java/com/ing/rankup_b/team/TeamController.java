@@ -33,7 +33,7 @@ public class TeamController {
      * N.5
      */
     @PatchMapping(path = "/changePhoto/{code}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changePhoto(@PathVariable Long code, @RequestBody String photo) {
+    public ResponseEntity<?> changePhoto(@PathVariable Long code, @RequestBody String photo) {
         return this.service.changePhoto(code, photo);
     }
 
@@ -41,7 +41,7 @@ public class TeamController {
      * N.34
      */
     @GetMapping(path = "/researchTeam/{nameTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity researchTeams(@PathVariable String nameTeam) {
+    public ResponseEntity<?> researchTeams(@PathVariable String nameTeam) {
         String teams = this.service.researchTeams(nameTeam);
 
         if (teams == null){
@@ -56,7 +56,7 @@ public class TeamController {
      * N.54
      */
     @GetMapping(path = "/getTeam/{idTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getTeam(@PathVariable Long idTeam){
+    public ResponseEntity<?> getTeam(@PathVariable Long idTeam){
         return this.service.getTeam(idTeam);
     }
 
@@ -64,7 +64,7 @@ public class TeamController {
      * N.3
      */    
     @PatchMapping(path = "/changeName/{codice}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changeName(@PathVariable Long codice, @RequestBody String newName) {
+    public ResponseEntity<?> changeName(@PathVariable Long codice, @RequestBody String newName) {
         return this.service.changeName(codice, newName);
     }
 
@@ -72,7 +72,7 @@ public class TeamController {
      * N.8
      */
     @DeleteMapping(path = "/deleteTeam/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteTeam(@PathVariable Long codice) {
+    public ResponseEntity<?> deleteTeam(@PathVariable Long codice) {
         return this.service.deleteTeam(codice);
     }
 

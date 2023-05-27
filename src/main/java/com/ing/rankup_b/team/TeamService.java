@@ -27,7 +27,7 @@ public class TeamService {
      * @param photo la nuova foto
      * @return (200 OK) se va tutto a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity changePhoto(Long codiceTeam, String photo) {
+    public ResponseEntity<?> changePhoto(Long codiceTeam, String photo) {
         if (photo != null) {
             Team team = this.repository.findById(codiceTeam).get();
             team.setPhoto(photo);
@@ -118,7 +118,7 @@ public class TeamService {
         return activities;
     }
 
-    public ResponseEntity getTeam(long id){
+    public ResponseEntity<?> getTeam(long id){
         if(this.repository.findById(id) != null){
             return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(id));
         }
@@ -132,7 +132,7 @@ public class TeamService {
      * @param newName il nuovo nome
      * @return (200 OK) e il team modificato se la modifica va a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity changeName(Long codice, String newName) {
+    public ResponseEntity<?> changeName(Long codice, String newName) {
         for (Team t : (List<Team>)this.repository.findAll()) {
             if (t.getCodice() == codice) {
                 t.setName(newName);
@@ -149,7 +149,7 @@ public class TeamService {
      * @param team il team da eliminare
      * @return (200 OK) se l'eliminazione va a buon fine, (400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity deleteTeam(Long codice) {
+    public ResponseEntity<?> deleteTeam(Long codice) {
         for (Team t : (List<Team>)this.repository.findAll()) {
             if (t.getCodice() == codice) {
                 this.repository.delete(t);

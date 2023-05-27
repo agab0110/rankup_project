@@ -27,7 +27,7 @@ public class TaskCompletedService {
         return this.repository.findTask(idTaskompletata);
     }
   
-    public ResponseEntity taskAccepted(int Codice){
+    public ResponseEntity<?> taskAccepted(int Codice){
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
@@ -45,7 +45,7 @@ public class TaskCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(acceptedtask);
     }
 
-    public ResponseEntity taskRefused(int Codice){
+    public ResponseEntity<?> taskRefused(int Codice){
         List<TaskCompleted> refusedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {

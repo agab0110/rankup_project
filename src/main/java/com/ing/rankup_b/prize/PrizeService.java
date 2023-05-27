@@ -18,7 +18,7 @@ public class PrizeService {
         this.repository = repository;
     }    
   
-    public ResponseEntity listPrize(int codice){
+    public ResponseEntity<?> listPrize(int codice){
         List <Prize> prizes = new ArrayList<>();
 
         for (Prize prize : this.repository.findAll()) {
@@ -33,7 +33,7 @@ public class PrizeService {
         return ResponseEntity.status(HttpStatus.OK).body(prizes);
     }
     
-    public ResponseEntity createPrize(Prize prize){
+    public ResponseEntity<?> createPrize(Prize prize){
         this.repository.save(prize);
         return ResponseEntity.status(HttpStatus.OK).body(prize);
     }

@@ -43,7 +43,6 @@ public class Notification {
     private String description;
 
     @Column(name = "date")
-    @NotEmpty(message = "La data non può essere vuota")
     private Date date;
 
     @ManyToOne

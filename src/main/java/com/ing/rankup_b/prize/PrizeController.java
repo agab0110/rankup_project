@@ -31,7 +31,7 @@ public class PrizeController {
      * N.53
      */
     @GetMapping(path = "/prize/{idTeam}")
-    public ResponseEntity listPrize(@PathVariable int idTeam) {
+    public ResponseEntity<?> listPrize(@PathVariable int idTeam) {
        return this.service.listPrize(idTeam);
     }
     
@@ -39,7 +39,7 @@ public class PrizeController {
      * N.9
      */
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createPrize(@Valid @RequestBody Prize prize){
+    public ResponseEntity<?> createPrize(@Valid @RequestBody Prize prize){
         return this.service.createPrize(prize);
     }
 }

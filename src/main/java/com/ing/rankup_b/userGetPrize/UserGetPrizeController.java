@@ -26,7 +26,7 @@ public class UserGetPrizeController {
      * N.37
      */
     @GetMapping(path = "/getPrizes/{idTeam}/{idUser}")
-    public ResponseEntity user(@PathVariable long idTeam, @PathVariable int idUser) {
+    public ResponseEntity<?> getUserPrize(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getUserPrize(idTeam, idUser);
     }
 }

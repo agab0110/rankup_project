@@ -18,7 +18,7 @@ public class RuleService {
         this.repository = repository;
     }
   
-    public ResponseEntity listRule(int teamcode){
+    public ResponseEntity<?> listRule(int teamcode){
         List<Rule> rules = new ArrayList<>();
         
         for (Rule rule : (List<Rule>)this.repository.findAll()) {
@@ -32,7 +32,7 @@ public class RuleService {
         return ResponseEntity.status(HttpStatus.OK).body(rules);
     }
 
-    public ResponseEntity createRule(Rule rule) {
+    public ResponseEntity<?> createRule(Rule rule) {
         this.repository.save(rule);
         return ResponseEntity.status(HttpStatus.OK).body(rule);
     }
