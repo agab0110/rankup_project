@@ -86,6 +86,7 @@ public class TaskCompletedController {
 
     /*
      * N.39
+     * N.67
      */
     @GetMapping(path = "/taskCompletedDetails/{idTaskCompleted}")
     public ResponseEntity taskCompletedDetails(@PathVariable int idTaskCompleted) {

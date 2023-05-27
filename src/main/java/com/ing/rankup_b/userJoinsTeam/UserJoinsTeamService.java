@@ -216,4 +216,33 @@ public class UserJoinsTeamService {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore");
     }
+
+    public List<Object> userJoinsTeamSearch(int idTeam, String username) {
+
+        if (username.isBlank()) {
+            return new ArrayList<Object>();
+        }
+
+        ArrayList<String> result = this.repository.userJoinsTeamSearch(idTeam, username + '%');
+        ArrayList<Object> users = new ArrayList<Object>();
+
+        int i = 0;
+
+        for (String r: result) {
+            if (i == 20)
+                break;
+
+            users.add(new Object() {
+                public String id_user = r.split(",")[0];
+                public String username = r.split(",")[1];
+                public String photo = r.split(",")[2];
+                public String points = r.split(",")[3];
+            });
+
+            i ++;
+        }
+
+        return users;
+
+    }
 }

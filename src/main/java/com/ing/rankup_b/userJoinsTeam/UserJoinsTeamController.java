@@ -104,4 +104,16 @@ public class UserJoinsTeamController {
         int s = Integer.parseInt(status);
         return this.service.manageRequest(idTeam, idUser, s);
     }
+
+    /**
+     * N.69
+     */
+    @GetMapping(path = "/list/userjoinsteamsearch/{idTeam}")
+    public ResponseEntity userJoinsTeamSearch(@PathVariable int idTeam, @RequestParam("username") String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.service.userJoinsTeamSearch(
+                        idTeam, username
+                )
+        );
+    }
 }

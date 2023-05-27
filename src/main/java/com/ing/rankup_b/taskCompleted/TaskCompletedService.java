@@ -107,6 +107,7 @@ public class TaskCompletedService {
 
     /*
      * N.39
+     * N.67
      */
     public ResponseEntity getTaskCompletedDetails(int idTaskCompleted) {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(idTaskCompleted));
