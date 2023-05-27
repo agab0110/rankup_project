@@ -59,10 +59,6 @@ public class AdminReciveNotificationService {
         return ResponseEntity.status(HttpStatus.OK).body(this.adminReciveNotificationRepository.save(adminReciveNotification));
     }
 
-    public AdminReciveNotificationService(AdminReciveNotificationRepository repository) {
-        this.adminReciveNotificationRepository = repository;
-    }
-
     public ResponseEntity getAdminNotification(int idAdmin){
         List<AdminReciveNotification> adminNotification = new ArrayList<>();
         for(AdminReciveNotification n : this.adminReciveNotificationRepository.findAll()){
