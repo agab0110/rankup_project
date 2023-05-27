@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/userApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 public class UserController {
 
     @Autowired
@@ -80,5 +80,21 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    /**
+     * N.49
+     */
+    @PatchMapping(path = "/changeEmail/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changeEmail(@PathVariable int idUser, @RequestBody String newEmail) {
+        return this.service.changeEmail(idUser, newEmail);
+    }
+
+    /**
+     * N.50
+     */
+    @PatchMapping(path = "/changePassword/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changePassword(@PathVariable int idUser, @RequestBody String newPassword) {
+        return this.service.changePassword(idUser, newPassword);
     }
 }

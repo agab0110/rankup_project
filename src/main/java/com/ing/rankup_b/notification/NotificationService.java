@@ -61,4 +61,18 @@ public class NotificationService {
 
         return ResponseEntity.status(HttpStatus.OK).body(this.notificationRepository.save(notification));
     }
+
+    /*
+     * N.62
+     */
+    public String getUserNotifications(int idUser) {
+        return this.notificationRepository.getUserNotification(idUser);
+    }
+
+    /*
+     * N.62
+     */
+    public String getAdminNotification(int idUser) {
+        return this.notificationRepository.getAdminNotification(idUser);
+    }
 }

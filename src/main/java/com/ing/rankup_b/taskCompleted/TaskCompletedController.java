@@ -8,18 +8,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ing.rankup_b.ruleCompleted.RuleCompleted;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/taskCompletedApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 
 public class TaskCompletedController {
-    
+
     @Autowired
     private TaskCompletedService service;
 
@@ -57,7 +58,7 @@ public class TaskCompletedController {
     }
 
     /**
-     * N.25 
+     * N.25
      */
     @GetMapping(path = "/pending/{id_team}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getPending(@PathVariable int id_team) {
@@ -67,9 +68,10 @@ public class TaskCompletedController {
     /**
      * N.33
      */
-    @PatchMapping(path = "/confirmation/{id_task_completed}/{status}")
-    public ResponseEntity<?> confirmation(@PathVariable int idTaskCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
-        this.service.confirmation(idTaskCompleted, status, ruleCompleted);
+    @PatchMapping(path = "/confirmation/{idTaskCompleted}/{status}")
+    public ResponseEntity<?> confirmation(@PathVariable int idTaskCompleted, @PathVariable int status,
+            @RequestBody TaskCompleted taskCompleted) {
+        this.service.confirmation(idTaskCompleted, status, taskCompleted);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
@@ -88,5 +90,13 @@ public class TaskCompletedController {
     @GetMapping(path = "/taskCompletedDetails/{idTaskCompleted}")
     public ResponseEntity taskCompletedDetails(@PathVariable int idTaskCompleted) {
         return this.service.getTaskCompletedDetails(idTaskCompleted);
+    }
+    
+    /*
+     * N.61
+     */
+    @PostMapping(path = "/taskCompleted", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public TaskCompleted insert(@Valid @RequestBody TaskCompleted taskCompleted) {
+        return this.service.insert(taskCompleted);
     }
 }

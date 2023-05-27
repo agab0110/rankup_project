@@ -85,7 +85,7 @@ public class RuleCompletedController {
     public RuleCompleted insert(@RequestBody RuleCompleted ruleCompleted) {
         return this.service.insert(ruleCompleted);
     }
-  
+
     /**
      * N.38
      */

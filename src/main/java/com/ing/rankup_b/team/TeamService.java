@@ -23,8 +23,9 @@ public class TeamService {
 
     /**
      * Funzione per cambiare la foto del team
+     * 
      * @param codiceTeam il team di cui cambiare la foto
-     * @param photo la nuova foto
+     * @param photo      la nuova foto
      * @return (200 OK) se va tutto a buon fine, (400 BAD_REQUEST) altrimenti
      */
     public ResponseEntity<?> changePhoto(Long codiceTeam, String photo) {
@@ -40,13 +41,13 @@ public class TeamService {
 
     /**
      * Funzione per ricercare un team per nome
+     * 
      * @param nameTeam il nome del team da ricercare
      * @return il team trovato
      */
     public String researchTeams(String nameTeam) {
         return this.repository.findByName(nameTeam);
     }
-
 
     public ArrayList<Object> getUserCompletedActivities(int id_team, int id_user) {
         ArrayList<String> result_rules = this.repository.userCompletedActivitiesRuleQuery(id_team, id_user);
@@ -55,13 +56,13 @@ public class TeamService {
         ArrayList<String> result = new ArrayList<String>(result_rules);
         result.addAll(result_tasks);
 
-
         ArrayList<Object> activities = new ArrayList<Object>();
 
-        for (String r: result) {
+        for (String r : result) {
             activities.add(new Object() {
                 public String name = r.split(",")[0];
-                public int points = Integer.parseInt(r.split(",")[1]) + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
+                public int points = Integer.parseInt(r.split(",")[1])
+                        + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
             });
         }
         return activities;
@@ -87,25 +88,25 @@ public class TeamService {
 
     }
 
-
     private ArrayList<Object> orderActivities(ArrayList<String> result) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        for (int i = 0; i < result.size() - 1; i ++) {
-            for (int j = i + 1; j < result.size(); j ++) {
+        for (int i = 0; i < result.size() - 1; i++) {
+            for (int j = i + 1; j < result.size(); j++) {
                 try {
                     if (sdf.parse(result.get(i).split(",")[2]).compareTo(sdf.parse(result.get(j).split(",")[2])) > 0) {
                         String s = result.get(i);
                         result.set(i, result.get(j));
                         result.set(j, s);
                     }
-                } catch (ParseException e) {}
+                } catch (ParseException e) {
+                }
             }
         }
 
         ArrayList<Object> activities = new ArrayList<Object>();
-        for (String r: result) {
+        for (String r : result) {
             activities.add(new Object() {
                 public String username = r.split(",")[0];
                 public String name = r.split(",")[1];
@@ -128,9 +129,10 @@ public class TeamService {
     /**
      * Funzione per cambiare il nome di un team
      * 
-     * @param codice il codice del team da modificare
+     * @param codice  il codice del team da modificare
      * @param newName il nuovo nome
-     * @return (200 OK) e il team modificato se la modifica va a buon fine, (400 BAD_REQUEST) altrimenti
+     * @return (200 OK) e il team modificato se la modifica va a buon fine, (400
+     *         BAD_REQUEST) altrimenti
      */
     public ResponseEntity<?> changeName(Long codice, String newName) {
         for (Team t : (List<Team>)this.repository.findAll()) {
@@ -147,7 +149,8 @@ public class TeamService {
      * Funzione per eliminare un team
      * 
      * @param team il team da eliminare
-     * @return (200 OK) se l'eliminazione va a buon fine, (400 BAD_REQUEST) altrimenti
+     * @return (200 OK) se l'eliminazione va a buon fine, (400 BAD_REQUEST)
+     *         altrimenti
      */
     public ResponseEntity<?> deleteTeam(Long codice) {
         for (Team t : (List<Team>)this.repository.findAll()) {
@@ -192,5 +195,25 @@ public class TeamService {
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
+    }
+    
+    /**
+     * Funzione per ricercare i team pubblici
+     * 
+     * @return i team trovati
+     */
+    public String getAllTeams() {
+        return this.repository.findTeams();
+    }
+
+    /**
+     * Funzione per annullare la creazione di un team
+     * 
+     * @param codice l'id del team da eliminare
+     * @return (200 OK) se l'eliminazione va a buon fine, (400 BAD_REQUEST)
+     *         altrimenti
+     */
+    public String undo(int codice) {
+        return this.repository.undo(codice);
     }
 }

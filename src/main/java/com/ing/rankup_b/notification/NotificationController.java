@@ -1,6 +1,8 @@
 package com.ing.rankup_b.notification;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +25,9 @@ import org.springframework.http.ResponseEntity;
 @RequestMapping("/notificationApi")
 @CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
 
+
 public class NotificationController {
-    
+
     @Autowired
     private NotificationService service;
 
@@ -40,5 +43,33 @@ public class NotificationController {
     @PostMapping(path = "/newNotification/{idTeam}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> newNotification(@PathVariable long idTeam, @RequestBody Notification notification) {
         return this.service.newNotification(idTeam, notification);
+    }
+
+    /**
+     * N.62 P1
+     */
+    @GetMapping(path = "/getUserNotification/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUserNotification1(@PathVariable int idUser) {
+        String allNotification = this.service.getUserNotifications(idUser);
+
+        if (allNotification == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Notifiche non trovate");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(allNotification);
+    }
+
+    /**
+     * N.62 P2
+     */
+    @GetMapping(path = "/getAdminNotification/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAdminNotification(@PathVariable int idUser) {
+        String allNotification = this.service.getAdminNotification(idUser);
+
+        if (allNotification == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Notifiche non trovate");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(allNotification);
     }
 }

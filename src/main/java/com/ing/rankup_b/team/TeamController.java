@@ -38,19 +38,19 @@ public class TeamController {
     }
 
     /**
-     * N.34
+     * N.34 P1
      */
     @GetMapping(path = "/researchTeam/{nameTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> researchTeams(@PathVariable String nameTeam) {
         String teams = this.service.researchTeams(nameTeam);
 
-        if (teams == null){
+        if (teams == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
-    
+
     /**
      * N.2
      * N.54
@@ -62,7 +62,7 @@ public class TeamController {
 
     /**
      * N.3
-     */    
+     */
     @PatchMapping(path = "/changeName/{codice}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> changeName(@PathVariable Long codice, @RequestBody String newName) {
         return this.service.changeName(codice, newName);
@@ -77,7 +77,7 @@ public class TeamController {
     }
 
     /*
-     * N.26
+     * N.26 P1
      */
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Team newTeam(@RequestBody Team team) {
@@ -99,5 +99,25 @@ public class TeamController {
     @PatchMapping(path = "/changePrivacyTeam/{codeTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity changePrivacyTeam(@PathVariable Long codeTeam, @RequestParam("privacy") boolean privacy) {
         return this.service.changePrivacyTeam(codeTeam, privacy);
+    }
+    
+    /**
+     * N.34 P2
+     */
+    @GetMapping(path = "/getAllTeams", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllTeams() {
+        String teams = this.service.getAllTeams();
+
+        return ResponseEntity.status(HttpStatus.OK).body(teams);
+    }
+
+    /**
+     * N.26 P2
+     */
+    @DeleteMapping(path = "/undo/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity undo(@PathVariable int codice) {
+        String teams = this.service.undo(codice);
+
+        return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
 }
