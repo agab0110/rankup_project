@@ -128,6 +128,7 @@ public class UserJoinsTeamService {
                 for(Prize p : u.getTeam().getPrizes()) {
                     if (u.getPoints() >= p.getPrice() && p.getId() == idPrize) {
                         u.setPoints(u.getPoints()- p.getPrice());
+                        this.repository.save(u);
                     }
                 }
                 if(u.getPoints() > 0) {
