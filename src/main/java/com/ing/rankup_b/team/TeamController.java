@@ -75,7 +75,7 @@ public class TeamController {
     }
 
     /*
-     * N.26
+     * N.26 P1
      */
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Team newTeam(@RequestBody Team team) {
@@ -88,6 +88,16 @@ public class TeamController {
     @GetMapping(path = "/getAllTeams", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllTeams() {
         String teams = this.service.getAllTeams();
+
+        return ResponseEntity.status(HttpStatus.OK).body(teams);
+    }
+
+    /**
+     * N.26 P2
+     */
+    @DeleteMapping(path = "/undo/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity undo(@PathVariable int codice) {
+        String teams = this.service.undo(codice);
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }

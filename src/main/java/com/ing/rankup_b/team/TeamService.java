@@ -177,4 +177,15 @@ public class TeamService {
     public String getAllTeams() {
         return this.repository.findTeams();
     }
+
+    /**
+     * Funzione per annullare la creazione di un team
+     * 
+     * @param codice l'id del team da eliminare
+     * @return (200 OK) se l'eliminazione va a buon fine, (400 BAD_REQUEST)
+     *         altrimenti
+     */
+    public String undo(int codice) {
+        return this.repository.undo(codice);
+    }
 }

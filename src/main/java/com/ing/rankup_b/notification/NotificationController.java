@@ -24,7 +24,7 @@ public class NotificationController {
     }
 
     /**
-     * N.62
+     * N.62 P1
      */
     @GetMapping(path = "/getUserNotification/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getUserNotification(@PathVariable int idUser) {
@@ -38,7 +38,7 @@ public class NotificationController {
     }
 
     /**
-     * N.62
+     * N.62 P2
      */
     @GetMapping(path = "/getAdminNotification/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAdminNotification(@PathVariable int idUser) {
