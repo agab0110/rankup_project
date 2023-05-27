@@ -137,13 +137,13 @@ public class UserJoinsTeamService {
         }
     }
 
-    public List<Object> userJoinsTeamSearch(String username) {    //GIACENTO
+    public List<Object> userJoinsTeamSearch(int idTeam, String username) {
 
         if (username.isBlank()) {
             return new ArrayList<Object>();
         }
 
-        ArrayList<String> result = this.repository.userJoinsTeamSearch(username + '%');
+        ArrayList<String> result = this.repository.userJoinsTeamSearch(idTeam, username + '%');
         ArrayList<Object> users = new ArrayList<Object>();
 
         int i = 0;

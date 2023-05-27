@@ -72,13 +72,13 @@ public class UserJoinsTeamController {
     }
 
     /**
-     * N.
+     * N.69
      */
-    @GetMapping(path = "/list/userjoinsteamsearch")
-    public ResponseEntity userJoinsTeamSearch(@RequestParam("username") String username) {
+    @GetMapping(path = "/list/userjoinsteamsearch/{idTeam}")
+    public ResponseEntity userJoinsTeamSearch(@PathVariable int idTeam, @RequestParam("username") String username) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.userJoinsTeamSearch(
-                        username
+                        idTeam, username
                 )
         );
     }
