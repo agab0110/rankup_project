@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ruleCompletedApi")
+@RequestMapping("ruleCompletedApi")
 @CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 
 public class RuleCompletedController {
@@ -31,7 +31,7 @@ public class RuleCompletedController {
      * 19
      */
     @GetMapping(path = "/ruleAccepted/{idTeam}")
-    public ResponseEntity ruleCompleted(@PathVariable int idTeam) {
+    public ResponseEntity<?> ruleCompleted(@PathVariable int idTeam) {
         return this.service.getRulesAccepted(idTeam);
     }
 
@@ -39,7 +39,7 @@ public class RuleCompletedController {
      * N.18
      */
     @GetMapping(path = "/ruleRejected/{idTeam}")
-    public ResponseEntity ruleRejected(@PathVariable int idTeam) {
+    public ResponseEntity<?> ruleRejected(@PathVariable int idTeam) {
         return this.service.getRulesRejected(idTeam);
     }
 
@@ -47,7 +47,7 @@ public class RuleCompletedController {
      * N.30
      */
     @GetMapping(path = "/request/{idRegolaCompletata}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getRuleDelivered(@PathVariable int idRegolaCompletata) {
+    public ResponseEntity<?> getRuleDelivered(@PathVariable int idRegolaCompletata) {
         String ruleCompleted = this.service.researchRule(idRegolaCompletata);
 
         if (ruleCompleted == null) {
@@ -62,7 +62,7 @@ public class RuleCompletedController {
      * DA ELIMINARE
      */
     @GetMapping(path = "/history/{idTeam}/{nomeTask}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity researchUserHistory(@PathVariable int idTeam, @PathVariable String nomeTask) {
+    public ResponseEntity<?> researchUserHistory(@PathVariable int idTeam, @PathVariable String nomeTask) {
         String history = this.service.researchUserHistory(idTeam, nomeTask);
 
         if (history == null)
@@ -86,28 +86,37 @@ public class RuleCompletedController {
     public RuleCompleted insert(@RequestBody RuleCompleted ruleCompleted) {
         return this.service.insert(ruleCompleted);
     }
-  
+
     /**
      * N.38
      */
     @GetMapping(path = "/user/ruleCompletedDetails/{idRuleCompleted}")
-    public ResponseEntity ruleCompletedDetails(@PathVariable int idRuleCompleted) {
+    public ResponseEntity<?> ruleCompletedDetails(@PathVariable int idRuleCompleted) {
         return this.service.getRuleCompletedDetails(idRuleCompleted);
     }
 
     /**
      * N.35
+     * N.24
      */
     @GetMapping(path = "/getRuleForSpecificUser/{idTeam}/{idUser}")
-    public ResponseEntity getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
+    public ResponseEntity<?> getRuleForSpecificUser(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getRuleForASpecificUser(idTeam, idUser);
     }
 
     /**
      * N.32
      */
-    @PatchMapping(path = "/acceptance/{idRuleCompleted}")
-    public ResponseEntity acceptance(@PathVariable int idRuleCompleted, @RequestParam String comment, @RequestParam int bonusPoints, @RequestParam int status) {
-        return this.service.ruleCompletedAcceptance(idRuleCompleted, comment, bonusPoints, status);
-    } // TODO: da far funzionare in frontend, pagina: task-confirmation, servizio: rule completed service
+    @PatchMapping(path = "/acceptance/{idRuleCompleted}/{status}")
+    public ResponseEntity<?> acceptance(@PathVariable int idRuleCompleted, @PathVariable int status, @RequestBody RuleCompleted ruleCompleted) {
+        return this.service.ruleCompletedAcceptance(idRuleCompleted, status, ruleCompleted);
+    }
+
+    /**
+     *  N.70
+     */
+    @GetMapping(path = "/admin/ruleCompletedDetails/{idRuleCompleted}")
+    public ResponseEntity ruleCompletedDetail(@PathVariable int idRuleCompleted) {
+        return this.service.getRuleCompletedDetails(idRuleCompleted);
+    }
 }

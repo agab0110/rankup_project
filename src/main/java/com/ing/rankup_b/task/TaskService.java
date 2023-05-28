@@ -1,6 +1,7 @@
 package com.ing.rankup_b.task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class TaskService {
         this.repository = repository;
     }
 
-    public ResponseEntity listTask(Long codice){
+    public ResponseEntity<?> listTask(Long codice){
         List<Task> tasks = new ArrayList<>();
 
         for (Task task : this.repository.findAll()) {
@@ -57,5 +58,15 @@ public class TaskService {
      */
     public String getTask(int idTask) {
         return this.repository.findTask(idTask);
+    }
+    /*
+     * N.17
+     */
+    public ResponseEntity createTask(Task task) {
+        Date date = new Date();
+        task.setStartDate(date);
+        this.repository.save(task);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 }

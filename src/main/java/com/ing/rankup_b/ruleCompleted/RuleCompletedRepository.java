@@ -19,6 +19,6 @@ public interface RuleCompletedRepository extends JpaRepository<RuleCompleted, In
     @Query(value = "SELECT rule.name, rule.points, rule_completed.bonus_points, rule.description, rule_completed.comment, user.username FROM rule_completed JOIN rule ON rule_completed.id_rule = rule.id_rule JOIN user ON user.id_user = rule_completed.id_user WHERE rule.id_team = ?1 AND user.id_user = ?2 AND rule_completed.id_rule_completed = ?3", nativeQuery = true)
     public ArrayList<String> ruleCompletedQuery(int id_team, int id_user, int id_rule_completed);
 
-    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('name', rule.name, 'username', user.name, 'photo', user.photo)) FROM rule_completed JOIN rule ON rule.id_rule = rule_completed.id_rule join user on user.id_user = rule_completed.id_user WHERE rule_completed.status = 0 and rule.id_team = ?1", nativeQuery = true)
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('id_rule', rule_completed.id_rule_completed, 'name', rule.name, 'username', user.name, 'photo', user.photo)) FROM rule_completed JOIN rule ON rule.id_rule = rule_completed.id_rule join user on user.id_user = rule_completed.id_user WHERE rule_completed.status = 0 and rule.id_team = ?1", nativeQuery = true)
     String pending(int id_team);
 }

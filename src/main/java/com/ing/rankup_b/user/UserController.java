@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/userApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
 public class UserController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class UserController {
      * N.57
      */
     @PostMapping(path = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity newUser(@Valid @RequestBody User signUpUser) {
+    public ResponseEntity<?> newUser(@Valid @RequestBody User signUpUser) {
         return this.service.newUser(signUpUser);
     }
 
@@ -39,7 +39,7 @@ public class UserController {
      * N.10
      */
     @GetMapping(path = "/getAllUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllUsers() {
+    public ResponseEntity<?> getAllUsers() {
         return this.service.getAllUsers();
     }
 
@@ -47,7 +47,7 @@ public class UserController {
      * N.40
      */
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity login(@RequestBody User loginUser) {
+    public ResponseEntity<?> login(@RequestBody User loginUser) {
         return this.service.login(loginUser);
 
     }
@@ -56,7 +56,7 @@ public class UserController {
      * N.47
      */
     @PatchMapping(path = "/changeUsername/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changeUsername(@PathVariable int idUser, @RequestBody String newUsername) {
+    public ResponseEntity<?> changeUsername(@PathVariable int idUser, @RequestBody String newUsername) {
         return this.service.changeUsername(idUser, newUsername);
     }
 
@@ -64,7 +64,7 @@ public class UserController {
      * N.46
      */
     @PatchMapping(path = "/changeName/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changeName(@PathVariable int idUser, @RequestBody String newName) {
+    public ResponseEntity<?> changeName(@PathVariable int idUser, @RequestBody String newName) {
         return this.service.changeName(idUser, newName);
     }
 
@@ -72,7 +72,7 @@ public class UserController {
      * N.51
      */
     @GetMapping(path = "/getUser/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getUser(@PathVariable int idUser) {
+    public ResponseEntity<?> getUser(@PathVariable int idUser) {
         String user = this.service.getUser(idUser);
 
         if (user == null) {
@@ -80,5 +80,21 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    /**
+     * N.49
+     */
+    @PatchMapping(path = "/changeEmail/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changeEmail(@PathVariable int idUser, @RequestBody String newEmail) {
+        return this.service.changeEmail(idUser, newEmail);
+    }
+
+    /**
+     * N.50
+     */
+    @PatchMapping(path = "/changePassword/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changePassword(@PathVariable int idUser, @RequestBody String newPassword) {
+        return this.service.changePassword(idUser, newPassword);
     }
 }

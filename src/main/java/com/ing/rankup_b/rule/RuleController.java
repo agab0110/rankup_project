@@ -32,7 +32,7 @@ public class RuleController {
      * N.55
      */
     @GetMapping(path = "/rules/{idTeam}")
-    public ResponseEntity listRule(@PathVariable int idTeam) {
+    public ResponseEntity<?> listRule(@PathVariable int idTeam) {
         return this.service.listRule(idTeam);
     }
 
@@ -40,7 +40,7 @@ public class RuleController {
      * N.1
      */
     @PostMapping(path = "/createRule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createRule(@Valid @RequestBody Rule rule) {
+    public ResponseEntity<?> createRule(@Valid @RequestBody Rule rule) {
         return this.service.createRule(rule);
     }
 
@@ -48,7 +48,7 @@ public class RuleController {
      * N.58
      */
     @GetMapping(path = "/rule/{idRule}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getRule(@PathVariable int idRule) {
+    public ResponseEntity<?> getRule(@PathVariable int idRule) {
         String rule = this.service.getRule(idRule);
         
         if (rule == null) {

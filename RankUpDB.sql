@@ -47,8 +47,8 @@ INSERT INTO `admin_manage_team` (`id_admin`, `id_team`, `id_user`) VALUES
 -- Dump dei dati per la tabella `notification`
 --
 
-INSERT INTO `notification` (`id_notification`, `date`, `description`, `title`, `id_team`, `id_user`) VALUES
-(1, '2023-05-09', 'accettato nel team', 'richiesta partecipazione team', 2, 1);
+INSERT INTO `notification` (`id_notification`, `date`, `description`, `title`, `id_team`) VALUES
+(1, '2023-05-09', 'accettato nel team', 'richiesta partecipazione team', 1);
 
 --
 -- Dump dei dati per la tabella `prize`
