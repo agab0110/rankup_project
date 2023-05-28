@@ -80,6 +80,7 @@ public class UserJoinsTeamController {
     public ResponseEntity<?> getRequests(@PathVariable long idTeam) {
         return this.service.getRequests(idTeam);
     }
+    
     /*
      * N.12
      */
