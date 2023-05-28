@@ -158,11 +158,6 @@ public class UserJoinsTeamService {
     public ResponseEntity<?> addUser(long idTeam, int idUser) {
         int points = 0;
         int accepted = 1;
-        for (UserJoinsTeam user : this.repository.findAll()) {
-            if(user.getUser().getId() == idUser){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("utente gia inserito");
-            }
-        }
         this.repository.addUserQuery(points,accepted,idTeam,idUser);
         return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
         
