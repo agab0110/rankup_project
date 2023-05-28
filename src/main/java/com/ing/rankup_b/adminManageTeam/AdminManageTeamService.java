@@ -29,6 +29,11 @@ public class AdminManageTeamService {
      * @return 200 ok o 400 bad request
      */
     public ResponseEntity addAdmin(long idTeam, int idUser) {
+        for (AdminManageTeam admin : this.repository.findAll()) {
+            if(admin.getUser().getId() == idUser){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("utente gia inserito");
+            }
+        }
         this.repository.addAdminQuery(idTeam, idUser);
         return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
         
