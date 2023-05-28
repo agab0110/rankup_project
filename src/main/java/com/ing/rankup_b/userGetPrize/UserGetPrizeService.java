@@ -1,6 +1,8 @@
 package com.ing.rankup_b.userGetPrize;
 
 import com.ing.rankup_b.prize.Prize;
+import com.ing.rankup_b.user.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +41,23 @@ public class UserGetPrizeService {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(prizes);
         }
+    }
+
+    public UserGetPrize addUserPrize(int idPrize, int idUser) {
+        UserGetPrize userGetPrize = new UserGetPrize();
+        UserGetPrizeKey userGetPrizeKey = new UserGetPrizeKey();
+        Prize prize = new Prize();
+        prize.setId(idPrize);
+        User user = new User();
+        user.setId(idUser);
+
+        userGetPrizeKey.setIdPrize(idPrize);
+        userGetPrizeKey.setIdUser(idUser);
+
+        userGetPrize.setUser(user);
+        userGetPrize.setPrize(prize);
+        userGetPrize.setKey(userGetPrizeKey);
+    
+        return this.repository.save(userGetPrize);
     }
 }
