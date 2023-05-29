@@ -10,6 +10,7 @@ import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.team.Team;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,12 +47,13 @@ public class Rule {
     @NotEmpty(message = "La descrizione non può essere vuota")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_team")
     private Team team;
 
     @ManyToOne
+    (cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
