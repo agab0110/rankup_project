@@ -29,9 +29,7 @@ public class AdminManageTeamService {
      * @return 200 ok o 400 bad request
      */
     public ResponseEntity addAdmin(long idTeam, int idUser) {
-        this.repository.addAdminQuery(idTeam, idUser);
-        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
-        
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.addAdminQuery(idTeam, idUser));
     }
 
     /**
