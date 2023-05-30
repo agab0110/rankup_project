@@ -3,6 +3,8 @@ package com.ing.rankup_b.team;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Indexed;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.notification.Notification;
@@ -17,6 +19,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -33,6 +36,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_team")
     private long codice;
+
+    @Column(name = "code", unique = true)
+    private String code;
 
     @Column(name = "name")
     @NotEmpty(message = "Il nome non può essere vuoto")
