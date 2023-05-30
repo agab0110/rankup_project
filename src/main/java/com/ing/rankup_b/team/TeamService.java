@@ -165,7 +165,13 @@ public class TeamService {
     /*
      * N.26
      */
-    public Team insert(Team team) {
+    public Team insert(Team team, String name) {
+        team.setName(name);
+        for (Team t : this.repository.findAll()) {
+            if (t.getName().equals(name)) {
+                return null;
+            }
+        }
         return this.repository.save(team);
     }
 
