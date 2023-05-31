@@ -9,11 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.team.TeamRepository;
+
 @Service
 public class TaskService {
 
     @Autowired
     private TaskRepository repository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     public TaskService(TaskRepository repository) {
         this.repository = repository;

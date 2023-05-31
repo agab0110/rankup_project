@@ -34,6 +34,7 @@ public class PrizeService {
     }
     
     public ResponseEntity<?> createPrize(Prize prize){
+
         this.repository.save(prize);
         return ResponseEntity.status(HttpStatus.OK).body(prize);
     }
