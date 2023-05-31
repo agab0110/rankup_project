@@ -32,7 +32,7 @@ public class UserJoinsTeamService {
      */
     public ResponseEntity<?> deleteUserRequest(int id) {
         this.repository.delete(this.repository.findById(id).get());
-        return ResponseEntity.status(HttpStatus.OK).body("Eliminazione avvenuta con successo");
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     public List<Object> getListUserSearch(String username) {    //GIACENTO
@@ -159,7 +159,7 @@ public class UserJoinsTeamService {
         int points = 0;
         int accepted = 1;
         this.repository.addUserQuery(points,accepted,idTeam,idUser);
-        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
+        return ResponseEntity.status(HttpStatus.OK).body(null);
         
     }
 

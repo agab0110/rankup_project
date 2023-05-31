@@ -62,7 +62,12 @@ public class TaskService {
     /*
      * N.17
      */
-    public ResponseEntity createTask(Task task) {
+    public ResponseEntity createTask(Task task, String name) {
+        for (Task t : this.repository.findAll()) {
+            if (t.getName().equals(name)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+            }
+        }
         Date date = new Date();
         task.setStartDate(date);
         this.repository.save(task);

@@ -30,7 +30,7 @@ public class AdminManageTeamService {
      */
     public ResponseEntity addAdmin(long idTeam, int idUser) {
         this.repository.addAdminQuery(idTeam, idUser);
-        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
+        return ResponseEntity.status(HttpStatus.OK).body(null);
         
     }
 

@@ -32,7 +32,12 @@ public class RuleService {
         return ResponseEntity.status(HttpStatus.OK).body(rules);
     }
 
-    public ResponseEntity<?> createRule(Rule rule) {
+    public ResponseEntity<?> createRule(Rule rule,String name) {
+        for (Rule r : this.repository.findAll()) {
+            if (r.getName().equals(name)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+            }
+        }
         this.repository.save(rule);
         return ResponseEntity.status(HttpStatus.OK).body(rule);
     }
