@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -38,6 +39,7 @@ public class Prize {
     private String name;
 
     @Column(name = "price")
+    @Positive
     @NotNull(message = "Il costo non può essere vuoto")
     private int price;
 
