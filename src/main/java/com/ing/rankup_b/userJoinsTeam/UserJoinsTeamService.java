@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ing.rankup_b.prize.Prize;
 import com.ing.rankup_b.prize.PrizeRepository;
 import com.ing.rankup_b.team.Team;
+import com.ing.rankup_b.team.TeamRepository;
 import com.ing.rankup_b.user.User;
 import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
@@ -21,8 +22,12 @@ public class UserJoinsTeamService {
     @Autowired
     private UserJoinsTeamRepository repository;
 
-    public UserJoinsTeamService(UserJoinsTeamRepository repository) {
+    @Autowired
+    private TeamRepository teamRepository;
+
+    public UserJoinsTeamService(UserJoinsTeamRepository repository, TeamRepository teamRepository) {
         this.repository = repository;
+        this.teamRepository = teamRepository;
     }
 
     /**
@@ -161,6 +166,21 @@ public class UserJoinsTeamService {
         this.repository.addUserQuery(points,accepted,idTeam,idUser);
         return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
         
+    }
+
+    public ResponseEntity addUserByCode(String codeTeam, int idUser) {
+        int points = 0;
+        int accepted = 0;
+        
+        for (Team team : this.teamRepository.findAll()) {
+            if(team.getCode().equals(codeTeam)) {
+                this.repository.addUserQuery(points,accepted,team.getCodice(),idUser);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Codice team non valido");
+
     }
 
     /**

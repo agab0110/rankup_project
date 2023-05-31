@@ -1,5 +1,10 @@
 package com.ing.rankup_b.team;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
+
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -81,7 +86,13 @@ public class TeamController {
      */
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Team newTeam(@RequestBody Team team) {
+        team.setCode(this.createCode(team));
         return this.service.insert(team);
+    }
+
+    private String createCode(Team team) {
+        String code = Timestamp.from(Instant.now()).hashCode() + "";
+        return code;
     }
 
     /*
