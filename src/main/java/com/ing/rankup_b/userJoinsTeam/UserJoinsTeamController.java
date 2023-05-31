@@ -89,6 +89,11 @@ public class UserJoinsTeamController {
         return service.addUser(idTeam,idUser);
     }
 
+    @PostMapping(path = "/addUserByCode")
+    public ResponseEntity addUserByCode(@RequestParam(value = "codeTeam", required = true) String codeTeam, @RequestParam(value = "idUser", required = true) int idUser) {
+        return service.addUserByCode(codeTeam,idUser);
+    }
+
     /**
      * N.41
      */
