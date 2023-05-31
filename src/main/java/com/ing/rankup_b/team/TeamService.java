@@ -217,9 +217,17 @@ public class TeamService {
         return this.repository.undo(codice);
     }
 
+    /**
+     * Funzione per cercare un team tramite il codice di accesso
+     * @param teamCode il codice di accesso per il team
+     * @return (200 OK) con il team se il team viene trovato, (400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getTeamByCode(String teamCode) {
         for (Team team : this.repository.findAll()) {
-            
+            if (team.getCode().equals(teamCode)) {
+                return ResponseEntity.status(HttpStatus.OK).body(team); 
+            }
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
     }
 }
