@@ -47,13 +47,12 @@ public class Rule {
     @NotEmpty(message = "La descrizione non può essere vuota")
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_team")
     private Team team;
 
     @ManyToOne
-    (cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_admin")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private AdminManageTeam admin;
