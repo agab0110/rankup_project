@@ -120,4 +120,9 @@ public class TeamController {
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
+
+    @GetMapping(path = "/getTeamByCode/{teamCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTeamByCode(@PathVariable String teamCode) {
+        return this.service.getTeamByCode(teamCode);
+    }
 }

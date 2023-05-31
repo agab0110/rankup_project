@@ -216,4 +216,10 @@ public class TeamService {
     public String undo(int codice) {
         return this.repository.undo(codice);
     }
+
+    public ResponseEntity<?> getTeamByCode(String teamCode) {
+        for (Team team : this.repository.findAll()) {
+            
+        }
+    }
 }
