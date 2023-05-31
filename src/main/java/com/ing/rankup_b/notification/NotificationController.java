@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/notificationApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 
 
 public class NotificationController {

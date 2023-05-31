@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/userJoinsTeamApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 
 public class UserJoinsTeamController {
 
