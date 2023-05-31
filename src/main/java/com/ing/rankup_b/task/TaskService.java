@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.team.TeamRepository;
 
 @Service
@@ -20,8 +21,9 @@ public class TaskService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public TaskService(TaskRepository repository) {
+    public TaskService(TaskRepository repository,TeamRepository teamRepository) {
         this.repository = repository;
+        this.teamRepository = teamRepository;
     }
 
     public ResponseEntity<?> listTask(Long codice){
@@ -67,12 +69,16 @@ public class TaskService {
     /*
      * N.17
      */
-    public ResponseEntity createTask(Task task, String name) {
-        for (Task t : this.repository.findAll()) {
-            if (t.getName().equals(name)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+    public ResponseEntity<?> createTask(Task task, String name) {
+        for (Team t : this.teamRepository.findAll()) {
+            if (task.getTeam().getCodice() == t.getCodice()) {
+              for (Task r : t.getTasks()) {
+                  if (r.getName().equals(name)) {
+                      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+                  }
+              }
             }
-        }
+          }
         Date date = new Date();
         task.setStartDate(date);
         this.repository.save(task);

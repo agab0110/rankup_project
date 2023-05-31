@@ -43,7 +43,7 @@ public class RuleService {
 
     public ResponseEntity<?> createRule(Rule rule,String name) {
     for (Team t : this.teamRepository.findAll()) {
-      if (rule.getTeam() == t) {
+      if (rule.getTeam().getCodice() == t.getCodice()) {
         for (Rule r : t.getRules()) {
             if (r.getName().equals(name)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
