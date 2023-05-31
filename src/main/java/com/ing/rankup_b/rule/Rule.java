@@ -22,6 +22,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -41,6 +42,7 @@ public class Rule {
 
     @Column(name = "points")
     @NotNull(message = "Il punteggio non può essere vuoto")
+    @Positive
     private int points;
 
     @Column(name = "description")
