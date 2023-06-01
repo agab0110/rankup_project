@@ -161,11 +161,7 @@ public class UserJoinsTeamService {
      * @return ritorna 200 ok o 400 bad request
      */
     public ResponseEntity<?> addUser(long idTeam, int idUser) {
-        int points = 0;
-        int accepted = 1;
-        this.repository.addUserQuery(points,accepted,idTeam,idUser);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
-        
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,1,idTeam,idUser));
     }
 
     public ResponseEntity addUserByCode(String codeTeam, int idUser) {
