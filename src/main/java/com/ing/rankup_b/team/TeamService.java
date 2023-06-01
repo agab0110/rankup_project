@@ -166,7 +166,8 @@ public class TeamService {
      * N.26
      */
     public ResponseEntity<?> insert(Team team) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.repository.save(team));
+        this.repository.save(team);
+        return ResponseEntity.status(HttpStatus.OK).body(team);
     }
 
     /*
