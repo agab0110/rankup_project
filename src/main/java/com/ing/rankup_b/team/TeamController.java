@@ -85,7 +85,7 @@ public class TeamController {
      * N.26 P1
      */
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Team newTeam(@RequestBody Team team) {
+    public ResponseEntity<?> newTeam(@RequestBody Team team) {
         team.setCode(this.createCode(team));
         return this.service.insert(team);
     }

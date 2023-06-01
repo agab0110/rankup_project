@@ -164,7 +164,7 @@ public class UserJoinsTeamService {
         int points = 0;
         int accepted = 1;
         this.repository.addUserQuery(points,accepted,idTeam,idUser);
-        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
+        return ResponseEntity.status(HttpStatus.OK).body(null);
         
     }
 
