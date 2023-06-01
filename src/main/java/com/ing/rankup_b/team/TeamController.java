@@ -86,11 +86,11 @@ public class TeamController {
      */
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> newTeam(@RequestBody Team team) {
-        team.setCode(this.createCode(team));
+        team.setCode(this.createCode());
         return this.service.insert(team);
     }
 
-    private String createCode(Team team) {
+    private String createCode() {
         String code = Timestamp.from(Instant.now()).hashCode() + "";
         return code;
     }
