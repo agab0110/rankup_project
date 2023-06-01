@@ -54,7 +54,6 @@ public class Task {
     private String description;
 
     @Column(name = "end_date")
-    @NotEmpty
     private Date endDate;
 
     @Column(name = "start_date")
