@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,13 @@ public class UserReciveNotificationController {
     @GetMapping(path = "/getNotification/{idUser}")
     public ResponseEntity<?> listNotification(@PathVariable int idUser) {
         return this.service.getNotification(idUser);
+    }
+
+    /**
+     * N.78
+     */
+    @PostMapping(path = "newNotification/{idUser}/{idNotification}")
+    public ResponseEntity<?> newNotification(@PathVariable int idUser, @PathVariable int idNotification) {
+        return this.service.newNotification(idUser, idNotification);
     }
 }
