@@ -46,6 +46,7 @@ public class Task {
     @Column(name = "points")
     @Positive
     @NotNull(message = "Il punteggio non può essere vuoto")
+    @Positive
     private int points;
 
     @Column(name = "description")

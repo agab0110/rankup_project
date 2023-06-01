@@ -135,14 +135,21 @@ public class TeamService {
      *         BAD_REQUEST) altrimenti
      */
     public ResponseEntity<?> changeName(Long codice, String newName) {
-        for (Team t : (List<Team>)this.repository.findAll()) {
-            if (t.getCodice() == codice) {
-                t.setName(newName);
-                this.repository.save(t);
-                return ResponseEntity.status(HttpStatus.OK).body(t);
+        Team team = this.repository.findById(codice).get();
+        if (team == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");    
+        }
+
+        for (Team t : this.repository.findAll()) {
+            if (t.getName().equals(newName)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
+
+        team.setName(newName);
+        this.repository.save(team);
+
+        return ResponseEntity.status(HttpStatus.OK).body(team);
     }
 
     /**
@@ -156,7 +163,7 @@ public class TeamService {
         for (Team t : (List<Team>)this.repository.findAll()) {
             if (t.getCodice() == codice) {
                 this.repository.delete(t);
-                return ResponseEntity.status(HttpStatus.OK).body("Team eliminato");
+                return ResponseEntity.status(HttpStatus.OK).body(null);
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
