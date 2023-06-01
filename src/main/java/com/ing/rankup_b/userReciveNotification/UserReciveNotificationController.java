@@ -28,6 +28,9 @@ public class UserReciveNotificationController {
         return this.service.getNotification(idUser);
     }
 
+    /**
+     * N.78
+     */
     @PostMapping(path = "newNotification/{idUser}/{idNotification}")
     public ResponseEntity<?> newNotification(@PathVariable int idUser, @PathVariable int idNotification) {
         return this.service.newNotification(idUser, idNotification);
