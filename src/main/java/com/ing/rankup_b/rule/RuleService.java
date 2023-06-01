@@ -30,7 +30,7 @@ public class RuleService {
     public ResponseEntity<?> listRule(int teamcode){
         List<Rule> rules = new ArrayList<>();
         
-        for (Rule rule : (List<Rule>)this.repository.findAll()) {
+        for (Rule rule : this.repository.findAll()) {
             if (rule.getTeam().getCodice() == teamcode) {
                 rules.add(rule);
             }
@@ -42,15 +42,15 @@ public class RuleService {
     }
 
     public ResponseEntity<?> createRule(Rule rule,String name) {
-    for (Team t : this.teamRepository.findAll()) {
-      if (rule.getTeam().getCodice() == t.getCodice()) {
-        for (Rule r : t.getRules()) {
-            if (r.getName().equals(name)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+        for (Team t : this.teamRepository.findAll()) {
+        if (rule.getTeam().getCodice() == t.getCodice()) {
+            for (Rule r : t.getRules()) {
+                if (r.getName().equals(name)) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+                }
             }
         }
-      }
-    }
+        }
        
         this.repository.save(rule);
         return ResponseEntity.status(HttpStatus.OK).body(rule);
