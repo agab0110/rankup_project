@@ -165,13 +165,9 @@ public class UserJoinsTeamService {
     }
 
     public ResponseEntity addUserByCode(String codeTeam, int idUser) {
-        int points = 0;
-        int accepted = 0;
-        
         for (Team team : this.teamRepository.findAll()) {
             if(team.getCode().equals(codeTeam)) {
-                this.repository.addUserQuery(points,accepted,team.getCodice(),idUser);
-                return ResponseEntity.status(HttpStatus.OK).body(null);
+                return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,0,team.getCodice(),idUser));
             }
         }
 
