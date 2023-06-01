@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -17,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/taskApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 
 public class TaskController {
 
@@ -55,7 +56,7 @@ public class TaskController {
     * N.17 
     */
     @PostMapping(path = "/createTask", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createTask(@RequestBody Task task) {
-        return this.service.createTask(task);
+    public ResponseEntity<?> createTask(@RequestBody Task task,@RequestParam("name") String name) {
+        return this.service.createTask(task,name);
     }
 }

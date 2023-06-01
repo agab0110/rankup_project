@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/prizeApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 
 public class PrizeController {
     
@@ -39,7 +40,7 @@ public class PrizeController {
      * N.9
      */
     @PostMapping(path = "/createPrize", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createPrize(@Valid @RequestBody Prize prize){
-        return this.service.createPrize(prize);
+    public ResponseEntity<?> createPrize(@Valid @RequestBody Prize prize,@RequestParam("name")String name) {
+        return this.service.createPrize(prize,name);
     }
 }

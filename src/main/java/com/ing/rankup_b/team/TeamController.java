@@ -1,5 +1,10 @@
 package com.ing.rankup_b.team;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
+
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/teamApi")
-@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
+@CrossOrigin
 
 public class TeamController {
 
@@ -80,8 +84,14 @@ public class TeamController {
      * N.26 P1
      */
     @PostMapping(path = "/team", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Team newTeam(@RequestBody Team team) {
+    public ResponseEntity<?> newTeam(@RequestBody Team team) {
+        team.setCode(this.createCode());
         return this.service.insert(team);
+    }
+
+    private String createCode() {
+        String code = Timestamp.from(Instant.now()).hashCode() + "";
+        return code;
     }
 
     /*
@@ -119,5 +129,10 @@ public class TeamController {
         String teams = this.service.undo(codice);
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
+    }
+
+    @GetMapping(path = "/getTeamByCode/{teamCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTeamByCode(@PathVariable String teamCode) {
+        return this.service.getTeamByCode(teamCode);
     }
 }

@@ -25,6 +25,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -43,7 +44,9 @@ public class Task {
     private String name;
 
     @Column(name = "points")
+    @Positive
     @NotNull(message = "Il punteggio non può essere vuoto")
+    @Positive
     private int points;
 
     @Column(name = "description")

@@ -97,4 +97,13 @@ public class UserController {
     public ResponseEntity changePassword(@PathVariable int idUser, @RequestBody String newPassword) {
         return this.service.changePassword(idUser, newPassword);
     }
+
+    /**
+     * N.10
+     */
+    @GetMapping(path = "/getNewUsers/{idTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getNewUsers(@PathVariable int idTeam) {
+        String users = this.service.getNewUsers(idTeam);
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
 }

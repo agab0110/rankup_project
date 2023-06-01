@@ -30,8 +30,7 @@ public class AdminManageTeamService {
      */
     public ResponseEntity addAdmin(long idTeam, int idUser) {
         this.repository.addAdminQuery(idTeam, idUser);
-        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
-        
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     /**
@@ -70,6 +69,27 @@ public class AdminManageTeamService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non è un admin");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(admin);
+        }
+    }
+
+    /**
+     * Funzione per prendere tutti gli admin di un determinato team
+     * @param idTeam il team di cui prendere gli admin
+     * @return (200 OK) con la lista degli admins, (400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity<?> getAdmins(long idTeam) {
+        List<AdminManageTeam> admins = new ArrayList<>();
+
+        for (AdminManageTeam adminManageTeam : this.repository.findAll()) {
+            if (adminManageTeam.getTeam().getCodice() ==  idTeam) {
+                admins.add(adminManageTeam);
+            }
+        }
+
+        if (admins.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Admins per il team non trovati");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(admins);
         }
     }
 }

@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/userJoinsTeamApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 
 public class UserJoinsTeamController {
 
@@ -87,6 +87,11 @@ public class UserJoinsTeamController {
     @PostMapping(path = "/addUser")
     public ResponseEntity addUser(@RequestParam(value = "idTeam", required = true) long idTeam, @RequestParam(value = "idUser", required = true) int idUser) {
         return service.addUser(idTeam,idUser);
+    }
+
+    @PostMapping(path = "/addUserByCode")
+    public ResponseEntity addUserByCode(@RequestParam(value = "codeTeam", required = true) String codeTeam, @RequestParam(value = "idUser", required = true) int idUser) {
+        return service.addUserByCode(codeTeam,idUser);
     }
 
     /**

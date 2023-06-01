@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/adminManageTeamApi")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 public class AdminManageTeamController {
     
     @Autowired
@@ -42,5 +42,13 @@ public class AdminManageTeamController {
     @GetMapping(path = "/getAdmin/{idTeam}/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAdmin(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getAdmin(idTeam, idUser);
+    }
+
+    /**
+     * N.72
+     */
+    @GetMapping(path = "getAdmins/{idTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAdmins(@PathVariable long idTeam) {
+        return this.service.getAdmins(idTeam);
     }
 }

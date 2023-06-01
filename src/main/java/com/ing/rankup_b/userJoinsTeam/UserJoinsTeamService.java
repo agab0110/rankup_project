@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ing.rankup_b.prize.Prize;
 import com.ing.rankup_b.prize.PrizeRepository;
 import com.ing.rankup_b.team.Team;
+import com.ing.rankup_b.team.TeamRepository;
 import com.ing.rankup_b.user.User;
 import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
@@ -21,8 +22,12 @@ public class UserJoinsTeamService {
     @Autowired
     private UserJoinsTeamRepository repository;
 
-    public UserJoinsTeamService(UserJoinsTeamRepository repository) {
+    @Autowired
+    private TeamRepository teamRepository;
+
+    public UserJoinsTeamService(UserJoinsTeamRepository repository, TeamRepository teamRepository) {
         this.repository = repository;
+        this.teamRepository = teamRepository;
     }
 
     /**
@@ -32,7 +37,7 @@ public class UserJoinsTeamService {
      */
     public ResponseEntity<?> deleteUserRequest(int id) {
         this.repository.delete(this.repository.findById(id).get());
-        return ResponseEntity.status(HttpStatus.OK).body("Eliminazione avvenuta con successo");
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     public List<Object> getListUserSearch(String username) {    //GIACENTO
@@ -156,11 +161,18 @@ public class UserJoinsTeamService {
      * @return ritorna 200 ok o 400 bad request
      */
     public ResponseEntity<?> addUser(long idTeam, int idUser) {
-        int points = 0;
-        int accepted = 1;
-        this.repository.addUserQuery(points,accepted,idTeam,idUser);
-        return ResponseEntity.status(HttpStatus.OK).body("funziona tutto");
-        
+        return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,1,idTeam,idUser));
+    }
+
+    public ResponseEntity addUserByCode(String codeTeam, int idUser) {
+        for (Team team : this.teamRepository.findAll()) {
+            if(team.getCode().equals(codeTeam)) {
+                return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,0,team.getCodice(),idUser));
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Codice team non valido");
+
     }
 
     /**

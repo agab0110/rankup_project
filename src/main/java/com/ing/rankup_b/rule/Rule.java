@@ -10,6 +10,7 @@ import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.team.Team;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -40,6 +42,7 @@ public class Rule {
 
     @Column(name = "points")
     @NotNull(message = "Il punteggio non può essere vuoto")
+    @Positive
     private int points;
 
     @Column(name = "description")

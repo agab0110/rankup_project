@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("adminReciveNotificationApi/")
-@CrossOrigin(origins = {"http://localhost:8100", "http://localhost:8200", "http://localhost:4200"})
+@CrossOrigin
 public class AdminReciveNotificationController {
     
     @Autowired

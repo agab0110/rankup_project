@@ -140,4 +140,11 @@ public class UserService {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
     }
+
+    /*
+     * N
+     */
+    public String getNewUsers(int idTeam) {
+        return this.repository.getNewUsers(idTeam);
+    }
 }
