@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/teamApi")
-@CrossOrigin(origins = { "http://localhost:8100", "http://localhost:8200", "http://localhost:4200" })
+@CrossOrigin
 
 public class TeamController {
 
@@ -129,5 +129,10 @@ public class TeamController {
         String teams = this.service.undo(codice);
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
+    }
+
+    @GetMapping(path = "/getTeamByCode/{teamCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTeamByCode(@PathVariable String teamCode) {
+        return this.service.getTeamByCode(teamCode);
     }
 }

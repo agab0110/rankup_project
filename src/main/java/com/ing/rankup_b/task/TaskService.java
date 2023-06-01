@@ -11,29 +11,47 @@ import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.team.TeamRepository;
+import com.ing.rankup_b.taskCompleted.TaskCompleted;
+import com.ing.rankup_b.taskCompleted.TaskCompletedRepository;
 
 @Service
 public class TaskService {
 
     @Autowired
-    private TaskRepository repository;
+    private TaskRepository taskRepository;
 
     @Autowired
     private TeamRepository teamRepository;
 
-    public TaskService(TaskRepository repository,TeamRepository teamRepository) {
-        this.repository = repository;
+    @Autowired
+    private TaskCompletedRepository taskCompletedRepository;
+
+    public TaskService(TaskRepository repository,TeamRepository teamRepository, TaskCompletedRepository taskCompletedRepository) {
+        this.taskRepository = repository;
         this.teamRepository = teamRepository;
+        this.taskCompletedRepository = taskCompletedRepository;
     }
 
     public ResponseEntity<?> listTask(Long codice){
         List<Task> tasks = new ArrayList<>();
+        List<Task> removingTasks = new ArrayList<>();
 
-        for (Task task : this.repository.findAll()) {
+        for (Task task : this.taskRepository.findAll()) {
             if (task.getTeam().getCodice() == codice) {
                 tasks.add(task);
             }
         }
+
+        for (TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()) {
+            for (Task task : this.taskRepository.findAll()) {
+                if (taskCompleted.getTask() == task) {
+                    removingTasks.add(task);
+                }
+            }
+        }
+
+        tasks.removeAll(removingTasks);
+        
         if (tasks.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono task per questo team");
         }
@@ -42,20 +60,20 @@ public class TaskService {
 
     public ArrayList<String> addTask(String task_name, int points, String description, String end_date, int id_team,
             int id_admin) {
-        ArrayList<String> result = this.repository.addTaskQuery(task_name, points, description, end_date, id_team,
+        ArrayList<String> result = this.taskRepository.addTaskQuery(task_name, points, description, end_date, id_team,
                 id_admin);
         return result;
     }
 
     public ArrayList<String> getCheckUsername(String username, int id_team) {
-        ArrayList<String> result = this.repository.checkUsernameQuery(username, id_team);
+        ArrayList<String> result = this.taskRepository.checkUsernameQuery(username, id_team);
         return result;
     }
 
     public ArrayList<String> addSpecificTasks(ArrayList<Integer> users, ArrayList<Integer> id_task) {
         ArrayList<String> result = new ArrayList<String>();
         for (Integer user : users) {
-            result = this.repository.addSpecificTasksQuery(user, id_task.get(0));
+            result = this.taskRepository.addSpecificTasksQuery(user, id_task.get(0));
         }
         return result;
     }
@@ -64,7 +82,7 @@ public class TaskService {
      * N.60
      */
     public String getTask(int idTask) {
-        return this.repository.findTask(idTask);
+        return this.taskRepository.findTask(idTask);
     }
     /*
      * N.17
@@ -81,7 +99,7 @@ public class TaskService {
           }
         Date date = new Date();
         task.setStartDate(date);
-        this.repository.save(task);
+        this.taskRepository.save(task);
         
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
