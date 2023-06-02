@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,5 +58,10 @@ public class RuleController {
         }
         
         return ResponseEntity.status(HttpStatus.OK).body(this.service.getRule(idRule));
+    }
+
+    @DeleteMapping(path = "/deleteRule/{idRule}/{idTeam}")
+    public ResponseEntity<?> deleteRule(@PathVariable int idRule,@PathVariable int idTeam) {
+        return this.service.deleteRule(idRule,idTeam);
     }
 }
