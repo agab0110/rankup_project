@@ -28,9 +28,6 @@ public class TaskService {
     @Autowired
     private TaskCompletedRepository taskCompletedRepository;
 
-    @Autowired
-    private UserJoinsTeamRepository userJoinsTeamRepository;
-
     public TaskService(TaskRepository repository,TeamRepository teamRepository, TaskCompletedRepository taskCompletedRepository) {
         this.taskRepository = repository;
         this.teamRepository = teamRepository;
@@ -56,28 +53,21 @@ public class TaskService {
         List<Task> userTasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
 
-        for (UserJoinsTeam userJoinsTeam : this.userJoinsTeamRepository.findAll()) {
-            if(userJoinsTeam.getUser().getId() == idUser){
-                if(userJoinsTeam.getTeam().getCodice() == codice){
 
-                    for (Task task : this.taskRepository.findAll()) {
-                        if(task.getTeam().getCodice() == codice){
-                            userTasks.add(task);
-                        }
-                    }
+        for (Task task : this.taskRepository.findAll()) {
+            if(task.getTeam().getCodice() == codice){
+                userTasks.add(task);
+            }
+        }
 
-                    for(TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()){
-                        for(Task uTask : userTasks){
-                            if(taskCompleted.getTask().getId() == uTask.getId()){
-                               removingTasks.add(uTask);
-                            }
-                        }
-                    }
-                   
+        for(TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()){
+            for(Task uTask : userTasks){
+                if(taskCompleted.getTask().getId() == uTask.getId() && taskCompleted.getUser().getId() == idUser){
+                    removingTasks.add(uTask);
                 }
             }
-        }    
-        
+        }
+
         userTasks.removeAll(removingTasks);
 
         if(userTasks.isEmpty()) {
