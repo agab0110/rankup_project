@@ -1,7 +1,8 @@
 package com.ing.rankup_b.file;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -27,8 +28,7 @@ public class FileService {
         return this.fileRepository.save(fileDB);
     }
 
-    public List<File> getAllFiles() {
-        List<File> files = this.fileRepository.findAll();
-        return files;
+    public Stream<File> getAllFiles() {
+        return this.fileRepository.findAll().stream();
     }
 }
