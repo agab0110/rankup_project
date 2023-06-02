@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.team.TeamRepository;
+import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam;
+import com.ing.rankup_b.userJoinsTeam.UserJoinsTeamRepository;
 import com.ing.rankup_b.taskCompleted.TaskCompleted;
 import com.ing.rankup_b.taskCompleted.TaskCompletedRepository;
 
@@ -26,6 +28,9 @@ public class TaskService {
     @Autowired
     private TaskCompletedRepository taskCompletedRepository;
 
+    @Autowired
+    private UserJoinsTeamRepository userJoinsTeamRepository;
+
     public TaskService(TaskRepository repository,TeamRepository teamRepository, TaskCompletedRepository taskCompletedRepository) {
         this.taskRepository = repository;
         this.teamRepository = teamRepository;
@@ -34,29 +39,55 @@ public class TaskService {
 
     public ResponseEntity<?> listTask(Long codice){
         List<Task> tasks = new ArrayList<>();
-        List<Task> removingTasks = new ArrayList<>();
 
         for (Task task : this.taskRepository.findAll()) {
             if (task.getTeam().getCodice() == codice) {
                 tasks.add(task);
             }
         }
-
-        for (TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()) {
-            for (Task task : this.taskRepository.findAll()) {
-                if (taskCompleted.getTask() == task) {
-                    removingTasks.add(task);
-                }
-            }
-        }
-
-        tasks.removeAll(removingTasks);
         
         if (tasks.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono task per questo team");
         }
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
+
+    public ResponseEntity<?> userListTask(Long codice, int idUser){
+        List<Task> userTasks = new ArrayList<>();
+        List<Task> removingTasks = new ArrayList<>();
+
+        for (UserJoinsTeam userJoinsTeam : this.userJoinsTeamRepository.findAll()) {
+            if(userJoinsTeam.getUser().getId() == idUser){
+                if(userJoinsTeam.getTeam().getCodice() == codice){
+
+                    for (Task task : this.taskRepository.findAll()) {
+                        if(task.getTeam().getCodice() == codice){
+                            userTasks.add(task);
+                        }
+                    }
+
+                    for(TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()){
+                        for(Task uTask : userTasks){
+                            if(taskCompleted.getTask().getId() == uTask.getId()){
+                               removingTasks.add(uTask);
+                            }
+                        }
+                    }
+                   
+                }
+            }
+        }    
+        
+        userTasks.removeAll(removingTasks);
+
+        if(userTasks.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono task per questo team");
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(userTasks);
+        }
+    }
+
+    
 
     public ArrayList<String> addTask(String task_name, int points, String description, String end_date, int id_team,
             int id_admin) {
