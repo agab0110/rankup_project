@@ -246,4 +246,15 @@ public class UserJoinsTeamService {
         return users;
 
     }
+
+    public ResponseEntity<?> leaveTeam(long idTeam){
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if (u.getTeam().getCodice() == idTeam) {
+                this.repository.delete(u);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
+            }
+            
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("utente non trovata");
+    }
 }
