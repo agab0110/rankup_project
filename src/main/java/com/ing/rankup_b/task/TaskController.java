@@ -2,6 +2,7 @@ package com.ing.rankup_b.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +59,9 @@ public class TaskController {
     @PostMapping(path = "/createTask", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createTask(@RequestBody Task task,@RequestParam("name") String name) {
         return this.service.createTask(task,name);
+    }
+    @DeleteMapping(path = "/deleteTask/{idTask}/{idTeam}")
+    public ResponseEntity<?> deleteTask(@PathVariable int idTask,@PathVariable int idTeam) {
+        return this.service.deleteTask(idTask,idTeam);
     }
 }
