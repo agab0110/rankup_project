@@ -18,7 +18,7 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
-    public File getFile(Long fileId) {
+    public File getFile(String fileId) {
         return this.fileRepository.findById(fileId).get();
     }
 
