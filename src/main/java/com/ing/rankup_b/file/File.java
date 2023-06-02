@@ -13,6 +13,7 @@ import lombok.Data;
 @Data
 @Table(name = "file")
 public class File {
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
