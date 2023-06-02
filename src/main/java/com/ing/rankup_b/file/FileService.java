@@ -21,7 +21,7 @@ public class FileService {
         return this.fileRepository.findById(fileId).get();
     }
 
-    public File saveFile(MultipartFile file) throws IOException {
+    public File uploadFile(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         File fileDB = new File(fileName, file.getContentType(), file.getBytes());
         return this.fileRepository.save(fileDB);
