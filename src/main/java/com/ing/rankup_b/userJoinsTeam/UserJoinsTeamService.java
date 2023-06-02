@@ -247,14 +247,14 @@ public class UserJoinsTeamService {
 
     }
 
-    public ResponseEntity<?> leaveTeam(long idTeam){
+    public ResponseEntity<?> leaveTeam(long idTeam, int idUser){
         for (UserJoinsTeam u : this.repository.findAll()) {
-            if (u.getTeam().getCodice() == idTeam) {
+            if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser) {
                 this.repository.delete(u);
                 return ResponseEntity.status(HttpStatus.OK).body(null);
             }
             
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("utente non trovata");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("utente non è presente nel team");
     }
 }
