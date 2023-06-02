@@ -26,6 +26,12 @@ public class File {
     private String type;
 
     @Lob
-    @Column(name = "picByte")
-    private byte[] picByte;
+    @Column(name = "data")
+    private byte[] data;
+
+    public File(String fileName, String contentType, byte[] data) {
+        this.name = fileName;
+        this.type = contentType;
+        this.data = data;
+    }
 }
