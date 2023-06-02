@@ -31,14 +31,14 @@ public class FileController {
         this.service = service;
     }
 
-    @PostMapping(path = "/upload")
+    @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            this.service.uploadFile(file);
-            return ResponseEntity.status(HttpStatus.OK).body(null);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+      try {
+        service.uploadFile(file);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+      } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
+      }
     }
 
     public ResponseEntity<List<ResponseFile>> getListFiles() {

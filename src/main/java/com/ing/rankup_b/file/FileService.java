@@ -24,9 +24,10 @@ public class FileService {
 
     public File uploadFile(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        File fileDB = new File(fileName, file.getContentType(), file.getBytes());
-        return this.fileRepository.save(fileDB);
-    }
+        File FileDB = new File(fileName, file.getContentType(), file.getBytes());
+    
+        return fileRepository.save(FileDB);
+      }
 
     public Stream<File> getAllFiles() {
         return this.fileRepository.findAll().stream();
