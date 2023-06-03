@@ -122,4 +122,12 @@ public class UserJoinsTeamController {
                 )
         );
     }
+
+    /** 
+     * N.72
+    */
+    @DeleteMapping(path = "/removeUser/{idTeam}/{idUser}")
+    public ResponseEntity<?> removeUserFromTeam(@PathVariable int idTeam, @PathVariable int idUser) {
+        return this.service.removeUserFromTeam(idTeam, idUser);
+    }
 }

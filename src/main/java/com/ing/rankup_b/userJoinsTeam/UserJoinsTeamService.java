@@ -246,4 +246,15 @@ public class UserJoinsTeamService {
         return users;
 
     }
+
+    public ResponseEntity<?> removeUserFromTeam(long idTeam, int idUser){
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser) {
+                this.repository.delete(u);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
+            }
+            
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non presente nel team");
+    }
 }
