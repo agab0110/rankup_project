@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,6 +59,17 @@ public class FileController {
         }).collect(Collectors.toList());
     
         return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @GetMapping(path = "/fileUrl/{id}")
+    public ResponseEntity<String> getFileUrl(@PathVariable String id) {
+      File file = service.getFile(id);
+        String fileDownloadUri = ServletUriComponentsBuilder
+              .fromCurrentContextPath()
+              .path("/fileApi/files/")
+              .path(file.getId())
+              .toUriString();
+        return ResponseEntity.status(HttpStatus.OK).body("{ \"url\": " + "\"" + fileDownloadUri + "\"" + "}");
     }
 
     @GetMapping("/files/{id}")
