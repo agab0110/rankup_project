@@ -41,6 +41,7 @@ public class FileController {
       }
     }
 
+    @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getListFiles() {
         List<ResponseFile> files = service.getAllFiles().map(file -> {
           String fileDownloadUri = ServletUriComponentsBuilder

@@ -36,4 +36,7 @@ public class File {
         this.type = contentType;
         this.data = data;
     }
+
+    public File() {
+    }
 }
