@@ -35,7 +35,7 @@ public class FileController {
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
       try {
         File uploadFile = service.uploadFile(file);
-        return ResponseEntity.status(HttpStatus.OK).body(uploadFile.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(uploadFile);
       } catch (Exception e) {
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
       }
