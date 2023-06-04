@@ -19,6 +19,6 @@ public interface TaskCompletedRepository extends JpaRepository<TaskCompleted, In
     @Query(value = "UPDATE user_joins_team SET user_joins_team.points = user_joins_team.points + ?1 WHERE user_joins_team.id_user = ?2 AND user_joins_team.id_team = ?3", nativeQuery = true)
     String updatePoints(int punti, int idUser, long idTeam);
 
-    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('id_task_completed', task_completed.id_task_completed, 'name', task.name, 'username', user.username, 'photo', user.photo, 'id_task', task_completed.id_task)) FROM task_completed JOIN task ON task.id_task = task_completed.id_task join user on user.id_user = task_completed.id_user WHERE task_completed.status = 0 and task.id_team = ?1", nativeQuery = true)
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('id_task_completed', task_completed.id_task_completed, 'name', task.name, 'username', user.username, 'photo', user.photo, 'id_task', task_completed.id_task, 'id_user', task_completed.id_user)) FROM task_completed JOIN task ON task.id_task = task_completed.id_task join user on user.id_user = task_completed.id_user WHERE task_completed.status = 0 and task.id_team = ?1", nativeQuery = true)
     String pending(int id_team);
 }

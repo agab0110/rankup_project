@@ -26,13 +26,14 @@ public class TaskService {
     @Autowired
     private TaskCompletedRepository taskCompletedRepository;
 
-    public TaskService(TaskRepository repository,TeamRepository teamRepository, TaskCompletedRepository taskCompletedRepository) {
+    public TaskService(TaskRepository repository, TeamRepository teamRepository,
+            TaskCompletedRepository taskCompletedRepository) {
         this.taskRepository = repository;
         this.teamRepository = teamRepository;
         this.taskCompletedRepository = taskCompletedRepository;
     }
 
-    public ResponseEntity<?> listTask(Long codice){
+    public ResponseEntity<?> listTask(Long codice) {
         List<Task> tasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
 
@@ -51,7 +52,7 @@ public class TaskService {
         }
 
         tasks.removeAll(removingTasks);
-        
+
         if (tasks.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono task per questo team");
         }
@@ -84,23 +85,24 @@ public class TaskService {
     public String getTask(int idTask) {
         return this.taskRepository.findTask(idTask);
     }
+
     /*
      * N.17
      */
     public ResponseEntity<?> createTask(Task task, String name) {
         for (Team t : this.teamRepository.findAll()) {
             if (task.getTeam().getCodice() == t.getCodice()) {
-              for (Task r : t.getTasks()) {
-                  if (r.getName().equals(name)) {
-                      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
-                  }
-              }
+                for (Task r : t.getTasks()) {
+                    if (r.getName().equals(name)) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+                    }
+                }
             }
-          }
+        }
         Date date = new Date();
         task.setStartDate(date);
         this.taskRepository.save(task);
-        
+
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 }
