@@ -123,7 +123,7 @@ public class UserJoinsTeamController {
         );
     }
 
-    @DeleteMapping(path = "/leveTeam/{idTeam}/{idUser}")
+    @DeleteMapping(path = "/leaveTeam/{idTeam}/{idUser}")
     public ResponseEntity<?> leaveTeam(@PathVariable int idTeam, @PathVariable int idUser) {
         return this.service.leaveTeam(idTeam, idUser);
     }
