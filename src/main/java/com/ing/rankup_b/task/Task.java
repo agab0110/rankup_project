@@ -50,10 +50,10 @@ public class Task {
     private int points;
 
     @Column(name = "description")
-    //@NotEmpty(message = "La descrizione non può essere vuota")
     private String description;
 
     @Column(name = "end_date")
+    @NotNull(message = "La data di fine non può essere vuota")
     private Date endDate;
 
     @Column(name = "start_date")
