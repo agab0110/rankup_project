@@ -48,10 +48,10 @@ public class Team {
     private String photo;
 
     @Column(name = "privacy")
-    private boolean privacy;    //0 privato, 1 pubblico
+    private Boolean privacy;    //0 privato, 1 pubblico
 
     @Column(name = "point_visibility")
-    private boolean pointVisibility;    //0 non visibili, 1 visibili
+    private Boolean pointVisibility;    //0 non visibili, 1 visibili
 
     @Column(name = "prizes")
     @JsonIgnore
