@@ -123,6 +123,24 @@ public class UserService {
     }
 
     /**
+     * Funzione per cambiare la foto dell'utente
+     * 
+     * @param idUser l'id dell'utente a cui cambiare la foto
+     * @param newPhoto l'url della nuova foto dell'utente
+     * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity<?> changePhoto(int idUser, String newPhoto) {
+        for (User user : this.repository.findAll()) {
+            if (user.getId() == idUser) {
+                user.setPhoto(newPhoto);
+                this.repository.save(user);
+                return ResponseEntity.status(HttpStatus.OK).body(user);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+    }
+
+    /**
      * Funzione per cambiare la password dell'utente
      * 
      * @param idUser   id dell'utente a cui cambiare la password

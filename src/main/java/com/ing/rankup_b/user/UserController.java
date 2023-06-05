@@ -91,6 +91,14 @@ public class UserController {
     }
 
     /**
+     * N.48
+     */
+    @PatchMapping(path = "/changePhoto/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity changePhoto(@PathVariable int idUser, @RequestBody String newPhoto) {
+        return this.service.changePhoto(idUser, newPhoto);
+    }
+
+    /**
      * N.50
      */
     @PatchMapping(path = "/changePassword/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
