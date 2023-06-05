@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
+import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam;
+import com.ing.rankup_b.userJoinsTeam.UserJoinsTeamRepository;
 
 import jakarta.validation.Valid;
 
@@ -20,8 +22,12 @@ public class RuleCompletedService {
     @Autowired
     private RuleCompletedRepository repository;
 
-    public RuleCompletedService(RuleCompletedRepository repository) {
+    @Autowired
+    private UserJoinsTeamRepository userJoinsTeamRepository;
+
+    public RuleCompletedService(RuleCompletedRepository repository, UserJoinsTeamRepository userJoinsTeamRepository) {
         this.repository = repository;
+        this.userJoinsTeamRepository = userJoinsTeamRepository;
     }
 
     public ResponseEntity<?> getRulesAccepted(int teamCode){
@@ -114,6 +120,12 @@ public class RuleCompletedService {
         RuleCompleted r = this.repository.findById(idRuleCompleted).get();
         r.setComment(ruleCompleted.getComment());
         r.setBonus(ruleCompleted.getBonus());
+
+        for (UserJoinsTeam userJoinsTeam : userJoinsTeamRepository.findAll()) {
+            if (userJoinsTeam.getUser().getId() == r.getUser().getId() && userJoinsTeam.getTeam().getCodice() == r.getRule().getTeam().getCodice()) {
+                userJoinsTeam.setPoints(userJoinsTeam.getPoints() + r.getRule().getPoints() + r.getBonus());
+            }
+        }        
 
         if (status == 1) {
             r.setStatus(Status.Accettato);
