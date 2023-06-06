@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
+import com.ing.rankup_b.adminManageTeam.AdminManageTeamRepository;
 import com.ing.rankup_b.prize.Prize;
 import com.ing.rankup_b.prize.PrizeRepository;
 import com.ing.rankup_b.team.Team;
@@ -25,9 +27,13 @@ public class UserJoinsTeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public UserJoinsTeamService(UserJoinsTeamRepository repository, TeamRepository teamRepository) {
+    @Autowired
+    private AdminManageTeamRepository adminRepository;
+
+    public UserJoinsTeamService(UserJoinsTeamRepository repository, TeamRepository teamRepository, AdminManageTeamRepository adminRepository) {
         this.repository = repository;
         this.teamRepository = teamRepository;
+        this.adminRepository = adminRepository;
     }
 
     /**
@@ -125,7 +131,7 @@ public class UserJoinsTeamService {
                         this.repository.save(u);
                     }
                 }
-                if(u.getPoints() > 0) {
+                if(u.getPoints() >= 0) {
                     return ResponseEntity.status(HttpStatus.OK).body(u);
                 }
             }  
@@ -167,7 +173,22 @@ public class UserJoinsTeamService {
     public ResponseEntity addUserByCode(String codeTeam, int idUser) {
         for (Team team : this.teamRepository.findAll()) {
             if(team.getCode().equals(codeTeam)) {
-                return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,0,team.getCodice(),idUser));
+                long idTeam = team.getCodice();
+                for (UserJoinsTeam userJoinsTeam : repository.findAll()) {
+                    if(userJoinsTeam.getUser().getId() == idUser && userJoinsTeam.getTeam().getCodice() == idTeam) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente già presente nel team");
+                    }
+                }
+                for (AdminManageTeam adminManageTeam : adminRepository.findAll()) {
+                    if(adminManageTeam.getUser().getId() == idUser && adminManageTeam.getTeam().getCodice() == idTeam) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente già presente nel team");
+                    }                    
+                }
+                if(team.getPrivacy() == true)
+                    this.repository.addUserQuery(0,1,idTeam,idUser);
+                else
+                    this.repository.addUserQuery(0,0,idTeam,idUser);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
             }
         }
 
@@ -245,5 +266,27 @@ public class UserJoinsTeamService {
 
         return users;
 
+    }
+
+    public ResponseEntity<?> removeUserFromTeam(long idTeam, int idUser){
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser) {
+                this.repository.delete(u);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
+            }
+            
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non presente nel team");
+    }
+
+    public ResponseEntity<?> leaveTeam(long idTeam, int idUser){
+        for (UserJoinsTeam u : this.repository.findAll()) {
+            if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser) {
+                this.repository.delete(u);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
+            }
+            
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("utente non è presente nel team");
     }
 }

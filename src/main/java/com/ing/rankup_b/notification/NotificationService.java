@@ -33,12 +33,12 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
         this.teamRepository = teamRepository;
     }
-    
+
     public ResponseEntity getUserNotification(int idNotification) {
         Notification notification = new Notification();
 
-        for(Notification n : this.notificationRepository.findAll()){
-            if(n.getId() == idNotification){
+        for (Notification n : this.notificationRepository.findAll()) {
+            if (n.getId() == idNotification) {
                 notification = n;
                 return ResponseEntity.status(HttpStatus.OK).body(notification);
             }
@@ -48,9 +48,11 @@ public class NotificationService {
 
     /**
      * Funzione per creare una nuova notifica per un determinato team
-     * @param idTeam il team per cui viene creata la notifica
-     * @param notification il body della notifica composto solo da title e description
-     * @return (200 OK) con la notifica salvata nel body 
+     * 
+     * @param idTeam       il team per cui viene creata la notifica
+     * @param notification il body della notifica composto solo da title e
+     *                     description
+     * @return (200 OK) con la notifica salvata nel body
      */
     public ResponseEntity<?> newNotification(long idTeam, Notification notification) {
         Team team = this.teamRepository.findById(idTeam).get();
@@ -74,5 +76,33 @@ public class NotificationService {
      */
     public String getAdminNotification(int idUser) {
         return this.notificationRepository.getAdminNotification(idUser);
+    }
+
+    /*
+     * Notifiche
+     */
+    public String userNotificationDisplayed(int idUser) {
+        return this.notificationRepository.userNotificationDisplayed(idUser);
+    }
+
+    /*
+     * Notifiche
+     */
+    public String adminNotificationDisplayed(int idUser) {
+        return this.notificationRepository.adminNotificationDisplayed(idUser);
+    }
+
+    /*
+     * Notifiche
+     */
+    public String getUserDisplayed(int idUser) {
+        return this.notificationRepository.getUserDisplayed(idUser);
+    }
+
+    /*
+     * Notifiche
+     */
+    public String getAdminDisplayed(int idUser) {
+        return this.notificationRepository.getAdminDisplayed(idUser);
     }
 }

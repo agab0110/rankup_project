@@ -62,4 +62,16 @@ public class RuleService {
     public String getRule(int idRule) {
         return this.repository.findRule(idRule);
     }
+
+    public ResponseEntity<?> deleteRule(int idRule,long idTeam) {
+        for (Rule t : this.repository.findAll()) {
+            if (t.getId() == idRule) {
+                if (t.getTeam().getCodice() == idTeam) {
+                    this.repository.delete(t);
+                    return ResponseEntity.status(HttpStatus.OK).body(null);
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("regola non trovato");
+    }
 }

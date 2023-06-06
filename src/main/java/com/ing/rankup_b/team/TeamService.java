@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,8 +47,8 @@ public class TeamService {
      * @param nameTeam il nome del team da ricercare
      * @return il team trovato
      */
-    public String researchTeams(String nameTeam) {
-        return this.repository.findByName(nameTeam);
+    public String researchTeams(int idUser, String nameTeam) {
+        return this.repository.findByName(idUser, nameTeam);
     }
 
     public ArrayList<Object> getUserCompletedActivities(int id_team, int id_user) {
@@ -173,8 +175,16 @@ public class TeamService {
      * N.26
      */
     public ResponseEntity<?> insert(Team team) {
+        team.setCode(this.createCode());
         this.repository.save(team);
         return ResponseEntity.status(HttpStatus.OK).body(team);
+    }
+
+    private String createCode() {
+        String code = Timestamp.from(Instant.now()).hashCode() + "";
+        if(code.charAt(0) == '-')
+            code = code.substring(1, code.length());
+        return code;
     }
 
     /*
@@ -210,8 +220,8 @@ public class TeamService {
      * 
      * @return i team trovati
      */
-    public String getAllTeams() {
-        return this.repository.findTeams();
+    public String getAllTeams(int idUser) {
+        return this.repository.findTeams(idUser);
     }
 
     /**

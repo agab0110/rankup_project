@@ -28,7 +28,7 @@ public class TaskCompletedService {
     public String researchTask(int idTaskompletata) {
         return this.repository.findTask(idTaskompletata);
     }
-  
+
     public ResponseEntity<?> taskAccepted(int Codice){
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 
@@ -76,8 +76,14 @@ public class TaskCompletedService {
      */
     public String confirmation(int idTaskCompleted, int status, TaskCompleted taskCompleted) {
         Timestamp revisionDate = Timestamp.from(Instant.now());
+        int punti = 0;
+
+        if(status == 1)
+            punti = this.repository.getTaskPoints(taskCompleted.getTask().getId());
+
+        this.repository.updatePoints(taskCompleted.getBonus() + punti, taskCompleted.getUser().getId(), taskCompleted.getTask().getTeam().getCodice());
         
-        return this.repository.update(revisionDate, status, taskCompleted.getComment(), idTaskCompleted);
+        return this.repository.update(revisionDate, status, taskCompleted.getComment(), taskCompleted.getBonus(), idTaskCompleted);
     }
 
     /**
