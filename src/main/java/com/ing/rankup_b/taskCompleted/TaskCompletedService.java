@@ -76,7 +76,10 @@ public class TaskCompletedService {
      */
     public String confirmation(int idTaskCompleted, int status, TaskCompleted taskCompleted) {
         Timestamp revisionDate = Timestamp.from(Instant.now());
-        int punti = this.repository.getTaskPoints(taskCompleted.getTask().getId());
+        int punti = 0;
+
+        if(status == 1)
+            punti = this.repository.getTaskPoints(taskCompleted.getTask().getId());
 
         this.repository.updatePoints(taskCompleted.getBonus() + punti, taskCompleted.getUser().getId(), taskCompleted.getTask().getTeam().getCodice());
         

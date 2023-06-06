@@ -123,7 +123,10 @@ public class RuleCompletedService {
 
         for (UserJoinsTeam userJoinsTeam : userJoinsTeamRepository.findAll()) {
             if (userJoinsTeam.getUser().getId() == r.getUser().getId() && userJoinsTeam.getTeam().getCodice() == r.getRule().getTeam().getCodice()) {
-                userJoinsTeam.setPoints(userJoinsTeam.getPoints() + r.getRule().getPoints() + r.getBonus());
+                if(status == 1)
+                    userJoinsTeam.setPoints(userJoinsTeam.getPoints() + r.getRule().getPoints() + r.getBonus());
+                else
+                    userJoinsTeam.setPoints(userJoinsTeam.getPoints() + 0 + r.getBonus());
             }
         }        
 
