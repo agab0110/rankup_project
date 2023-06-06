@@ -45,6 +45,9 @@ public class Notification {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "displayed")
+    private boolean displayed;
+
     @ManyToOne
     @JoinColumn(name = "id_team")
     @OnDelete(action = OnDeleteAction.CASCADE)
