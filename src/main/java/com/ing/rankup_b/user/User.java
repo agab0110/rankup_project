@@ -56,9 +56,6 @@ public class User {
     @Column(name = "photo")
     private String photo;
 
-    @Column(name = "token")
-    private String token;
-
     @OneToMany(mappedBy = "user")
     @Column(name = "taskCompleted")
     @JsonIgnore
