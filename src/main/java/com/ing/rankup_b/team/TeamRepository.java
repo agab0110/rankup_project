@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
-    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1 AND team.name LIKE ?1%", nativeQuery = true)
-    String findByName(String title);
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1 AND team.id_team NOT IN (SELECT admin_manage_team.id_team FROM admin_manage_team WHERE admin_manage_team.id_user = ?1) AND team.id_team NOT IN (SELECT user_joins_team.id_team FROM user_joins_team WHERE user_joins_team.id_user = ?1) AND team.name LIKE ?2%", nativeQuery = true)
+    String findByName(int idUser, String title);
 
-    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1", nativeQuery = true)
-    String findTeams();
+    @Query(value = "SELECT JSON_ARRAYAGG(JSON_OBJECT('idTeam', team.id_team, 'name', team.name, 'photo', team.photo)) FROM team WHERE team.privacy = 1 AND team.id_team NOT IN (SELECT admin_manage_team.id_team FROM admin_manage_team WHERE admin_manage_team.id_user = ?1) AND team.id_team NOT IN (SELECT user_joins_team.id_team FROM user_joins_team WHERE user_joins_team.id_user = ?1)", nativeQuery = true)
+    String findTeams(int idUser);
 
     @Query(value = "DELETE FROM team WHERE team.id_team = ?1 ", nativeQuery = true)
     String undo(int codice);

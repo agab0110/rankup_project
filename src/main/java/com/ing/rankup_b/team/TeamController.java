@@ -44,9 +44,9 @@ public class TeamController {
     /**
      * N.34 P1
      */
-    @GetMapping(path = "/researchTeam/{nameTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> researchTeams(@PathVariable String nameTeam) {
-        String teams = this.service.researchTeams(nameTeam);
+    @GetMapping(path = "/researchTeam/{idUser}/{nameTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> researchTeams(@PathVariable int idUser, @PathVariable String nameTeam) {
+        String teams = this.service.researchTeams(idUser, nameTeam);
 
         if (teams == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Team non trovato");
@@ -114,9 +114,9 @@ public class TeamController {
     /**
      * N.34 P2
      */
-    @GetMapping(path = "/getAllTeams", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllTeams() {
-        String teams = this.service.getAllTeams();
+    @GetMapping(path = "/getAllTeams/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllTeams(@PathVariable int idUser) {
+        String teams = this.service.getAllTeams(idUser);
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
     }
