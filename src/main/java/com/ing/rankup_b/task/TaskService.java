@@ -39,14 +39,12 @@ public class TaskService {
         List<Task> tasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
 
-
         for (Task task : this.taskRepository.findAll()) {
             if (task.getTeam().getCodice() == codice) {
                 tasks.add(task);
             }
         }
         
-
         for (TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()) {
             for (Task task : this.taskRepository.findAll()) {
                 if (taskCompleted.getTask() == task) {
