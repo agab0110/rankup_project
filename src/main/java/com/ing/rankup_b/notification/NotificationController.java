@@ -90,10 +90,6 @@ public class NotificationController {
     public ResponseEntity<?> getUserDisplayed(@PathVariable int idUser) {
         String allNotification = this.service.getUserDisplayed(idUser);
 
-        if (allNotification == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Notifiche non trovate");
-        }
-
         return ResponseEntity.status(HttpStatus.OK).body(allNotification);
     }
 
@@ -103,10 +99,6 @@ public class NotificationController {
     @GetMapping(path = "/getAdminDisplayed/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAdminDisplayed(@PathVariable int idUser) {
         String allNotification = this.service.getAdminDisplayed(idUser);
-
-        if (allNotification == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Notifiche non trovate");
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(allNotification);
     }
