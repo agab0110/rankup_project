@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,16 +59,18 @@ public class UserGetPrizeService {
         userGetPrize.setUser(user);
         userGetPrize.setPrize(prize);
         userGetPrize.setKey(userGetPrizeKey);
+
+        userGetPrize.setDate(Timestamp.from(Instant.now()));
     
         return this.repository.save(userGetPrize);
     }
 
     public ResponseEntity getTeamPrizes(long idTeam) {
-        List<Prize> prizes = new ArrayList<>();
+        List<UserGetPrize> prizes = new ArrayList<>();
 
         for (UserGetPrize userGetPrize : this.repository.findAll()) {
             if (userGetPrize.getPrize().getBeloggingTeam().getCodice() == idTeam) {
-                prizes.add(userGetPrize.getPrize());
+                prizes.add(userGetPrize);
             }
         }
 
