@@ -60,4 +60,20 @@ public class UserGetPrizeService {
     
         return this.repository.save(userGetPrize);
     }
+
+    public ResponseEntity getTeamPrizes(long idTeam) {
+        List<Prize> prizes = new ArrayList<>();
+
+        for (UserGetPrize userGetPrize : this.repository.findAll()) {
+            if (userGetPrize.getPrize().getBeloggingTeam().getCodice() == idTeam) {
+                prizes.add(userGetPrize.getPrize());
+            }
+        }
+
+        if (prizes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Premi non trovati");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(prizes);
+        }
+    }
 }

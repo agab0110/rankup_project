@@ -39,4 +39,9 @@ public class UserGetPrizeController {
         UserGetPrize userGetPrize = this.service.addUserPrize(idPrize, idUser);
         return ResponseEntity.status(HttpStatus.OK).body(userGetPrize);
     }
+
+    @GetMapping(path = "/getPrizes/{idTeam}")
+    public ResponseEntity<?> getTeamPrize(@PathVariable long idTeam) {
+        return this.service.getTeamPrizes(idTeam);
+    }
 }
