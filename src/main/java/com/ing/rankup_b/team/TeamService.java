@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -173,8 +175,16 @@ public class TeamService {
      * N.26
      */
     public ResponseEntity<?> insert(Team team) {
+        team.setCode(this.createCode());
         this.repository.save(team);
         return ResponseEntity.status(HttpStatus.OK).body(team);
+    }
+
+    private String createCode() {
+        String code = Timestamp.from(Instant.now()).hashCode() + "";
+        if(code.charAt(0) == '-')
+            code = code.substring(1, code.length());
+        return code;
     }
 
     /*
