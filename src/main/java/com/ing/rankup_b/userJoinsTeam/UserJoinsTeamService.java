@@ -131,7 +131,7 @@ public class UserJoinsTeamService {
                         this.repository.save(u);
                     }
                 }
-                if(u.getPoints() > 0) {
+                if(u.getPoints() >= 0) {
                     return ResponseEntity.status(HttpStatus.OK).body(u);
                 }
             }  
