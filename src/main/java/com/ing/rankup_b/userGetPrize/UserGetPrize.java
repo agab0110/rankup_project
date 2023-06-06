@@ -12,6 +12,9 @@ import com.ing.rankup_b.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -23,19 +26,18 @@ import lombok.Data;
 @Table(name = "user_get_prize")
 public class UserGetPrize {
     
-    @EmbeddedId
-    @Column(name = "key")
-    private UserGetPrizeKey key;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
-    @MapsId("idUser")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "id_prize")
-    @MapsId("idPrize")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Prize prize;
 

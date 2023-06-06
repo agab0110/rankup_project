@@ -47,18 +47,13 @@ public class UserGetPrizeService {
 
     public UserGetPrize addUserPrize(int idPrize, int idUser) {
         UserGetPrize userGetPrize = new UserGetPrize();
-        UserGetPrizeKey userGetPrizeKey = new UserGetPrizeKey();
         Prize prize = new Prize();
         prize.setId(idPrize);
         User user = new User();
         user.setId(idUser);
 
-        userGetPrizeKey.setIdPrize(idPrize);
-        userGetPrizeKey.setIdUser(idUser);
-
         userGetPrize.setUser(user);
         userGetPrize.setPrize(prize);
-        userGetPrize.setKey(userGetPrizeKey);
 
         userGetPrize.setDate(Timestamp.from(Instant.now()));
     
