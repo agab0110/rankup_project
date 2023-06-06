@@ -124,4 +124,16 @@ public class TaskService {
         
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
+
+    public ResponseEntity<?> deleteTask(int idTask,long idTeam) {
+        for (Task t : this.taskRepository.findAll()) {
+            if (t.getId() == idTask) {
+                if (t.getTeam().getCodice() == idTeam) {
+                    this.taskRepository.delete(t);
+                    return ResponseEntity.status(HttpStatus.OK).body(null);
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task non trovato");
+    }
 }

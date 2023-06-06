@@ -85,12 +85,12 @@ public class UserJoinsTeamController {
      * N.12
      */
     @PostMapping(path = "/addUser")
-    public ResponseEntity addUser(@RequestParam(value = "idTeam", required = true) long idTeam, @RequestParam(value = "idUser", required = true) int idUser) {
+    public ResponseEntity<?> addUser(@RequestParam(value = "idTeam", required = true) long idTeam, @RequestParam(value = "idUser", required = true) int idUser) {
         return service.addUser(idTeam,idUser);
     }
 
     @PostMapping(path = "/addUserByCode")
-    public ResponseEntity addUserByCode(@RequestParam(value = "codeTeam", required = true) String codeTeam, @RequestParam(value = "idUser", required = true) int idUser) {
+    public ResponseEntity<?> addUserByCode(@RequestParam(value = "codeTeam", required = true) String codeTeam, @RequestParam(value = "idUser", required = true) int idUser) {
         return service.addUserByCode(codeTeam,idUser);
     }
 
@@ -98,7 +98,7 @@ public class UserJoinsTeamController {
      * N.41
      */
     @GetMapping(path = "/teams/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getTeams(@PathVariable int idUser) {
+    public ResponseEntity<?> getTeams(@PathVariable int idUser) {
         return this.service.findTeams(idUser);
     }
     
@@ -115,7 +115,7 @@ public class UserJoinsTeamController {
      * N.69
      */
     @GetMapping(path = "/list/userjoinsteamsearch/{idTeam}")
-    public ResponseEntity userJoinsTeamSearch(@PathVariable int idTeam, @RequestParam("username") String username) {
+    public ResponseEntity<?> userJoinsTeamSearch(@PathVariable int idTeam, @RequestParam("username") String username) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 this.service.userJoinsTeamSearch(
                         idTeam, username
@@ -129,5 +129,11 @@ public class UserJoinsTeamController {
     @DeleteMapping(path = "/removeUser/{idTeam}/{idUser}")
     public ResponseEntity<?> removeUserFromTeam(@PathVariable int idTeam, @PathVariable int idUser) {
         return this.service.removeUserFromTeam(idTeam, idUser);
+    }
+
+
+    @DeleteMapping(path = "/leaveTeam/{idTeam}/{idUser}")
+    public ResponseEntity<?> leaveTeam(@PathVariable int idTeam, @PathVariable int idUser) {
+        return this.service.leaveTeam(idTeam, idUser);
     }
 }
