@@ -46,7 +46,7 @@ public class Notification {
     private Date date;
 
     @Column(name = "displayed")
-    private boolean displayed;
+    private int displayed;
 
     @ManyToOne
     @JoinColumn(name = "id_team")
