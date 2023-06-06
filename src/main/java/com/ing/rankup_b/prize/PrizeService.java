@@ -53,4 +53,15 @@ public class PrizeService {
         this.repository.save(prize);
         return ResponseEntity.status(HttpStatus.OK).body(prize);
     }
+    
+    public ResponseEntity<?> removePrize(long idTeam, int idPrize){
+        for (Prize u : this.repository.findAll()) {
+            if (u.getBeloggingTeam().getCodice() == idTeam && u.getId() == idPrize) {
+                this.repository.delete(u);
+                return ResponseEntity.status(HttpStatus.OK).body(null);
+            }
+            
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Premio non presente nel team");
+    }
 }
