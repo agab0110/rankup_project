@@ -38,6 +38,11 @@ public class TaskController {
        return this.service.listTask(idTeam);
     }
 
+    @GetMapping(path = "/userTasks/{idTeam}/{idUser}")
+    public ResponseEntity<?> userListTask(@PathVariable long idTeam, @PathVariable int idUser) {
+       return this.service.userListTask(idTeam, idUser);
+    }
+
     /*
      * N.60
      */
