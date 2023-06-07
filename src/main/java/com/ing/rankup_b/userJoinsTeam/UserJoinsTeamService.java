@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeamRepository;
 import com.ing.rankup_b.prize.Prize;
-import com.ing.rankup_b.prize.PrizeRepository;
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.team.TeamRepository;
 import com.ing.rankup_b.user.User;
-import com.ing.rankup_b.userGetPrize.UserGetPrize;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam.Status;
 
 import java.util.ArrayList;
@@ -122,7 +120,7 @@ public class UserJoinsTeamService {
      * @param idUser
      * @param idPrize
      */
-    public ResponseEntity userSubtractPoints(long idTeam, int idUser , int idPrize) {
+    public ResponseEntity<?> userSubtractPoints(long idTeam, int idUser , int idPrize) {
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getUser().getId() == idUser && u.getTeam().getCodice() == idTeam){
                 for(Prize p : u.getTeam().getPrizes()) {
@@ -170,7 +168,7 @@ public class UserJoinsTeamService {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,1,idTeam,idUser));
     }
 
-    public ResponseEntity addUserByCode(String codeTeam, int idUser) {
+    public ResponseEntity<?> addUserByCode(String codeTeam, int idUser) {
         for (Team team : this.teamRepository.findAll()) {
             if(team.getCode().equals(codeTeam)) {
                 long idTeam = team.getCodice();
@@ -202,7 +200,7 @@ public class UserJoinsTeamService {
      * @param idUser l'utente per cui si vuole la lista dei team
      * @return (200 OK) con la lista dei team se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity findTeams(int idUser) {
+    public ResponseEntity<?> findTeams(int idUser) {
         List<Team> teams = new ArrayList<>();
         for (UserJoinsTeam u : this.repository.findAll()) {
             if(u.getUser().getId() == idUser) {

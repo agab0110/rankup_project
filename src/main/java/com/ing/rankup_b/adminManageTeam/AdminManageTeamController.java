@@ -35,12 +35,12 @@ public class AdminManageTeamController {
      * N.41
      */
     @GetMapping(path = "/teams/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getTeams(@PathVariable int idUser) {
+    public ResponseEntity<?> getTeams(@PathVariable int idUser) {
         return this.service.findTeams(idUser);
     }
 
     @GetMapping(path = "/getAdmin/{idTeam}/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAdmin(@PathVariable long idTeam, @PathVariable int idUser) {
+    public ResponseEntity<?> getAdmin(@PathVariable long idTeam, @PathVariable int idUser) {
         return this.service.getAdmin(idTeam, idUser);
     }
 

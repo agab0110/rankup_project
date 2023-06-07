@@ -1,10 +1,5 @@
 package com.ing.rankup_b.team;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Date;
-
-import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -93,7 +88,7 @@ public class TeamController {
      */
 
     @PatchMapping(path = "/changePrivacyUser/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changePrivacyUser(@PathVariable Long code, @RequestParam("privacy") boolean privacy) {
+    public ResponseEntity<?> changePrivacyUser(@PathVariable Long code, @RequestParam("privacy") boolean privacy) {
         return this.service.changePrivacyUser(code, privacy);
     }
 
@@ -101,7 +96,7 @@ public class TeamController {
      * N.7
      */
     @PatchMapping(path = "/changePrivacyTeam/{codeTeam}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changePrivacyTeam(@PathVariable Long codeTeam, @RequestParam("privacy") boolean privacy) {
+    public ResponseEntity<?> changePrivacyTeam(@PathVariable Long codeTeam, @RequestParam("privacy") boolean privacy) {
         return this.service.changePrivacyTeam(codeTeam, privacy);
     }
     
@@ -109,7 +104,7 @@ public class TeamController {
      * N.34 P2
      */
     @GetMapping(path = "/getAllTeams/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllTeams(@PathVariable int idUser) {
+    public ResponseEntity<?> getAllTeams(@PathVariable int idUser) {
         String teams = this.service.getAllTeams(idUser);
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);
@@ -119,7 +114,7 @@ public class TeamController {
      * N.26 P2
      */
     @DeleteMapping(path = "/undo/{codice}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity undo(@PathVariable int codice) {
+    public ResponseEntity<?> undo(@PathVariable int codice) {
         String teams = this.service.undo(codice);
 
         return ResponseEntity.status(HttpStatus.OK).body(teams);

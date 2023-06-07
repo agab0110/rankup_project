@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 @Service
 public class TeamService {
@@ -49,76 +46,6 @@ public class TeamService {
      */
     public String researchTeams(int idUser, String nameTeam) {
         return this.repository.findByName(idUser, nameTeam);
-    }
-
-    public ArrayList<Object> getUserCompletedActivities(int id_team, int id_user) {
-        ArrayList<String> result_rules = this.repository.userCompletedActivitiesRuleQuery(id_team, id_user);
-        ArrayList<String> result_tasks = this.repository.userCompletedActivitiesTaskQuery(id_team, id_user);
-
-        ArrayList<String> result = new ArrayList<String>(result_rules);
-        result.addAll(result_tasks);
-
-        ArrayList<Object> activities = new ArrayList<Object>();
-
-        for (String r : result) {
-            activities.add(new Object() {
-                public String name = r.split(",")[0];
-                public int points = Integer.parseInt(r.split(",")[1])
-                        + (r.split(",")[2].equals("null") ? 0 : Integer.parseInt(r.split(",")[2]));
-            });
-        }
-        return activities;
-    }
-
-    public ArrayList<Object> getPendingActivities(int id_team) {
-        ArrayList<String> result_task = this.repository.pendingActivitiesTaskQuery(id_team);
-        ArrayList<String> result_rule = this.repository.pendingActivitiesRuleQuery(id_team);
-
-        ArrayList<String> result = new ArrayList<String>(result_rule);
-        result.addAll(result_task);
-
-        ArrayList<Object> pending_activities = new ArrayList<Object>();
-
-        for (String r : result) {
-            pending_activities.add(new Object() {
-                public String username = r.split(",")[0];
-                public String activity_name = r.split(",")[1];
-            });
-        }
-
-        return pending_activities;
-
-    }
-
-    private ArrayList<Object> orderActivities(ArrayList<String> result) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        for (int i = 0; i < result.size() - 1; i++) {
-            for (int j = i + 1; j < result.size(); j++) {
-                try {
-                    if (sdf.parse(result.get(i).split(",")[2]).compareTo(sdf.parse(result.get(j).split(",")[2])) > 0) {
-                        String s = result.get(i);
-                        result.set(i, result.get(j));
-                        result.set(j, s);
-                    }
-                } catch (ParseException e) {
-                }
-            }
-        }
-
-        ArrayList<Object> activities = new ArrayList<Object>();
-        for (String r : result) {
-            activities.add(new Object() {
-                public String username = r.split(",")[0];
-                public String name = r.split(",")[1];
-                public String date = r.split(",")[2].split(" ")[0];
-                public Boolean acceptance = Boolean.parseBoolean(r.split(",")[3]);
-
-            });
-        }
-
-        return activities;
     }
 
     public ResponseEntity<?> getTeam(long id){
@@ -190,7 +117,7 @@ public class TeamService {
     /*
      * N.7
      */
-    public ResponseEntity changePrivacyTeam(long idTeams, boolean privacy) {
+    public ResponseEntity<?> changePrivacyTeam(long idTeams, boolean privacy) {
         for(Team t : (List<Team>)this.repository.findAll()) {
             if(t.getCodice() == idTeams) {
                 t.setPrivacy(privacy);
@@ -204,7 +131,7 @@ public class TeamService {
     /*
      * N.6
      */
-    public ResponseEntity changePrivacyUser(long idTeams, boolean privacy) {
+    public ResponseEntity<?> changePrivacyUser(long idTeams, boolean privacy) {
         for(Team t : (List<Team>)this.repository.findAll()) {
             if(t.getCodice() == idTeams) {
                 t.setPointVisibility(privacy);

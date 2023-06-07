@@ -6,7 +6,6 @@ import java.util.Date;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.user.User;

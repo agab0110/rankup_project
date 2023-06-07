@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -116,7 +115,7 @@ public class RuleCompletedController {
      *  N.70
      */
     @GetMapping(path = "/admin/ruleCompletedDetails/{idRuleCompleted}")
-    public ResponseEntity ruleCompletedDetail(@PathVariable int idRuleCompleted) {
+    public ResponseEntity<?> ruleCompletedDetail(@PathVariable int idRuleCompleted) {
         return this.service.getRuleCompletedDetails(idRuleCompleted);
     }
 }

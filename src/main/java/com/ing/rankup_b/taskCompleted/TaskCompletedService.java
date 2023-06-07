@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.ing.rankup_b.ruleCompleted.RuleCompleted;
-import com.ing.rankup_b.task.Task;
 import com.ing.rankup_b.taskCompleted.TaskCompleted.Status;
 
 import jakarta.validation.Valid;
@@ -95,7 +93,7 @@ public class TaskCompletedService {
      * @return (400 BAD_REQUEST) se non viene trovato nulla <br>
      *         (200 OK) con la lista di task altrimenti
      */
-    public ResponseEntity getTaskForASpecificUser(long idTeam, int idUser) {
+    public ResponseEntity<?> getTaskForASpecificUser(long idTeam, int idUser) {
         List<TaskCompleted> tasks = new ArrayList<>();
 
         for (TaskCompleted t : this.repository.findAll()) {
@@ -115,7 +113,7 @@ public class TaskCompletedService {
      * N.39
      * N.67
      */
-    public ResponseEntity getTaskCompletedDetails(int idTaskCompleted) {
+    public ResponseEntity<?> getTaskCompletedDetails(int idTaskCompleted) {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.findById(idTaskCompleted));
     }
     

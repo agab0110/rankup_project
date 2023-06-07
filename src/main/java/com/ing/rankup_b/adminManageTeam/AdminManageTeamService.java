@@ -28,7 +28,7 @@ public class AdminManageTeamService {
      * @param idUser serve epr dire quale utente va nel team come admin
      * @return 200 ok o 400 bad request
      */
-    public ResponseEntity addAdmin(long idTeam, int idUser) {
+    public ResponseEntity<?> addAdmin(long idTeam, int idUser) {
         this.repository.addAdminQuery(idTeam, idUser);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
@@ -39,7 +39,7 @@ public class AdminManageTeamService {
      * @param idUser l'utente per cui si vuole la lista dei team
      * @return (200 OK) con la lista dei team se c'è almeno un elemento nella lista,<br>(400 BAD_REQUEST) altrimenti
      */
-    public ResponseEntity findTeams(int idUser) {
+    public ResponseEntity<?> findTeams(int idUser) {
         List<Team> teams = new ArrayList<>();
         for (AdminManageTeam u : this.repository.findAll()) {
             if(u.getUser().getId() == idUser) {
@@ -54,7 +54,7 @@ public class AdminManageTeamService {
         }
     }
 
-    public ResponseEntity getAdmin(long idTeam, int idUser) {
+    public ResponseEntity<?> getAdmin(long idTeam, int idUser) {
         List<AdminManageTeam> admins = this.repository.findAll();
         AdminManageTeam admin = null;
 

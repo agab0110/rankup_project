@@ -88,7 +88,7 @@ public class TaskCompletedController {
      * N.67
      */
     @GetMapping(path = "/taskCompletedDetails/{idTaskCompleted}")
-    public ResponseEntity taskCompletedDetails(@PathVariable int idTaskCompleted) {
+    public ResponseEntity<?> taskCompletedDetails(@PathVariable int idTaskCompleted) {
         return this.service.getTaskCompletedDetails(idTaskCompleted);
     }
     
