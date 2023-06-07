@@ -27,7 +27,7 @@ public class UserService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
             }
             if (user.getEmail().equals(signUpUser.getEmail())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email duplicato");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email duplicata");
             }
         }
         this.repository.save(signUpUser);
