@@ -7,13 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.adminManageTeam.AdminManageTeamRepository;
@@ -59,7 +53,7 @@ public class AdminReciveNotificationService {
         return ResponseEntity.status(HttpStatus.OK).body(this.adminReciveNotificationRepository.save(adminReciveNotification));
     }
 
-    public ResponseEntity getAdminNotification(int idAdmin){
+    public ResponseEntity<?> getAdminNotification(int idAdmin){
         List<AdminReciveNotification> adminNotification = new ArrayList<>();
         for(AdminReciveNotification n : this.adminReciveNotificationRepository.findAll()){
             if(n.getAdmin().getId() == idAdmin){

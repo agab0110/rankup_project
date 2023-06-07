@@ -1,20 +1,10 @@
 package com.ing.rankup_b.notification;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import com.ing.rankup_b.user.User;
 import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.team.Team;
@@ -34,7 +24,7 @@ public class NotificationService {
         this.teamRepository = teamRepository;
     }
 
-    public ResponseEntity getUserNotification(int idNotification) {
+    public ResponseEntity<?> getUserNotification(int idNotification) {
         Notification notification = new Notification();
 
         for (Notification n : this.notificationRepository.findAll()) {

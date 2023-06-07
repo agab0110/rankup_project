@@ -86,7 +86,7 @@ public class UserController {
      * N.49
      */
     @PatchMapping(path = "/changeEmail/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changeEmail(@PathVariable int idUser, @RequestBody String newEmail) {
+    public ResponseEntity<?> changeEmail(@PathVariable int idUser, @RequestBody String newEmail) {
         return this.service.changeEmail(idUser, newEmail);
     }
 
@@ -94,7 +94,7 @@ public class UserController {
      * N.48
      */
     @PatchMapping(path = "/changePhoto/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changePhoto(@PathVariable int idUser, @RequestBody String newPhoto) {
+    public ResponseEntity<?> changePhoto(@PathVariable int idUser, @RequestBody String newPhoto) {
         return this.service.changePhoto(idUser, newPhoto);
     }
 
@@ -102,7 +102,7 @@ public class UserController {
      * N.50
      */
     @PatchMapping(path = "/changePassword/{idUser}", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changePassword(@PathVariable int idUser, @RequestBody String newPassword) {
+    public ResponseEntity<?> changePassword(@PathVariable int idUser, @RequestBody String newPassword) {
         return this.service.changePassword(idUser, newPassword);
     }
 

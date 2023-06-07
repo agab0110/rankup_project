@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.ing.rankup_b.rule.Rule;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted.Status;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam;
 import com.ing.rankup_b.userJoinsTeam.UserJoinsTeamRepository;
@@ -89,7 +88,7 @@ public class RuleCompletedService {
      * @param idUser l'utente per cui si deve effettuare la ricerca
      * @return (400 BAD_REQUEST) se non viene trovato nulla <br>(200 OK) con la lista delle regole altrimenti
      */
-    public ResponseEntity getRuleForASpecificUser(long idTeam, int idUser) {
+    public ResponseEntity<?> getRuleForASpecificUser(long idTeam, int idUser) {
         List<RuleCompleted> rules = new ArrayList<>();
 
         for (RuleCompleted r : this.repository.findAll()) {

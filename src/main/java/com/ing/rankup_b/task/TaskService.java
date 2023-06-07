@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ing.rankup_b.team.Team;
 import com.ing.rankup_b.team.TeamRepository;
-import com.ing.rankup_b.userJoinsTeam.UserJoinsTeam;
-import com.ing.rankup_b.userJoinsTeam.UserJoinsTeamRepository;
 import com.ing.rankup_b.taskCompleted.TaskCompleted;
 import com.ing.rankup_b.taskCompleted.TaskCompletedRepository;
 

@@ -60,7 +60,7 @@ public class UserGetPrizeService {
         return this.repository.save(userGetPrize);
     }
 
-    public ResponseEntity getTeamPrizes(long idTeam) {
+    public ResponseEntity<?> getTeamPrizes(long idTeam) {
         List<UserGetPrize> prizes = new ArrayList<>();
 
         for (UserGetPrize userGetPrize : this.repository.findAll()) {

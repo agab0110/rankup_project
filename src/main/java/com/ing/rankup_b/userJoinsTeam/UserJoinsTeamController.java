@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/userJoinsTeamApi")
@@ -69,7 +68,7 @@ public class UserJoinsTeamController {
     }
 
     @PatchMapping(path = "subtractUserPoints/{idTeam}/{idUser}/{idPrize}")
-    public ResponseEntity userSubtractPoints(@PathVariable int idTeam, @PathVariable int idUser, @PathVariable int idPrize) {
+    public ResponseEntity<?> userSubtractPoints(@PathVariable int idTeam, @PathVariable int idUser, @PathVariable int idPrize) {
         return this.service.userSubtractPoints(idTeam, idUser, idPrize);
     }
     
