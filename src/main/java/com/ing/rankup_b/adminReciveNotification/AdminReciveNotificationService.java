@@ -53,6 +53,11 @@ public class AdminReciveNotificationService {
         return ResponseEntity.status(HttpStatus.OK).body(this.adminReciveNotificationRepository.save(adminReciveNotification));
     }
 
+    /**
+     * Funzione per prendere tutte le notifiche arrivate ad un admin
+     * @param idAdmin l'admin di cui si vogliono avere le notifiche
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getAdminNotification(int idAdmin){
         List<AdminReciveNotification> adminNotification = new ArrayList<>();
         for(AdminReciveNotification n : this.adminReciveNotificationRepository.findAll()){

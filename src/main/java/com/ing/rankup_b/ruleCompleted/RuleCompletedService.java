@@ -29,6 +29,11 @@ public class RuleCompletedService {
         this.userJoinsTeamRepository = userJoinsTeamRepository;
     }
 
+    /**
+     * Funzione per prendere le regole accettate in un team
+     * @param teamCode il codice del team da cui prendere la lista
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getRulesAccepted(int teamCode){
         List<RuleCompleted> acceptedRules = new ArrayList<>();
 
@@ -47,6 +52,11 @@ public class RuleCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(acceptedRules);
     }
 
+    /**
+     * Funzione per prendere le regole rifiutate in un team
+     * @param teamCode il codice del team da cui prendere la lista
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getRulesRejected(int teamCode){
         List<RuleCompleted> rejectedRules = new ArrayList<>();
 

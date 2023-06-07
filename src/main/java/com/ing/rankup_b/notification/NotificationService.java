@@ -24,6 +24,11 @@ public class NotificationService {
         this.teamRepository = teamRepository;
     }
 
+    /**
+     * Funzione per prendere una notifica arrivata ad un utente
+     * @param idNotification la notifica da prendere
+     * @return (200 OK) se la notifica viene trovata, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getUserNotification(int idNotification) {
         Notification notification = new Notification();
 
@@ -40,8 +45,7 @@ public class NotificationService {
      * Funzione per creare una nuova notifica per un determinato team
      * 
      * @param idTeam       il team per cui viene creata la notifica
-     * @param notification il body della notifica composto solo da title e
-     *                     description
+     * @param notification il body della notifica composto solo da title e description
      * @return (200 OK) con la notifica salvata nel body
      */
     public ResponseEntity<?> newNotification(long idTeam, Notification notification) {

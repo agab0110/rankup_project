@@ -96,6 +96,7 @@ public class TaskService {
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
 
+
     public ResponseEntity<?> userListTask(Long codice, int idUser){
         List<Task> userTasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
@@ -177,6 +178,12 @@ public class TaskService {
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 
+    /**
+     * Funzione per rimuovere un task dal team
+     * @param idTask l'id del task da rimuovere
+     * @param idTeam l'id del team da cui deve essere rimosso il task
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> deleteTask(int idTask,long idTeam) {
         for (Task t : this.taskRepository.findAll()) {
             if (t.getId() == idTask) {

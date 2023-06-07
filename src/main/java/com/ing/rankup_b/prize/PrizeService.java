@@ -25,6 +25,11 @@ public class PrizeService {
         this.teamRepository = teamRepository;
     }    
   
+    /**
+     * Funzione per prendere i premi relativi ad un team
+     * @param codice il codice del team
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> listPrize(int codice){
         List <Prize> prizes = new ArrayList<>();
 
@@ -40,6 +45,12 @@ public class PrizeService {
         return ResponseEntity.status(HttpStatus.OK).body(prizes);
     }
     
+    /**
+     * Funzione per creare un premio
+     * @param prize il premio da creare
+     * @param name il nome del premio che verrà controllato se è già esistente
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> createPrize(Prize prize,String name){
         for (Team t : this.teamRepository.findAll()) {
             if (prize.getBeloggingTeam().getCodice() == t.getCodice()) {
@@ -54,6 +65,12 @@ public class PrizeService {
         return ResponseEntity.status(HttpStatus.OK).body(prize);
     }
     
+    /**
+     * Funzione per rimuovere un premio da un team
+     * @param idTeam l'id del team da cui si vuole rimuovere il premio
+     * @param idPrize l'id del premio da rimuovere
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> removePrize(long idTeam, int idPrize){
         for (Prize u : this.repository.findAll()) {
             if (u.getBeloggingTeam().getCodice() == idTeam && u.getId() == idPrize) {

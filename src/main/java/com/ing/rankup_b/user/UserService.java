@@ -95,7 +95,6 @@ public class UserService {
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST)
      *         altrimenti
      */
-
     public ResponseEntity<?> changeName(int idUser, String newName) {
         User user = this.repository.findById(idUser).get();
 
