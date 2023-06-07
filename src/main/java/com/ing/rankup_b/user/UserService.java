@@ -69,14 +69,22 @@ public class UserService {
      *         altrimenti
      */
     public ResponseEntity<?> changeUsername(int idUser, String newUsername) {
+        User user = this.repository.findById(idUser).get();
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+        }
+
         for (User u : this.repository.findAll()) {
-            if (u.getId() == idUser) {
-                u.setUsername(newUsername);
-                this.repository.save(u);
-                return ResponseEntity.status(HttpStatus.OK).body(u);
+            if (u.getUsername() == newUsername) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+
+        user.setUsername(newUsername);
+        this.repository.save(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     /**
