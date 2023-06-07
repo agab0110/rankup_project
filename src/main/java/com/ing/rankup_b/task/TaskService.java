@@ -37,8 +37,11 @@ public class TaskService {
         List<Task> tasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
 
+        Date currentDate = new Date();
+
         for (Task task : this.taskRepository.findAll()) {
             if (task.getTeam().getCodice() == codice) {
+                if (task.getEndDate().compareTo(currentDate) >= 0)
                 tasks.add(task);
             }
         }
