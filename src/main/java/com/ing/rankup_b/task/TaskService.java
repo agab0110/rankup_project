@@ -157,11 +157,15 @@ public class TaskService {
      * N.17
      */
     public ResponseEntity<?> createTask(Task task, String name) {
+        Date currentDate = new Date();
         for (Team t : this.teamRepository.findAll()) {
             if (task.getTeam().getCodice() == t.getCodice()) {
                 for (Task r : t.getTasks()) {
                     if (r.getName().equals(name)) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+                    }
+                    if (r.getEndDate().compareTo(currentDate) <= 0) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La data non è valida");
                     }
                 }
             }
