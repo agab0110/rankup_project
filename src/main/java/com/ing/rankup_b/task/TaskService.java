@@ -106,10 +106,9 @@ public class TaskService {
 
         for (Task task : this.taskRepository.findAll()) {
             if(task.getTeam().getCodice() == codice){
-                userTasks.add(task);
-            }
-            if (task.getEndDate().compareTo(currentDate) > 0) {
-                userTasks.add(task);
+                if (task.getEndDate().compareTo(currentDate) > 0) {
+                    userTasks.add(task);
+                }
             }
         }
 
@@ -169,7 +168,7 @@ public class TaskService {
                     if (r.getName().equals(name)) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
                     }
-                    if (r.getEndDate().compareTo(currentDate) > 0) {
+                    if (task.getEndDate().compareTo(currentDate) < 0) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La data non è valida");
                     }
                 }
