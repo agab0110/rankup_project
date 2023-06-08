@@ -27,11 +27,16 @@ public class TaskCompletedService {
         return this.repository.findTask(idTaskompletata);
     }
 
-    public ResponseEntity<?> taskAccepted(int Codice){
+    /**
+     * Funzione per prendere i task completati da un team
+     * @param codice il codice del team da cui prendere la lista
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity<?> taskAccepted(int codice){
         List<TaskCompleted> acceptedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
-            if (task.getTask().getTeam().getCodice() == Codice) {
+            if (task.getTask().getTeam().getCodice() == codice) {
                 if (task.getStatus() == Status.Accettato) {
                     acceptedtask.add(task);
                 }
@@ -45,11 +50,16 @@ public class TaskCompletedService {
         return ResponseEntity.status(HttpStatus.OK).body(acceptedtask);
     }
 
-    public ResponseEntity<?> taskRefused(int Codice){
+    /**
+     * Funzione per prendere i task rifiutati da un team
+     * @param codice il codice del team da cui prendere la lista
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
+    public ResponseEntity<?> taskRefused(int codice){
         List<TaskCompleted> refusedtask = new ArrayList<>();
 
         for (TaskCompleted task : this.repository.findAll()) {
-            if (task.getTask().getTeam().getCodice() == Codice) {
+            if (task.getTask().getTeam().getCodice() == codice) {
                 if (task.getStatus() == Status.Rifiutato) {
                     refusedtask.add(task);
                 }

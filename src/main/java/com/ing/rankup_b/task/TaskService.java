@@ -33,14 +33,51 @@ public class TaskService {
         this.taskCompletedRepository = taskCompletedRepository;
     }
 
+    /**
+     * Funzione per prendere le task valide in un team, visualizzandole solo da admin
+     * 
+     * @param codice il team di cui prendere le task
+     * @return (400 BAD_REQUEST), (200 OK)
+     */
+    public ResponseEntity<?> listAdminTask(Long codice) {
+        List<Task> tasks = new ArrayList<>();
+
+        Date currentDate = new Date();
+
+        for (Task task : this.taskRepository.findAll()) {
+            if (task.getTeam().getCodice() == codice) {
+                if (task.getEndDate().compareTo(currentDate) >= 0)
+                tasks.add(task);
+            }
+        }
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono task per questo team");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(tasks);
+    }
+
+    /**
+     * Funzione per prendere le task valide in un team, visibili in utente
+     * 
+     * @param codice il team di cui prendere le task
+     * @return (400 BAD_REQUEST), (200 OK)
+     */
     public ResponseEntity<?> listTask(Long codice) {
         List<Task> tasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
 
+        Date currentDate = new Date();
+
         for (Task task : this.taskRepository.findAll()) {
             if (task.getTeam().getCodice() == codice) {
+                if (task.getEndDate().compareTo(currentDate) >= 0)
                 tasks.add(task);
             }
+        }
+
+        if (tasks.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Non ci sono task per questo team");
         }
         
         for (TaskCompleted taskCompleted : this.taskCompletedRepository.findAll()) {
@@ -58,6 +95,7 @@ public class TaskService {
         }
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
+
 
     public ResponseEntity<?> userListTask(Long codice, int idUser){
         List<Task> userTasks = new ArrayList<>();
@@ -120,11 +158,15 @@ public class TaskService {
      * N.17
      */
     public ResponseEntity<?> createTask(Task task, String name) {
+        Date currentDate = new Date();
         for (Team t : this.teamRepository.findAll()) {
             if (task.getTeam().getCodice() == t.getCodice()) {
                 for (Task r : t.getTasks()) {
                     if (r.getName().equals(name)) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
+                    }
+                    if (r.getEndDate().compareTo(currentDate) <= 0) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La data non è valida");
                     }
                 }
             }
@@ -136,6 +178,12 @@ public class TaskService {
         return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 
+    /**
+     * Funzione per rimuovere un task dal team
+     * @param idTask l'id del task da rimuovere
+     * @param idTeam l'id del team da cui deve essere rimosso il task
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> deleteTask(int idTask,long idTeam) {
         for (Task t : this.taskRepository.findAll()) {
             if (t.getId() == idTask) {

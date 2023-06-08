@@ -168,6 +168,12 @@ public class UserJoinsTeamService {
         return ResponseEntity.status(HttpStatus.OK).body(this.repository.addUserQuery(0,1,idTeam,idUser));
     }
 
+    /**
+     * Funzione per aggiungere un utente ad un team tramite codice
+     * @param codeTeam il codice del team
+     * @param idUser l'id dell'utente da aggiungere
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> addUserByCode(String codeTeam, int idUser) {
         for (Team team : this.teamRepository.findAll()) {
             if(team.getCode().equals(codeTeam)) {
@@ -215,13 +221,14 @@ public class UserJoinsTeamService {
             return ResponseEntity.status(HttpStatus.OK).body(teams);
         }
     }
-    /*
-     * Funzione per accettare una richiesta di accesso ad un team
-     * @param idTeam il team per cui si è fatta richiesta
-     * @param idUser l'utente che ha fatto richiesta
-     * @param status l'accettazione della richiesta
-     * @return
-     */
+
+     /**
+      * Funzione per accettare una richiesta di accesso ad un team
+      * @param idTeam il team per cui si è fatta richiesta
+      * @param idUser l'utente che ha fatto richiesta
+      * @param status l'accettazione della richiesta
+      * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+      */
     public ResponseEntity<?> manageRequest(long idTeam, int idUser, int status) {
         for (UserJoinsTeam u : this.repository.findAll()) {
             if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser && u.getStatus() == Status.Sospeso) {
@@ -266,6 +273,12 @@ public class UserJoinsTeamService {
 
     }
 
+    /**
+     * Funzione per rimuovere un utente da un team
+     * @param idTeam l'id del team da cui deve essere rimosso l'utente
+     * @param idUser l'utente da rimuovere
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> removeUserFromTeam(long idTeam, int idUser){
         for (UserJoinsTeam u : this.repository.findAll()) {
             if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser) {
@@ -277,6 +290,12 @@ public class UserJoinsTeamService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non presente nel team");
     }
 
+    /**
+     * Funzione per abbandonare il team
+     * @param idTeam l'id del team che va abbandonato
+     * @param idUser l'id dell'utente che vuole abbandonare il team
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> leaveTeam(long idTeam, int idUser){
         for (UserJoinsTeam u : this.repository.findAll()) {
             if (u.getTeam().getCodice() == idTeam && u.getUser().getId() == idUser) {

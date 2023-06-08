@@ -54,6 +54,12 @@ public class AdminManageTeamService {
         }
     }
 
+    /**
+     * Funzione per prendere un admin all'interno di un team
+     * @param idTeam il team di cui si vuole sapere l'admin
+     * @param idUser l'utente corrispettivo
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getAdmin(long idTeam, int idUser) {
         List<AdminManageTeam> admins = this.repository.findAll();
         AdminManageTeam admin = null;

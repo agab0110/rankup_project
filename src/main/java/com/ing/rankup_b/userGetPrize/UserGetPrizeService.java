@@ -45,6 +45,12 @@ public class UserGetPrizeService {
         }
     }
 
+    /**
+     * Fuzione per aggiungere un premio ad un utente
+     * @param idPrize l'id del premio da aggiungere
+     * @param idUser l'id dell'utente a cui viene aggiunto il premio
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public UserGetPrize addUserPrize(int idPrize, int idUser) {
         UserGetPrize userGetPrize = new UserGetPrize();
         Prize prize = new Prize();
@@ -60,6 +66,11 @@ public class UserGetPrizeService {
         return this.repository.save(userGetPrize);
     }
 
+    /**
+     * Funzione per prendere tutti i premi da un team
+     * @param idTeam l'id del team da cui prendere i premi
+     * @return (200 OK) se i controlli vanno a buon fine, <br>(400 BAD_REQUEST) altrimenti
+     */
     public ResponseEntity<?> getTeamPrizes(long idTeam) {
         List<UserGetPrize> prizes = new ArrayList<>();
 

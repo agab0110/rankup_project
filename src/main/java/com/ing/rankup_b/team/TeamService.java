@@ -107,6 +107,10 @@ public class TeamService {
         return ResponseEntity.status(HttpStatus.OK).body(team);
     }
 
+    /**
+     * Funzione per la creazione del codice team
+     * @return il codice creato
+     */
     private String createCode() {
         String code = Timestamp.from(Instant.now()).hashCode() + "";
         if(code.charAt(0) == '-')

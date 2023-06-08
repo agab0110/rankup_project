@@ -10,7 +10,6 @@ import com.ing.rankup_b.adminManageTeam.AdminManageTeam;
 import com.ing.rankup_b.ruleCompleted.RuleCompleted;
 import com.ing.rankup_b.team.Team;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

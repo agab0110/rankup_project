@@ -27,7 +27,7 @@ public class UserService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
             }
             if (user.getEmail().equals(signUpUser.getEmail())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email duplicato");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email duplicata");
             }
         }
         this.repository.save(signUpUser);
@@ -69,14 +69,22 @@ public class UserService {
      *         altrimenti
      */
     public ResponseEntity<?> changeUsername(int idUser, String newUsername) {
+        User user = this.repository.findById(idUser).get();
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+        }
+
         for (User u : this.repository.findAll()) {
-            if (u.getId() == idUser) {
-                u.setUsername(newUsername);
-                this.repository.save(u);
-                return ResponseEntity.status(HttpStatus.OK).body(u);
+            if (u.getUsername() == newUsername) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+
+        user.setUsername(newUsername);
+        this.repository.save(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     /**
@@ -87,16 +95,23 @@ public class UserService {
      * @return (200 OK) e user se i controlli vanno a buon fine, (400 BAD_REQUEST)
      *         altrimenti
      */
-
     public ResponseEntity<?> changeName(int idUser, String newName) {
+        User user = this.repository.findById(idUser).get();
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+        }
+
         for (User u : this.repository.findAll()) {
-            if (u.getId() == idUser) {
-                u.setName(newName);
-                this.repository.save(u);
-                return ResponseEntity.status(HttpStatus.OK).body(u);
+            if (u.getName() == newName) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+
+        user.setName(newName);
+        this.repository.save(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     /*
