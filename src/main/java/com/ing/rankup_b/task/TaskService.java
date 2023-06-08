@@ -169,7 +169,7 @@ public class TaskService {
                     if (r.getName().equals(name)) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
                     }
-                    if (r.getEndDate().compareTo(currentDate) < 0) {
+                    if (r.getEndDate().compareTo(currentDate) > 0) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La data non è valida");
                     }
                 }
