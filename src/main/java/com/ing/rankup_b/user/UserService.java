@@ -76,7 +76,7 @@ public class UserService {
         }
 
         for (User u : this.repository.findAll()) {
-            if (u.getUsername() == newUsername) {
+            if (u.getUsername().equals(newUsername)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username duplicato");
             }
         }
@@ -102,12 +102,6 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
         }
 
-        for (User u : this.repository.findAll()) {
-            if (u.getName() == newName) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
-            }
-        }
-
         user.setName(newName);
         this.repository.save(user);
 
@@ -130,14 +124,22 @@ public class UserService {
      *         altrimenti
      */
     public ResponseEntity<?> changeEmail(int idUser, String newEmail) {
-        for (User user : this.repository.findAll()) {
-            if (user.getId() == idUser) {
-                user.setEmail(newEmail);
-                this.repository.save(user);
-                return ResponseEntity.status(HttpStatus.OK).body(user);
+        User user = this.repository.findById(idUser).get();
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+        }
+
+        for (User u : this.repository.findAll()) {
+            if (u.getEmail().equals(newEmail)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email duplicata");
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Utente non trovato");
+
+        user.setEmail(newEmail);
+        this.repository.save(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     /**
