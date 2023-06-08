@@ -71,8 +71,9 @@ public class TaskService {
 
         for (Task task : this.taskRepository.findAll()) {
             if (task.getTeam().getCodice() == codice) {
-                if (task.getEndDate().compareTo(currentDate) >= 0)
-                tasks.add(task);
+                if (task.getEndDate().compareTo(currentDate) >= 0) {
+                    tasks.add(task);
+                }
             }
         }
 
@@ -101,9 +102,13 @@ public class TaskService {
         List<Task> userTasks = new ArrayList<>();
         List<Task> removingTasks = new ArrayList<>();
 
+        Date currentDate = new Date();
 
         for (Task task : this.taskRepository.findAll()) {
             if(task.getTeam().getCodice() == codice){
+                userTasks.add(task);
+            }
+            if (task.getEndDate().compareTo(currentDate) <= 0) {
                 userTasks.add(task);
             }
         }
@@ -127,10 +132,9 @@ public class TaskService {
 
     
 
-    public ArrayList<String> addTask(String task_name, int points, String description, String end_date, int id_team,
-            int id_admin) {
-        ArrayList<String> result = this.taskRepository.addTaskQuery(task_name, points, description, end_date, id_team,
-                id_admin);
+    public ArrayList<String> addTask(String task_name, int points, String description, String end_date, int id_team, int id_admin) {
+        ArrayList<String> result = this.taskRepository.addTaskQuery(task_name, points, description, end_date, id_team, id_admin);
+
         return result;
     }
 
@@ -165,7 +169,7 @@ public class TaskService {
                     if (r.getName().equals(name)) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome duplicato");
                     }
-                    if (r.getEndDate().compareTo(currentDate) <= 0) {
+                    if (r.getEndDate().compareTo(currentDate) >= 0) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La data non è valida");
                     }
                 }
