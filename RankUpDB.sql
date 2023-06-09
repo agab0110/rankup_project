@@ -53,7 +53,7 @@ INSERT INTO `rule` (`id_rule`, `description`, `name`, `points`, `id_admin`, `id_
 (3, 'Vivi sano', 'Non fumare', 30, 2, 1),
 (4, 'Fare compiti a casa', 'Fare compiti', 40, 4, 2),
 (5, 'Ordinare la camera', 'Ordinare la camera', 30, 4, 2),
-(6, 'Conoscere la programmazione ricorsiva (a\' ricorsion)', 'Conoscere la ricorsione', 100, 6, 3),
+(6, 'Fare la tesi', 'Fare la tesi', 100, 6, 3),
 (7, 'Passare gli esami', 'Passare gli esami', 50, 6, 3),
 (8, 'Partecipare alla sperimentazione', 'Partecipare all sperimentazione', 30, 8, 4),
 (9, 'Conoscere le note', 'Conoscere le note', 50, 10, 5);
